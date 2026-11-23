@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Foam Cutting 3-Axis Device | Makerspace Engineering Project">
   <meta property="og:description" content="Precision Engineering. Smart Automation. Creative Manufacturing. Sanjivani University Department of Mechanical Engineering.">
-  <meta property="og:image" content="assets/images/hero-machine.jpg">
+  <meta property="og:image" content="assets/images/prototype/foam-cutter-prototype.jpg">
 
   <!-- Google Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,6 +78,7 @@
       <!-- Desktop Navigation Menu -->
       <nav class="hidden lg:flex items-center gap-6 font-mono text-xs uppercase tracking-wider">
         <a href="#about" class="text-slate-300 hover:text-cyan-400 transition-colors">About</a>
+        <a href="#prototype" class="text-slate-300 hover:text-cyan-400 transition-colors">Prototype</a>
         <a href="#problem" class="text-slate-300 hover:text-cyan-400 transition-colors">Problem</a>
         <a href="#objectives" class="text-slate-300 hover:text-cyan-400 transition-colors">Objectives</a>
         <a href="#working" class="text-slate-300 hover:text-cyan-400 transition-colors">Principle</a>
@@ -113,6 +114,7 @@
     <div id="mobileMenu" class="hidden lg:hidden bg-dark-navy/95 border-b border-cyan-500/20 backdrop-blur-xl px-6 py-6 transition-all">
       <div class="flex flex-col gap-4 font-mono text-sm tracking-wider uppercase">
         <a href="#about" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">About Project</a>
+        <a href="#prototype" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Actual Prototype</a>
         <a href="#problem" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Problem Statement</a>
         <a href="#objectives" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Objectives</a>
         <a href="#working" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Working Principle</a>
@@ -173,8 +175,8 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </a>
 
-              <a href="#cad" class="px-6 py-3.5 rounded-xl font-outfit font-bold text-sm tracking-wider uppercase text-white bg-slate-900/80 border border-slate-700 hover:border-cyan-400 hover:bg-slate-800/80 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
-                View CAD Design
+              <a href="#prototype" class="px-6 py-3.5 rounded-xl font-outfit font-bold text-sm tracking-wider uppercase text-white bg-slate-900/80 border border-slate-700 hover:border-cyan-400 hover:bg-slate-800/80 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                View Prototype
                 <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
               </a>
 
@@ -217,16 +219,16 @@
               <div class="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-slate-950/60 rounded-t-xl mb-3">
                 <div class="flex items-center gap-2 font-mono text-xs text-cyan-400">
                   <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                  <span>SYSTEM VIEW // REAL RENDER</span>
+                  <span>SYSTEM VIEW // ACTUAL PROTOTYPE</span>
                 </div>
                 <div class="font-mono text-[11px] text-slate-400">
-                  REF: CAD-PROTO-V1
+                  REF: PHYSICAL-PROTOTYPE
                 </div>
               </div>
 
               <!-- Machine Render Image with Zoom Lightbox Trigger -->
-              <div class="relative rounded-xl overflow-hidden cursor-pointer group/img" onclick="openLightbox('assets/images/hero-machine.jpg', 'Foam Cutting 3-Axis Device - Full Machine Perspective')">
-                <img src="assets/images/hero-machine.jpg" alt="3-Axis CNC Foam Cutting Machine Full Assembly" class="w-full h-80 sm:h-96 object-cover object-center transform group-hover/img:scale-105 transition-transform duration-700">
+              <div class="relative rounded-xl overflow-hidden cursor-pointer group/img" onclick="openLightbox('assets/images/prototype/foam-cutter-prototype.jpg', 'Actual Foam Cutting 3-Axis Device Prototype')">
+                <img src="assets/images/prototype/foam-cutter-prototype.jpg" alt="Actual partially assembled Foam Cutting 3-Axis Device prototype" class="w-full h-80 sm:h-96 object-cover object-center transform group-hover/img:scale-105 transition-transform duration-700">
                 
                 <!-- Overlay HUD lines -->
                 <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent pointer-events-none"></div>
@@ -234,7 +236,7 @@
                 <!-- Hover badge -->
                 <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono bg-dark-navy/85 backdrop-blur-md px-3 py-2 rounded-lg border border-cyan-500/30">
                   <div class="text-slate-300 flex items-center gap-2">
-                    <span class="text-cyan-400">STATUS:</span> CALIBRATED FOR CUTTING
+                    <span class="text-cyan-400">STATUS:</span> PARTIALLY ASSEMBLED
                   </div>
                   <span class="text-cyan-400 font-bold group-hover/img:underline">CLICK TO EXPAND ⤢</span>
                 </div>
@@ -243,25 +245,73 @@
               <!-- Telemetry Readout Footer -->
               <div class="mt-3 grid grid-cols-4 gap-2 text-center font-mono text-[10px] bg-slate-950/70 p-2 rounded-lg border border-slate-800">
                 <div>
-                  <div class="text-slate-500">X-POS</div>
-                  <div class="text-cyan-400 font-bold">120.0 mm</div>
+                  <div class="text-slate-500">X-AXIS</div>
+                  <div class="text-cyan-400 font-bold">INTENDED</div>
                 </div>
                 <div>
-                  <div class="text-slate-500">Y-POS</div>
-                  <div class="text-cyan-400 font-bold">85.0 mm</div>
+                  <div class="text-slate-500">Y-AXIS</div>
+                  <div class="text-cyan-400 font-bold">INTENDED</div>
                 </div>
                 <div>
-                  <div class="text-slate-500">Z-POS</div>
-                  <div class="text-cyan-400 font-bold">45.0 mm</div>
+                  <div class="text-slate-500">Z-AXIS</div>
+                  <div class="text-cyan-400 font-bold">INTENDED</div>
                 </div>
                 <div>
-                  <div class="text-slate-500">WIRE TEMP</div>
-                  <div class="text-amber-400 font-bold">215°C</div>
+                  <div class="text-slate-500">CUTTING</div>
+                  <div class="text-amber-400 font-bold">INTEGRATION</div>
                 </div>
               </div>
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- ACTUAL PROTOTYPE SHOWCASE                                  -->
+    <!-- ========================================================== -->
+    <section id="prototype" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Physical Implementation
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">OUR ACTUAL PROTOTYPE</h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">From Engineering Design to Physical Implementation.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          <div class="lg:col-span-8">
+            <div class="relative h-full min-h-[420px] rounded-3xl overflow-hidden border border-cyan-500/30 bg-slate-900 cursor-pointer group shadow-[0_0_40px_rgba(0,240,255,0.12)]"
+                 onclick="openLightbox('assets/images/prototype/foam-cutter-prototype.jpg', 'Actual Foam Cutting 3-Axis Device Prototype')">
+              <img src="assets/images/prototype/foam-cutter-prototype.jpg"
+                   alt="Actual white 3D-printed Foam Cutting 3-Axis Device prototype"
+                   class="w-full h-full min-h-[420px] object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-xl border border-cyan-500/30 bg-dark-navy/85 px-4 py-3 backdrop-blur-md">
+                <span class="font-mono text-xs text-slate-300"><span class="text-cyan-400">PROJECT PHOTO</span> // REAL ASSEMBLY</span>
+                <span class="font-mono text-xs text-cyan-400 font-bold">EXPAND ⤢</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col gap-4">
+            <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/80">
+              <h3 class="font-outfit font-bold text-xl text-white mb-3">Real Prototype Status</h3>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                "Our Foam Cutting 3-Axis Device is a Makerspace engineering project developed to explore automated foam cutting using a compact mechanical structure, stepper motors and electronic control components."
+              </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+              <div class="p-4 rounded-xl border border-cyan-500/20 bg-cyan-950/20 font-mono text-xs text-slate-200"><span class="text-cyan-400">01</span> Mechanical Structure</div>
+              <div class="p-4 rounded-xl border border-cyan-500/20 bg-cyan-950/20 font-mono text-xs text-slate-200"><span class="text-cyan-400">02</span> Stepper Motor Arrangement</div>
+              <div class="p-4 rounded-xl border border-cyan-500/20 bg-cyan-950/20 font-mono text-xs text-slate-200"><span class="text-cyan-400">03</span> CNC Control Electronics</div>
+              <div class="p-4 rounded-xl border border-cyan-500/20 bg-cyan-950/20 font-mono text-xs text-slate-200"><span class="text-cyan-400">04</span> Rack-Based Movement</div>
+              <div class="p-4 rounded-xl border border-cyan-500/20 bg-cyan-950/20 font-mono text-xs text-slate-200 sm:col-span-2 lg:col-span-1"><span class="text-cyan-400">05</span> Power Supply Arrangement</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -572,7 +622,7 @@
           </h2>
           <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            The device translates digital coordinates into precise 3-dimensional Cartesian movements while feeding thermal energy to the wire for frictionless material ablation.
+            The intended device translates digital coordinates into three-dimensional Cartesian movements and thermal wire control. The current photograph shows a partially assembled rack-and-motor prototype; full three-axis automated cutting has not been presented as verified operation.
           </p>
         </div>
 
@@ -631,7 +681,7 @@
                 Controller Operation
               </h4>
               <p class="text-slate-300 text-sm leading-relaxed">
-                The Arduino Nano executes coordinated step pulses calculated through interpolation math. By sequentially firing the 4 coils of each 28BYJ-48 stepper motor through ULN2003 Darlington arrays, it achieves synchronized linear motion across all three dimensions simultaneously.
+                The controller is intended to generate motor control signals for the prototype's stepper arrangement. Exact pin assignments and the full control sequence are not presented here because they could not be verified from the photograph.
               </p>
             </div>
 
@@ -641,7 +691,7 @@
                 Cutting Mechanism &amp; Thermal Kerf
               </h4>
               <p class="text-slate-300 text-sm leading-relaxed">
-                Rather than using a spinning router bit that tears cellular foam beads, a calibrated Ni-Chrome resistance wire is heated to roughly 200°C–220°C via regulated DC power. As the wire passes through the material, radiant and conductive heat cleanly vaporizes a razor-thin kerf without mechanical resistance or saw dust.
+                The intended cutting method uses an electrically heated resistance wire rather than a rotating cutting tool. Wire material, operating temperature and heating control will only be described after the assembled circuit and its settings are verified.
               </p>
             </div>
           </div>
@@ -675,7 +725,7 @@
                 </button>
                 <button id="toggleHeatBtn" class="px-4 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 font-mono text-xs border border-amber-500/40 transition-colors flex items-center gap-2">
                   <span id="heatIndicatorDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                  <span id="heatBtnText">HEAT: ON (215°C)</span>
+                  <span id="heatBtnText">SIMULATED HEAT: ON</span>
                 </button>
               </div>
             </div>
@@ -697,7 +747,7 @@
                     COORDINATES: <span id="simCoordReadout" class="text-cyan-400 font-bold">X: 50mm | Y: 50mm | Z: 50mm</span>
                   </div>
                   <div class="bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 text-amber-300 backdrop-blur-sm">
-                    WIRE STATUS: <span id="simWireStatus" class="font-bold">HEATED (ACTIVE)</span>
+                    WIRE STATUS: <span id="simWireStatus" class="font-bold">SIMULATION (ACTIVE)</span>
                   </div>
                 </div>
               </div>
@@ -791,7 +841,7 @@
             Section F // Hardware Architecture
           </div>
           <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
-            COMPONENTS USED
+            ELECTRONICS &amp; CONTROL SYSTEM
           </h2>
           <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
@@ -805,7 +855,7 @@
           <!-- Component 1: Arduino Nano -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="assets/images/arduino-nano.svg" alt="Arduino Nano Microcontroller" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+              <img src="assets/images/prototype/controller-cnc-electronics.jpg" alt="Actual controller, CNC modules and stepper electronics in the prototype" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">CONTROLLER</span>
@@ -815,18 +865,18 @@
               Arduino Nano
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">
-              Compact 8-bit microcontroller operating at 16 MHz. It serves as the brain of the device, parsing coordinate commands, generating timing pulses, and regulating wire heat via PWM output.
+              The Arduino-based controller provides the general-purpose control electronics for the prototype. Its final firmware role and pin assignments are being integrated and should be confirmed from the completed assembly.
             </p>
             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
-              <span>Operating Voltage</span>
-              <span class="text-white font-bold">5V DC</span>
+              <span>Board Identity</span>
+              <span class="text-white font-bold">VERIFIED FROM PHOTO</span>
             </div>
           </div>
 
           <!-- Component 2: 28BYJ-48 Stepper Motors -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="assets/images/stepper-motor-28byj.svg" alt="28BYJ-48 Stepper Motor" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+              <img src="assets/images/prototype/stepper-rack-system.jpg" alt="Actual stepper motor and rack movement arrangement" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">ACTUATION</span>
@@ -836,18 +886,18 @@
               28BYJ-48 Stepper Motors
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">
-              Geared unipolar stepper motors featuring an internal 64:1 reduction gearbox. Provides high holding torque and 4096 steps per revolution in half-step mode for fine linear positioning.
+              The visible stepper motors provide controlled rotational motion for the rack-based mechanism. Their exact final installation, gearing and motion allocation require testing before full-axis specifications are reported.
             </p>
             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
-              <span>Gear Ratio</span>
-              <span class="text-white font-bold">64:1 Reduction</span>
+              <span>Prototype Role</span>
+              <span class="text-white font-bold">MOTION ACTUATION</span>
             </div>
           </div>
 
           <!-- Component 3: ULN2003 Motor Drivers -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="assets/images/uln2003-driver.svg" alt="ULN2003 Stepper Driver Module" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+              <img src="assets/images/prototype/controller-cnc-electronics.jpg" alt="Actual motor driver modules and control wiring" class="w-full h-full object-cover object-left group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">POWER DRIVER</span>
@@ -857,18 +907,18 @@
               Compatible Motor Drivers
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">
-              High-voltage, high-current Darlington transistor arrays. Amplifies weak 5V logic pulses from the Arduino Nano to supply sufficient coil current for smooth motor stepping with visual status LEDs.
+              Motor driver modules interface controller signals with the stepper motors. Exact board ratings and wiring arrangements should be checked before specifying electrical limits.
             </p>
             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
-              <span>Peak Current</span>
-              <span class="text-white font-bold">500 mA / Channel</span>
+              <span>Module Status</span>
+              <span class="text-white font-bold">VISIBLY ASSEMBLED</span>
             </div>
           </div>
 
           <!-- Component 4: CNC Mechanical Frame -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="assets/images/cnc-frame.svg" alt="CNC Structural Frame" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+              <img src="assets/images/prototype/mechanical-frame.jpg" alt="Actual 3D-printed mechanical frame and rack structure" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">STRUCTURE</span>
@@ -878,39 +928,39 @@
               CNC Mechanical Frame
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">
-              Rigid chassis built with extruded aluminum profiles, linear guide rods, and bearing blocks. Ensures mechanical rigidity, minimal vibrational deflection, and smooth travel across all 3 axes.
+              The partially assembled structure uses 3D-printed parts and rack-based motion components. The visible arrangement establishes the intended frame and movement direction, while assembly alignment remains in progress.
             </p>
             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
               <span>Configuration</span>
-              <span class="text-white font-bold">Cartesian Gantry</span>
+              <span class="text-white font-bold">INTENDED 3-AXIS</span>
             </div>
           </div>
 
           <!-- Component 5: Heated Resistance Wire -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="assets/images/hot-wire-assembly.svg" alt="Heated Resistance Cutting Wire" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+              <img src="assets/images/prototype/mechanical-frame.jpg" alt="Actual cutting assembly area of the prototype" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-amber-400 font-bold">THERMAL ELEMENT</span>
-              <span class="font-mono text-xs text-slate-500">Ni-Chrome 80/20</span>
+              <span class="font-mono text-xs text-slate-500">MATERIAL TO VERIFY</span>
             </div>
             <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-amber-400 transition-colors">
               Cutting Wire &amp; Tensioner
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">
-              High-resistance Ni-Chrome alloy wire suspended between spring-loaded ceramic carriage insulators. Thermal expansion is compensated automatically by the spring to keep the wire taught during cutting.
+              A resistance cutting wire is part of the intended hot-wire cutting mechanism. The current photograph does not verify the final wire grade, tensioner or heating circuit, so those details are not assumed here.
             </p>
             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
-              <span>Operating Temp</span>
-              <span class="text-amber-400 font-bold">200°C - 240°C</span>
+              <span>Heating Status</span>
+              <span class="text-amber-400 font-bold">TO BE VERIFIED</span>
             </div>
           </div>
 
           <!-- Component 6: Regulated Power Supply -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="assets/images/electronics-setup.jpg" alt="Regulated Power Supply and Electronics Bench" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <img src="assets/images/prototype/power-wiring.jpg" alt="Actual power supply arrangement and electrical wiring" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">POWER SYSTEM</span>
@@ -920,11 +970,11 @@
               Power Supply Unit (PSU)
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-4">
-              Provides clean, isolated voltage lines: a regulated 5V DC line for Arduino logic and stepper drivers, alongside a dedicated high-current supply for the heated resistance wire.
+              The prototype includes a battery/power arrangement and visible external wiring. Exact supply voltage, current capacity and isolation details have not been assumed without measurement or documentation.
             </p>
             <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
-              <span>Protection</span>
-              <span class="text-white font-bold">Short &amp; Over-Current</span>
+              <span>Supply Details</span>
+              <span class="text-white font-bold">NOT ASSUMED</span>
             </div>
           </div>
 
@@ -932,7 +982,7 @@
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl md:col-span-2 lg:col-span-3">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               <div class="lg:col-span-7 h-52 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden p-2 flex items-center justify-center">
-                <img src="assets/images/circuit-schematic.svg" alt="System Wiring Schematic" class="w-full h-full object-contain cursor-pointer" onclick="openLightbox('assets/images/circuit-schematic.svg', 'Complete 3-Axis Controller Wiring Schematic')">
+                <img src="assets/images/prototype/controller-cnc-electronics.jpg" alt="Actual electrical connections visible in the prototype" class="w-full h-full object-cover cursor-pointer" onclick="openLightbox('assets/images/prototype/foam-cutter-prototype.jpg', 'Actual prototype electrical connections')">
               </div>
               <div class="lg:col-span-5 space-y-3">
                 <div class="font-mono text-xs text-cyan-400 font-bold">INTEGRATION &amp; INTERCONNECTS</div>
@@ -943,8 +993,8 @@
                   Precision threaded lead screws, brass anti-backlash nuts, flexible aluminum shaft couplers, and organized shielded ribbon cables linking the microcontroller to individual driver stages.
                 </p>
                 <div class="flex items-center gap-3 pt-2">
-                  <button onclick="openLightbox('assets/images/circuit-schematic.svg', 'Wiring Schematic')" class="px-4 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/50 font-mono text-xs transition-colors">
-                    VIEW SCHEMATIC (EXPAND)
+                  <button onclick="openLightbox('assets/images/prototype/foam-cutter-prototype.jpg', 'Actual prototype electrical connections')" class="px-4 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/50 font-mono text-xs transition-colors">
+                    VIEW ACTUAL WIRING
                   </button>
                   <a href="#documentation" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-mono text-xs transition-colors">
                     FIRMWARE PINOUT
@@ -1186,7 +1236,7 @@
                 </span>
               </div>
               <p class="text-slate-300 text-sm leading-relaxed">
-                Assembling the structural aluminum gantry frame, mounting linear guide rods, installing lead screws, and aligning the 3-axis motion carriages in the university lab.
+                The visible 3D-printed structure and rack components are being assembled. Motor, wire and controller integration continue while alignment and full three-axis operation are verified.
               </p>
             </div>
           </div>
@@ -1291,16 +1341,16 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
           
           <!-- Item 1: Hero Machine -->
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical" onclick="openLightbox('assets/images/hero-machine.jpg', 'Full Machine Architecture - 3-Axis CNC Foam Cutter')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical" onclick="openLightbox('assets/images/prototype/foam-cutter-prototype.jpg', 'Actual partially assembled Foam Cutting 3-Axis Device prototype')">
             <div class="h-64 overflow-hidden relative">
-              <img src="assets/images/hero-machine.jpg" alt="3-Axis Foam Cutter Render" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <img src="assets/images/prototype/foam-cutter-prototype.jpg" alt="Actual partially assembled 3-Axis Foam Cutter prototype" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
               </div>
             </div>
             <div class="p-4 border-t border-slate-800">
               <span class="font-mono text-[10px] text-cyan-400 uppercase">Mechanical Assembly</span>
-              <h4 class="font-outfit font-bold text-white text-base">Full Machine Architecture</h4>
+              <h4 class="font-outfit font-bold text-white text-base">Actual Prototype Assembly</h4>
             </div>
           </div>
 

@@ -534,9 +534,9 @@ function initThreeSimulator() {
         hotWireMesh.material.emissiveIntensity = 1.5;
         hotWireLight.intensity = 1.8;
         heatIndicatorDot.className = 'w-2 h-2 rounded-full bg-amber-400 animate-pulse';
-        heatBtnText.textContent = 'HEAT: ON (215°C)';
+        heatBtnText.textContent = 'SIMULATED HEAT: ON';
         if (simWireStatus) {
-          simWireStatus.textContent = 'HEATED (ACTIVE)';
+          simWireStatus.textContent = 'SIMULATION (ACTIVE)';
           simWireStatus.className = 'text-amber-400 font-bold';
         }
       } else {
