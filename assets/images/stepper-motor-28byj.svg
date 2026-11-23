@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <defs>
+    <radialGradient id="motorBody" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="60%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </radialGradient>
+    <linearGradient id="brassShaft" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#eab308"/>
+      <stop offset="100%" stop-color="#a16207"/>
+    </linearGradient>
+    <linearGradient id="metalPlate" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="50%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background grid -->
+  <rect width="400" height="300" fill="#080c1a" rx="12"/>
+  <path d="M 0 50 L 400 50 M 0 100 L 400 100 M 0 150 L 400 150 M 0 200 L 400 200 M 0 250 L 400 250" stroke="rgba(0,240,255,0.05)" stroke-width="1"/>
+  <path d="M 50 0 L 50 300 M 100 0 L 100 300 M 150 0 L 150 300 M 200 0 L 200 300 M 250 0 L 250 300 M 300 0 L 300 300 M 350 0 L 350 300" stroke="rgba(0,240,255,0.05)" stroke-width="1"/>
+
+  <!-- Stepper Motor Group -->
+  <g transform="translate(140, 60)">
+    <!-- Mounting Ears Plate -->
+    <rect x="-55" y="65" width="170" height="30" rx="15" fill="url(#metalPlate)" stroke="#38bdf8" stroke-width="1"/>
+    <!-- Mounting Holes -->
+    <circle cx="-40" cy="80" r="7" fill="#0f172a" stroke="#00f0ff" stroke-width="1.5"/>
+    <circle cx="100" cy="80" r="7" fill="#0f172a" stroke="#00f0ff" stroke-width="1.5"/>
+
+    <!-- Cylindrical Gearbox Enclosure -->
+    <circle cx="30" cy="80" r="55" fill="url(#motorBody)" stroke="#94a3b8" stroke-width="2"/>
+    <circle cx="30" cy="80" r="48" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- Shaft Tower -->
+    <circle cx="30" cy="55" r="22" fill="url(#metalPlate)" stroke="#475569" stroke-width="1.5"/>
+    <!-- Brass Geared Output Shaft (Flatted) -->
+    <rect x="25" y="10" width="10" height="35" rx="2" fill="url(#brassShaft)" stroke="#854d0e" stroke-width="1"/>
+    <path d="M 25 12 L 32 12 L 32 30 L 25 30 Z" fill="#fef08a" opacity="0.8"/>
+
+    <!-- Wire Harness Housing (Blue plastic notch) -->
+    <rect x="8" y="125" width="44" height="20" rx="3" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+    
+    <!-- 5-Pin Ribbon Wires (Blue, Pink, Yellow, Orange, Red) -->
+    <path d="M 16 145 C 16 180, -20 190, -50 200" stroke="#3b82f6" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 22 145 C 22 180, -10 190, -35 205" stroke="#ec4899" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 30 145 C 30 180, 5 190, -20 210" stroke="#eab308" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 38 145 C 38 180, 20 190, -5 215" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 44 145 C 44 180, 35 190, 10 220" stroke="#ef4444" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+    <!-- Technical Specs Stamp -->
+    <text x="30" y="82" font-family="'JetBrains Mono', monospace" font-size="8" fill="#f8fafc" text-anchor="middle" font-weight="bold">28BYJ-48</text>
+    <text x="30" y="94" font-family="'JetBrains Mono', monospace" font-size="7" fill="#38bdf8" text-anchor="middle">5V DC STEPPER</text>
+    <text x="30" y="104" font-family="'JetBrains Mono', monospace" font-size="6" fill="#94a3b8" text-anchor="middle">RATIO 1:64</text>
+  </g>
+
+  <!-- Technical Badge -->
+  <rect x="15" y="15" width="95" height="24" rx="4" fill="rgba(0,240,255,0.1)" stroke="#00f0ff" stroke-width="1"/>
+  <text x="62" y="31" font-family="'JetBrains Mono', monospace" font-size="10" fill="#00f0ff" text-anchor="middle">ACTUATOR</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cadAlum" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="450" fill="#080c1a" rx="12"/>
+  <!-- Blueprint Grid -->
+  <g stroke="rgba(0,240,255,0.06)" stroke-width="1">
+    <line x1="0" y1="50" x2="700" y2="50"/><line x1="0" y1="100" x2="700" y2="100"/><line x1="0" y1="150" x2="700" y2="150"/>
+    <line x1="0" y1="200" x2="700" y2="200"/><line x1="0" y1="250" x2="700" y2="250"/><line x1="0" y1="300" x2="700" y2="300"/>
+    <line x1="0" y1="350" x2="700" y2="350"/><line x1="0" y1="400" x2="700" y2="400"/>
+    <line x1="100" y1="0" x2="100" y2="450"/><line x1="200" y1="0" x2="200" y2="450"/><line x1="300" y1="0" x2="300" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="450"/><line x1="500" y1="0" x2="500" y2="450"/><line x1="600" y1="0" x2="600" y2="450"/>
+  </g>
+
+  <!-- Title & Blueprint Info -->
+  <rect x="25" y="20" width="280" height="32" rx="4" fill="#0f172a" stroke="#00f0ff" stroke-width="1"/>
+  <text x="35" y="41" font-family="'JetBrains Mono', monospace" font-size="11" fill="#ffffff" font-weight="bold">EXPLODED ASSEMBLY BREAKDOWN</text>
+
+  <!-- Exploded Parts -->
+  <g transform="translate(100, 60)">
+    <!-- 1. BASE BED (Floating Lower) -->
+    <polygon points="100,320 380,320 280,370 0,370" fill="url(#cadAlum)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="210" y="350" font-family="'JetBrains Mono', monospace" font-size="10" fill="#38bdf8">01. BASE WORKBED (Y-AXIS TRAVEL)</text>
+    <line x1="210" y1="330" x2="210" y2="290" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- 2. LINEAR BEARINGS & GUIDE RODS -->
+    <rect x="40" y="260" width="30" height="20" rx="3" fill="#64748b" stroke="#cbd5e1" stroke-width="1"/>
+    <rect x="330" y="260" width="30" height="20" rx="3" fill="#64748b" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="185" y="275" font-family="'JetBrains Mono', monospace" font-size="9" fill="#94a3b8">02. LINEAR BEARINGS (LM8UU)</text>
+
+    <!-- 3. Z-AXIS VERTICAL GANTRY COLUMNS (Exploded Left & Right) -->
+    <!-- Left Column -->
+    <rect x="-20" y="80" width="24" height="150" fill="url(#cadAlum)" stroke="#00f0ff" stroke-width="1.5"/>
+    <circle cx="-8" cy="70" r="12" fill="#334155" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="-40" y="55" font-family="'JetBrains Mono', monospace" font-size="9" fill="#00f0ff">03A. LEFT Z-MOTOR &amp; TOWER</text>
+
+    <!-- Right Column -->
+    <rect x="390" y="80" width="24" height="150" fill="url(#cadAlum)" stroke="#00f0ff" stroke-width="1.5"/>
+    <circle cx="402" cy="70" r="12" fill="#334155" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="350" y="55" font-family="'JetBrains Mono', monospace" font-size="9" fill="#00f0ff">03B. RIGHT Z-MOTOR &amp; TOWER</text>
+
+    <!-- 4. HORIZONTAL CROSSBEAM (X-AXIS) -->
+    <rect x="20" y="70" width="360" height="20" fill="url(#cadAlum)" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="200" y="84" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" text-anchor="middle">04. X-AXIS EXTRUSION GANTRY BEAM</text>
+
+    <!-- 5. WIRE TENSIONING CARRIAGE & CUTTER -->
+    <rect x="160" y="120" width="80" height="35" rx="4" fill="#0369a1" stroke="#00f0ff" stroke-width="1.5"/>
+    <line x1="20" y1="138" x2="380" y2="138" stroke="#f97316" stroke-width="2.5"/>
+    <text x="200" y="142" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#ffffff" text-anchor="middle" font-weight="bold">05. WIRE TENSIONER</text>
+
+    <!-- Exploded Projection Dashed Guide Lines -->
+    <line x1="-8" y1="92" x2="20" y2="80" stroke="#00f0ff" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="402" y1="92" x2="380" y2="80" stroke="#00f0ff" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="200" y1="90" x2="200" y2="120" stroke="#00f0ff" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="200" y1="155" x2="200" y2="260" stroke="#00f0ff" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+</svg>

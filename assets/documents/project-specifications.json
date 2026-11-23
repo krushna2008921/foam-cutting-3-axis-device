@@ -1,0 +1,25 @@
+{
+  "project_title": "DESIGN AND DEVELOPMENT OF A FOAM CUTTING 3-AXIS DEVICE",
+  "category": "Makerspace | Mechanical Engineering | CNC Automation",
+  "institution": "Sanjivani University",
+  "department": "Department of Mechanical Engineering",
+  "team_members": [
+    { "name": "Krushna Jamdar", "role": "Project Group Member" },
+    { "name": "Samiksha Kale", "role": "Project Group Member" },
+    { "name": "Sanket Gujar", "role": "Project Group Member" }
+  ],
+  "faculty_guidance": [
+    { "name": "Dr. Kiran Wakchaure", "designation": "Director – Projects, Sanjivani University" },
+    { "name": "Dr. Prathibha Sinha", "designation": "Faculty Mentor, Sanjivani University" },
+    { "name": "Dr. Vasudeo Singh Singar", "designation": "Faculty Mentor, Sanjivani University" },
+    { "name": "Dr. K. C. Bhosale", "designation": "Head of Department (HOD), Department of Mechanical Engineering, Sanjivani University" }
+  ],
+  "technical_parameters": {
+    "kinematics": "Cartesian 3-Axis (X: Lateral gantry, Y: Longitudinal workbed, Z: Vertical elevation)",
+    "microcontroller": "Arduino Nano (ATmega328P, 16MHz clock)",
+    "actuators": "28BYJ-48 5V Stepper Motors (Internal Gear Reduction 64:1, 4096 steps/rev half-step)",
+    "drivers": "ULN2003A 7-Channel Darlington Array Driver Boards with Status LEDs",
+    "cutting_mechanism": "Calibrated Heated Resistance Ni-Chrome Wire with Spring Tensioner",
+    "compatible_materials": ["Expanded Polystyrene (EPS)", "Extruded Polystyrene (XPS)", "Polyurethane Foam", "Thermocol"]
+  }
+}

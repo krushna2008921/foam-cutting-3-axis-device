@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <filter id="schemGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#080c1a" rx="12"/>
+  
+  <!-- Grid -->
+  <g stroke="rgba(0,240,255,0.06)" stroke-width="1">
+    <line x1="0" y1="50" x2="800" y2="50"/>
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="0" y1="450" x2="800" y2="450"/>
+    
+    <line x1="100" y1="0" x2="100" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="500"/>
+    <line x1="300" y1="0" x2="300" y2="500"/>
+    <line x1="400" y1="0" x2="400" y2="500"/>
+    <line x1="500" y1="0" x2="500" y2="500"/>
+    <line x1="600" y1="0" x2="600" y2="500"/>
+    <line x1="700" y1="0" x2="700" y2="500"/>
+  </g>
+
+  <!-- Title Block -->
+  <rect x="25" y="20" width="320" height="36" rx="6" fill="#0f172a" stroke="#00f0ff" stroke-width="1.2"/>
+  <text x="40" y="43" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" font-weight="bold">SYSTEM SCHEMATIC: 3-AXIS CNC CONTROLLER</text>
+
+  <!-- ARDUINO NANO BLOCK -->
+  <g transform="translate(60, 90)">
+    <rect x="0" y="0" width="160" height="340" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="2"/>
+    <text x="80" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-weight="bold" font-size="14" fill="#ffffff" text-anchor="middle">ARDUINO NANO</text>
+    <text x="80" y="46" font-family="'JetBrains Mono', monospace" font-size="10" fill="#34d399" text-anchor="middle">ATmega328P MCU</text>
+    <line x1="15" y1="58" x2="145" y2="58" stroke="#334155" stroke-width="1"/>
+
+    <!-- Pins Right Side (Outputs to Drivers) -->
+    <!-- X-Axis Pins -->
+    <text x="140" y="85" font-family="'JetBrains Mono', monospace" font-size="9" fill="#38bdf8" text-anchor="end">D2 (X-IN1)</text>
+    <circle cx="152" cy="82" r="4" fill="#38bdf8"/>
+    <text x="140" y="105" font-family="'JetBrains Mono', monospace" font-size="9" fill="#38bdf8" text-anchor="end">D3 (X-IN2)</text>
+    <circle cx="152" cy="102" r="4" fill="#38bdf8"/>
+    <text x="140" y="125" font-family="'JetBrains Mono', monospace" font-size="9" fill="#38bdf8" text-anchor="end">D4 (X-IN3)</text>
+    <circle cx="152" cy="122" r="4" fill="#38bdf8"/>
+    <text x="140" y="145" font-family="'JetBrains Mono', monospace" font-size="9" fill="#38bdf8" text-anchor="end">D5 (X-IN4)</text>
+    <circle cx="152" cy="142" r="4" fill="#38bdf8"/>
+
+    <!-- Y-Axis Pins -->
+    <text x="140" y="180" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a855f7" text-anchor="end">D6 (Y-IN1)</text>
+    <circle cx="152" cy="177" r="4" fill="#a855f7"/>
+    <text x="140" y="200" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a855f7" text-anchor="end">D7 (Y-IN2)</text>
+    <circle cx="152" cy="197" r="4" fill="#a855f7"/>
+    <text x="140" y="220" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a855f7" text-anchor="end">D8 (Y-IN3)</text>
+    <circle cx="152" cy="217" r="4" fill="#a855f7"/>
+    <text x="140" y="240" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a855f7" text-anchor="end">D9 (Y-IN4)</text>
+    <circle cx="152" cy="237" r="4" fill="#a855f7"/>
+
+    <!-- Z-Axis Pins -->
+    <text x="140" y="275" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D10 (Z-IN1)</text>
+    <circle cx="152" cy="272" r="4" fill="#f59e0b"/>
+    <text x="140" y="295" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D11 (Z-IN2)</text>
+    <circle cx="152" cy="292" r="4" fill="#f59e0b"/>
+    <text x="140" y="315" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D12 (Z-IN3)</text>
+    <circle cx="152" cy="312" r="4" fill="#f59e0b"/>
+    <text x="140" y="335" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D13 (Z-IN4)</text>
+    <circle cx="152" cy="332" r="4" fill="#f59e0b"/>
+  </g>
+
+  <!-- 3x ULN2003 DRIVER BLOCKS -->
+  <!-- Driver 1: X-Axis -->
+  <g transform="translate(350, 80)">
+    <rect x="0" y="0" width="150" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="75" y="22" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ULN2003 (X-AXIS)</text>
+    <text x="15" y="45" font-family="'JetBrains Mono', monospace" font-size="8" fill="#94a3b8">IN1-IN4 INPUTS</text>
+    <text x="15" y="65" font-family="'JetBrains Mono', monospace" font-size="8" fill="#38bdf8">5V / GND POWER</text>
+    <text x="135" y="55" font-family="'JetBrains Mono', monospace" font-size="8" fill="#34d399" text-anchor="end">5-WIRE PORT</text>
+  </g>
+
+  <!-- Driver 2: Y-Axis -->
+  <g transform="translate(350, 190)">
+    <rect x="0" y="0" width="150" height="90" rx="6" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="75" y="22" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ULN2003 (Y-AXIS)</text>
+    <text x="15" y="45" font-family="'JetBrains Mono', monospace" font-size="8" fill="#94a3b8">IN1-IN4 INPUTS</text>
+    <text x="15" y="65" font-family="'JetBrains Mono', monospace" font-size="8" fill="#a855f7">5V / GND POWER</text>
+    <text x="135" y="55" font-family="'JetBrains Mono', monospace" font-size="8" fill="#34d399" text-anchor="end">5-WIRE PORT</text>
+  </g>
+
+  <!-- Driver 3: Z-Axis -->
+  <g transform="translate(350, 300)">
+    <rect x="0" y="0" width="150" height="90" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="75" y="22" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ULN2003 (Z-AXIS)</text>
+    <text x="15" y="45" font-family="'JetBrains Mono', monospace" font-size="8" fill="#94a3b8">IN1-IN4 INPUTS</text>
+    <text x="15" y="65" font-family="'JetBrains Mono', monospace" font-size="8" fill="#f59e0b">5V / GND POWER</text>
+    <text x="135" y="55" font-family="'JetBrains Mono', monospace" font-size="8" fill="#34d399" text-anchor="end">5-WIRE PORT</text>
+  </g>
+
+  <!-- 3x STEPPER MOTORS (28BYJ-48) -->
+  <!-- Motor X -->
+  <g transform="translate(600, 80)">
+    <rect x="0" y="0" width="160" height="90" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <circle cx="35" cy="45" r="24" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+    <circle cx="35" cy="45" r="8" fill="#eab308"/>
+    <text x="75" y="35" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" font-weight="bold">28BYJ-48 STEPPER</text>
+    <text x="75" y="52" font-family="'JetBrains Mono', monospace" font-size="8" fill="#38bdf8">X-AXIS CARRIAGE</text>
+    <text x="75" y="68" font-family="'JetBrains Mono', monospace" font-size="7" fill="#94a3b8">64:1 GEAR RATIO</text>
+  </g>
+
+  <!-- Motor Y -->
+  <g transform="translate(600, 190)">
+    <rect x="0" y="0" width="160" height="90" rx="6" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+    <circle cx="35" cy="45" r="24" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+    <circle cx="35" cy="45" r="8" fill="#eab308"/>
+    <text x="75" y="35" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" font-weight="bold">28BYJ-48 STEPPER</text>
+    <text x="75" y="52" font-family="'JetBrains Mono', monospace" font-size="8" fill="#a855f7">Y-AXIS WORKBED</text>
+    <text x="75" y="68" font-family="'JetBrains Mono', monospace" font-size="7" fill="#94a3b8">64:1 GEAR RATIO</text>
+  </g>
+
+  <!-- Motor Z -->
+  <g transform="translate(600, 300)">
+    <rect x="0" y="0" width="160" height="90" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="35" cy="45" r="24" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+    <circle cx="35" cy="45" r="8" fill="#eab308"/>
+    <text x="75" y="35" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" font-weight="bold">28BYJ-48 STEPPER</text>
+    <text x="75" y="52" font-family="'JetBrains Mono', monospace" font-size="8" fill="#f59e0b">Z-AXIS ELEVATION</text>
+    <text x="75" y="68" font-family="'JetBrains Mono', monospace" font-size="7" fill="#94a3b8">64:1 GEAR RATIO</text>
+  </g>
+
+  <!-- POWER SUPPLY UNIT (BOTTOM LEFT) -->
+  <g transform="translate(60, 440)">
+    <rect x="0" y="0" width="300" height="45" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="15" y="26" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" font-weight="bold">5V/12V REGULATED DC POWER SUPPLY</text>
+    <circle cx="270" cy="22" r="5" fill="#ef4444"/>
+    <circle cx="285" cy="22" r="5" fill="#475569"/>
+  </g>
+
+  <!-- CUTTING WIRE HEATER UNIT (BOTTOM RIGHT) -->
+  <g transform="translate(420, 440)">
+    <rect x="0" y="0" width="340" height="45" rx="6" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
+    <text x="15" y="26" font-family="'JetBrains Mono', monospace" font-size="10" fill="#f97316" font-weight="bold">HEATED RESISTANCE CUTTING WIRE</text>
+    <line x1="240" y1="22" x2="320" y2="22" stroke="#f97316" stroke-width="3" filter="url(#schemGlow)"/>
+  </g>
+
+  <!-- BUS WIRES CONNECTING MCU TO DRIVERS -->
+  <path d="M 212 172 L 310 172 L 310 125 L 350 125" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+  <path d="M 212 287 L 310 287 L 310 235 L 350 235" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <path d="M 212 402 L 310 402 L 310 345 L 350 345" stroke="#f59e0b" stroke-width="2.5" fill="none"/>
+
+  <!-- BUS WIRES CONNECTING DRIVERS TO MOTORS -->
+  <path d="M 500 125 L 600 125" stroke="#38bdf8" stroke-width="2.5" fill="none"/>
+  <path d="M 500 235 L 600 235" stroke="#a855f7" stroke-width="2.5" fill="none"/>
+  <path d="M 500 345 L 600 345" stroke="#f59e0b" stroke-width="2.5" fill="none"/>
+
+</svg>

@@ -1,0 +1,215 @@
+/* ====================================================================
+   FOAM CUTTING 3-AXIS DEVICE - PREMIUM ENGINEERING WEBSITE STYLESHEET
+   Sanjivani University | Department of Mechanical Engineering | Makerspace
+   ==================================================================== */
+
+:root {
+  --bg-dark: #040711;
+  --bg-dark-navy: #070c1e;
+  --bg-card: rgba(11, 19, 43, 0.75);
+  --bg-card-hover: rgba(15, 27, 60, 0.85);
+  --cyan-primary: #00f0ff;
+  --cyan-glow: rgba(0, 240, 255, 0.4);
+  --blue-primary: #0070f3;
+  --electric-purple: #8b5cf6;
+  --border-subtle: rgba(0, 240, 255, 0.15);
+  --border-bright: rgba(0, 240, 255, 0.45);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --font-outfit: 'Outfit', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base Reset & Core Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #02050e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+}
+
+/* Typography Helpers */
+.font-outfit { font-family: var(--font-outfit); }
+.font-sans { font-family: var(--font-sans); }
+.font-mono { font-family: var(--font-mono); }
+
+/* Utility Backgrounds & Colors */
+.bg-dark { background-color: var(--bg-dark); }
+.bg-dark-navy { background-color: var(--bg-dark-navy); }
+
+/* Glassmorphism Cards */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 15px 40px rgba(0, 240, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Cybernetic Neon Glows & Borders */
+.neon-border-cyan {
+  border-color: rgba(0, 240, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+}
+
+.text-cyan-glow {
+  color: #00f0ff;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s infinite ease-in-out;
+}
+
+.animate-float {
+  animation: floatSlow 6s infinite ease-in-out;
+}
+
+/* Simulator Canvas Styling */
+#threeContainer canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 1rem;
+  outline: none;
+}
+
+/* Gallery Filter Active State */
+.gallery-filter-btn.active {
+  background-color: #00f0ff !important;
+  color: #040711 !important;
+  font-weight: 700;
+  border-color: #00f0ff !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+/* Lightbox Modal Animation */
+#lightboxModal.active {
+  display: flex !important;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Range Input Styling */
+input[type=range] {
+  -webkit-appearance: none;
+  background: #1e293b;
+  border-radius: 6px;
+  height: 8px;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #00f0ff;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+  border: 2px solid #ffffff;
+  transition: transform 0.15s ease;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Interactive Card Hover Transforms */
+.interactive-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Header Scroll Transition */
+header.scrolled {
+  background-color: rgba(7, 12, 30, 0.95);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+/* Responsive Grid Tweaks */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2.25rem !important;
+  }
+}
+
+/* Print Cleanliness */
+@media print {
+  header, #simulator, #cyberCanvas, #backToTopBtn {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

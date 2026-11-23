@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foam Cutting 3-Axis Device | Sanjivani University Makerspace</title>
+  <meta name="description" content="Design and Development of a Foam Cutting 3-Axis Device. A low-cost CNC-based three-axis hot wire foam cutting machine developed at Department of Mechanical Engineering, Sanjivani University.">
+  <meta name="keywords" content="CNC Foam Cutter, 3-Axis Foam Cutting, Sanjivani University, Mechanical Engineering, Makerspace, Arduino Nano, 28BYJ-48 Stepper, Hot Wire Cutter">
+  <meta name="author" content="Krushna Jamdar, Samiksha Kale, Sanket Gujar">
+
+  <!-- Open Graph / Social Sharing Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Foam Cutting 3-Axis Device | Makerspace Engineering Project">
+  <meta property="og:description" content="Precision Engineering. Smart Automation. Creative Manufacturing. Sanjivani University Department of Mechanical Engineering.">
+  <meta property="og:image" content="assets/images/hero-machine.jpg">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/icons/sanjivani-logo.svg">
+
+  <!-- Tailwind CSS CDN for instant responsive utilities -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark': '#040711',
+            'dark-navy': '#070c1e',
+            'cyan-accent': '#00f0ff',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Three.js from CDN for interactive 3D simulation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="bg-dark text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
+
+  <!-- Background Animated Cyber Grid & Ambient Glows -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-600/15 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-blue-700/15 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
+    <canvas id="cyberCanvas" class="w-full h-full opacity-40"></canvas>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md bg-dark-navy/85 border-b border-cyan-500/20" id="mainHeader">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- University & Project Branding -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/30 border border-cyan-400/40 flex items-center justify-center p-1.5 shadow-[0_0_15px_rgba(0,240,255,0.25)] group-hover:border-cyan-400 transition-colors">
+          <img src="assets/icons/sanjivani-logo.svg" alt="Sanjivani University Logo" class="w-full h-full object-contain">
+        </div>
+        <div>
+          <div class="font-outfit font-extrabold tracking-wider text-base sm:text-lg text-white group-hover:text-cyan-400 transition-colors flex items-center gap-2">
+            FOAM CUTTER <span class="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-300 font-mono">3-AXIS</span>
+          </div>
+          <div class="text-[10px] sm:text-xs text-slate-400 font-mono tracking-tight">Sanjivani University | Makerspace</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-6 font-mono text-xs uppercase tracking-wider">
+        <a href="#about" class="text-slate-300 hover:text-cyan-400 transition-colors">About</a>
+        <a href="#problem" class="text-slate-300 hover:text-cyan-400 transition-colors">Problem</a>
+        <a href="#objectives" class="text-slate-300 hover:text-cyan-400 transition-colors">Objectives</a>
+        <a href="#working" class="text-slate-300 hover:text-cyan-400 transition-colors">Principle</a>
+        <a href="#components" class="text-slate-300 hover:text-cyan-400 transition-colors">Components</a>
+        <a href="#cad" class="text-slate-300 hover:text-cyan-400 transition-colors">3D CAD</a>
+        <a href="#timeline" class="text-slate-300 hover:text-cyan-400 transition-colors">Timeline</a>
+        <a href="#gallery" class="text-slate-300 hover:text-cyan-400 transition-colors">Gallery</a>
+        <a href="#team" class="text-slate-300 hover:text-cyan-400 transition-colors">Team</a>
+        <a href="#faculty" class="text-slate-300 hover:text-cyan-400 transition-colors">Faculty</a>
+      </nav>
+
+      <!-- Header Action Buttons -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="#simulator" class="relative group px-4 py-2 rounded-lg font-mono text-xs font-semibold text-cyan-300 bg-cyan-950/40 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/20 transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)] flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          3D SIMULATOR
+        </a>
+        <a href="#documentation" class="px-3.5 py-2 rounded-lg font-mono text-xs text-slate-300 bg-slate-800/80 border border-slate-700 hover:border-slate-500 transition-colors">
+          DOCS
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" aria-label="Toggle navigation menu" class="lg:hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-cyan-400 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="hamburgerIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-dark-navy/95 border-b border-cyan-500/20 backdrop-blur-xl px-6 py-6 transition-all">
+      <div class="flex flex-col gap-4 font-mono text-sm tracking-wider uppercase">
+        <a href="#about" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">About Project</a>
+        <a href="#problem" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Problem Statement</a>
+        <a href="#objectives" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Objectives</a>
+        <a href="#working" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Working Principle</a>
+        <a href="#simulator" class="mobile-nav-link text-cyan-400 font-semibold py-1">Interactive 3D Simulator</a>
+        <a href="#components" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Components Used</a>
+        <a href="#cad" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">3D CAD Model</a>
+        <a href="#timeline" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Development Timeline</a>
+        <a href="#gallery" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Project Gallery</a>
+        <a href="#applications" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Applications</a>
+        <a href="#future" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Future Scope</a>
+        <a href="#team" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Meet Our Team</a>
+        <a href="#faculty" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Faculty Guidance</a>
+        <a href="#documentation" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Documentation &amp; Code</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 pt-20">
+
+    <!-- ============================================================== -->
+    <!-- SECTION A – HOME / HERO                                        -->
+    <!-- ============================================================== -->
+    <section id="hero" class="min-h-[calc(100vh-5rem)] flex items-center justify-center py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Hero Text Content -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <!-- Academic & Department Badge -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-900/80 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider backdrop-blur-sm shadow-[0_0_15px_rgba(0,240,255,0.15)]">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              <span>SANJIVANI UNIVERSITY • MECHANICAL ENGINEERING</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-outfit font-black text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.08] text-white">
+              FOAM CUTTING <br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 drop-shadow-[0_0_35px_rgba(0,240,255,0.3)]">
+                3-AXIS DEVICE
+              </span>
+            </h1>
+
+            <!-- Tagline -->
+            <p class="font-mono text-cyan-300 text-sm sm:text-base font-semibold tracking-wide uppercase">
+              Precision Engineering. Smart Automation. Creative Manufacturing.
+            </p>
+
+            <!-- Project Introduction -->
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl font-sans">
+              An advanced Makerspace engineering initiative developing a low-cost, CNC-controlled 3-axis hot wire foam cutting machine capable of slicing foam, thermocol, and EPS materials with automated precision, reduced manual labor, and minimal material wastage.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#about" class="px-7 py-3.5 rounded-xl font-outfit font-bold text-sm tracking-wider uppercase text-black bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 transition-all transform hover:-translate-y-0.5 shadow-[0_0_25px_rgba(0,240,255,0.4)] flex items-center gap-2">
+                Explore Project
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
+
+              <a href="#cad" class="px-6 py-3.5 rounded-xl font-outfit font-bold text-sm tracking-wider uppercase text-white bg-slate-900/80 border border-slate-700 hover:border-cyan-400 hover:bg-slate-800/80 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                View CAD Design
+                <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+              </a>
+
+              <a href="#simulator" class="px-6 py-3.5 rounded-xl font-outfit font-bold text-sm tracking-wider uppercase text-cyan-300 bg-cyan-950/40 border border-cyan-500/40 hover:bg-cyan-900/40 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                Live 3D Simulator
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              </a>
+            </div>
+
+            <!-- Key Metrics Bar -->
+            <div class="pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-center lg:text-left">
+              <div>
+                <div class="font-mono text-2xl font-bold text-white flex items-center justify-center lg:justify-start">
+                  <span>3</span><span class="text-cyan-400 text-lg"> AXIS</span>
+                </div>
+                <div class="text-xs text-slate-400 font-mono uppercase">X • Y • Z Motion</div>
+              </div>
+              <div>
+                <div class="font-mono text-2xl font-bold text-white flex items-center justify-center lg:justify-start">
+                  <span>CNC</span><span class="text-cyan-400 text-lg"> CTRL</span>
+                </div>
+                <div class="text-xs text-slate-400 font-mono uppercase">Arduino Nano</div>
+              </div>
+              <div>
+                <div class="font-mono text-2xl font-bold text-white flex items-center justify-center lg:justify-start">
+                  <span>HOT</span><span class="text-cyan-400 text-lg"> WIRE</span>
+                </div>
+                <div class="text-xs text-slate-400 font-mono uppercase">Thermal Kerf</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Visual: 3D Machine Render Card -->
+          <div class="lg:col-span-5 relative group">
+            <!-- Glow backlight -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition duration-700"></div>
+
+            <div class="relative rounded-2xl bg-slate-900/90 border border-cyan-500/30 overflow-hidden backdrop-blur-xl shadow-2xl p-3">
+              <!-- HUD Header Bar -->
+              <div class="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-slate-950/60 rounded-t-xl mb-3">
+                <div class="flex items-center gap-2 font-mono text-xs text-cyan-400">
+                  <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                  <span>SYSTEM VIEW // REAL RENDER</span>
+                </div>
+                <div class="font-mono text-[11px] text-slate-400">
+                  REF: CAD-PROTO-V1
+                </div>
+              </div>
+
+              <!-- Machine Render Image with Zoom Lightbox Trigger -->
+              <div class="relative rounded-xl overflow-hidden cursor-pointer group/img" onclick="openLightbox('assets/images/hero-machine.jpg', 'Foam Cutting 3-Axis Device - Full Machine Perspective')">
+                <img src="assets/images/hero-machine.jpg" alt="3-Axis CNC Foam Cutting Machine Full Assembly" class="w-full h-80 sm:h-96 object-cover object-center transform group-hover/img:scale-105 transition-transform duration-700">
+                
+                <!-- Overlay HUD lines -->
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent pointer-events-none"></div>
+
+                <!-- Hover badge -->
+                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono bg-dark-navy/85 backdrop-blur-md px-3 py-2 rounded-lg border border-cyan-500/30">
+                  <div class="text-slate-300 flex items-center gap-2">
+                    <span class="text-cyan-400">STATUS:</span> CALIBRATED FOR CUTTING
+                  </div>
+                  <span class="text-cyan-400 font-bold group-hover/img:underline">CLICK TO EXPAND ⤢</span>
+                </div>
+              </div>
+
+              <!-- Telemetry Readout Footer -->
+              <div class="mt-3 grid grid-cols-4 gap-2 text-center font-mono text-[10px] bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                <div>
+                  <div class="text-slate-500">X-POS</div>
+                  <div class="text-cyan-400 font-bold">120.0 mm</div>
+                </div>
+                <div>
+                  <div class="text-slate-500">Y-POS</div>
+                  <div class="text-cyan-400 font-bold">85.0 mm</div>
+                </div>
+                <div>
+                  <div class="text-slate-500">Z-POS</div>
+                  <div class="text-cyan-400 font-bold">45.0 mm</div>
+                </div>
+                <div>
+                  <div class="text-slate-500">WIRE TEMP</div>
+                  <div class="text-amber-400 font-bold">215°C</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION B – ABOUT THE PROJECT                                  -->
+    <!-- ============================================================== -->
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section B // Project Overview
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            ABOUT THE PROJECT
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Bridging mechanical kinematics, embedded control, and thermal physics to revolutionize low-cost rapid prototyping for engineering and architectural modeling.
+          </p>
+        </div>
+
+        <!-- 4 Question Breakdown Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Card 1: What is a 3-axis foam cutting device? -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-3 group-hover:text-cyan-400 transition-colors">
+              What is a 3-Axis Foam Cutting Device?
+            </h3>
+            <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+              It is an automated Cartesian CNC system engineered specifically for slicing low-density polymers, including Expanded Polystyrene (EPS), Extruded Polystyrene (XPS), and thermocol. It guides an electrically heated wire through a programmable three-dimensional trajectory (X, Y, and Z axes) to carve complex geometries without physical shear force.
+            </p>
+          </div>
+
+          <!-- Card 2: Why was it developed? -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-3 group-hover:text-blue-400 transition-colors">
+              Why Was It Developed?
+            </h3>
+            <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+              Conventional industrial CNC routers are expensive, bulky, and generate excessive airborne dust and bead tearing when machining foam. Conversely, manual hot-wire cutting is error-prone and non-repeatable. This project fills the gap by providing an affordable, clean, accessible desktop solution for college labs and prototyping workshops.
+            </p>
+          </div>
+
+          <!-- Card 3: How does it work? -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-3 group-hover:text-indigo-400 transition-colors">
+              How Does It Work?
+            </h3>
+            <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+              The Arduino Nano microcontroller coordinates 28BYJ-48 stepper motors through ULN2003 drivers. Lead screws translate rotational motion into linear displacement along the X, Y, and Z axes. Simultaneously, a regulated DC current heats a high-resistance wire to the precise vaporization temperature of the workpiece, vaporizing a microscopic kerf smoothly without mechanical contact.
+            </p>
+          </div>
+
+          <!-- Card 4: What makes it useful? -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-3 group-hover:text-emerald-400 transition-colors">
+              What Makes It Useful?
+            </h3>
+            <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
+              It delivers near-zero material wastage, smooth sealed edges, identical duplicate batches, and extreme cost savings. Engineering students, architects, and product designers can iterate physical mockups within minutes instead of hours of painstaking manual carving.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Sanjivani University Makerspace Commitment Callout -->
+        <div class="mt-12 p-6 rounded-2xl bg-cyan-950/30 border border-cyan-500/30 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center shrink-0">
+              <span class="font-mono font-bold text-cyan-400 text-lg">SU</span>
+            </div>
+            <div>
+              <h4 class="font-outfit font-bold text-white text-lg">Department of Mechanical Engineering</h4>
+              <p class="text-slate-400 text-sm font-sans">Sanjivani University Makerspace Innovation Ecosystem</p>
+            </div>
+          </div>
+          <div class="font-mono text-xs text-cyan-300 bg-slate-900/90 px-4 py-2 rounded-xl border border-slate-800">
+            PROJECT STATUS: PROTOTYPE ASSEMBLY &amp; INTEGRATION
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION C – PROBLEM STATEMENT                                  -->
+    <!-- ============================================================== -->
+    <section id="problem" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-rose-950/60 border border-rose-500/30 text-rose-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section C // Challenges Addressed
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            PROBLEM STATEMENT
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-rose-500 to-amber-500 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Manual foam fabrication suffers from inherent operational flaws that limit its viability in modern engineering education and precision prototyping.
+          </p>
+        </div>
+
+        <!-- Problem Cards Grid (5 core challenges) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Problem 1 -->
+          <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-rose-500/40 transition-all duration-300 group">
+            <div class="text-rose-400 font-mono text-xs font-bold tracking-widest mb-2">LIMITATION 01</div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-2 group-hover:text-rose-300 transition-colors">
+              High Manual Effort
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Cutting foam by hand using utility knives or freehand hot-wire wands requires prolonged physical exertion, steady hands, and continuous concentration, leading to physical fatigue and operator strain.
+            </p>
+          </div>
+
+          <!-- Problem 2 -->
+          <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-rose-500/40 transition-all duration-300 group">
+            <div class="text-rose-400 font-mono text-xs font-bold tracking-widest mb-2">LIMITATION 02</div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-2 group-hover:text-rose-300 transition-colors">
+              Time-Consuming Operation
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Fabricating complex contours or multi-layered architectural forms manually takes hours of slow tracing and repetitive trimming, slowing down rapid engineering design cycles.
+            </p>
+          </div>
+
+          <!-- Problem 3 -->
+          <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-rose-500/40 transition-all duration-300 group">
+            <div class="text-rose-400 font-mono text-xs font-bold tracking-widest mb-2">LIMITATION 03</div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-2 group-hover:text-rose-300 transition-colors">
+              Difficulty Achieving Accurate Shapes
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Achieving true perpendicular bevels, smooth curves, aerofoil profiles, and strict dimensional tolerances is virtually impossible with freehand tools due to hand tremor and wire deflection.
+            </p>
+          </div>
+
+          <!-- Problem 4 -->
+          <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-rose-500/40 transition-all duration-300 group">
+            <div class="text-rose-400 font-mono text-xs font-bold tracking-widest mb-2">LIMITATION 04</div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-2 group-hover:text-rose-300 transition-colors">
+              Material Wastage &amp; Scorching
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Inconsistent manual feed rates cause localized overheating, resulting in melted voids, scorched edges, or jagged tears that ruin expensive foam stock and increase scrap rates.
+            </p>
+          </div>
+
+          <!-- Problem 5 -->
+          <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-rose-500/40 transition-all duration-300 group">
+            <div class="text-rose-400 font-mono text-xs font-bold tracking-widest mb-2">LIMITATION 05</div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-2 group-hover:text-rose-300 transition-colors">
+              Limited Repeatability
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Manual cutting cannot reproduce identical parts. When batch manufacturing aerodynamic components or uniform packaging trays, human variability causes unacceptable component differences.
+            </p>
+          </div>
+
+          <!-- Solution Summary Card -->
+          <div class="p-6 rounded-2xl bg-gradient-to-br from-cyan-950/60 to-blue-950/60 border border-cyan-500/40 flex flex-col justify-between">
+            <div>
+              <div class="text-cyan-400 font-mono text-xs font-bold tracking-widest mb-2">THE 3-AXIS SOLUTION</div>
+              <h3 class="font-outfit font-bold text-lg text-white mb-2">
+                Automated CNC Precision
+              </h3>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                By automating three-axis motion via digital stepper motors and maintaining continuous wire thermal regulation, our device eliminates human error and guarantees repeatable accuracy.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-cyan-500/20 font-mono text-xs text-cyan-300 flex items-center justify-between">
+              <span>ACCURACY BOOST</span>
+              <span class="font-bold">DIGITALLY CONTROLLED</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION D – OBJECTIVES                                         -->
+    <!-- ============================================================== -->
+    <section id="objectives" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section D // Engineering Goals
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            PROJECT OBJECTIVES
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            The project was designed with six fundamental milestones to make digital fabrication accessible, reliable, and economical.
+          </p>
+        </div>
+
+        <!-- 6 Animated Objective Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Obj 1 -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 group shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none"></div>
+            <div class="font-mono text-cyan-400 text-2xl font-bold mb-4">01</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Develop an Affordable CNC Foam Cutter
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Build a fully functional three-axis machine utilizing accessible, economical electronic and mechanical components without sacrificing rigid performance.
+            </p>
+          </div>
+
+          <!-- Obj 2 -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 group shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none"></div>
+            <div class="font-mono text-cyan-400 text-2xl font-bold mb-4">02</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Automate Cutting Movements
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Program synchronized Cartesian motions along the X, Y, and Z axes through microcontroller firmware, enabling seamless vector contour execution.
+            </p>
+          </div>
+
+          <!-- Obj 3 -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 group shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none"></div>
+            <div class="font-mono text-cyan-400 text-2xl font-bold mb-4">03</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Improve Cutting Accuracy
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Leverage lead screws and microstepping motor drivers to eliminate backlash and human hand tremors, producing clean, sharp geometric edges.
+            </p>
+          </div>
+
+          <!-- Obj 4 -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 group shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none"></div>
+            <div class="font-mono text-cyan-400 text-2xl font-bold mb-4">04</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Reduce Manual Effort
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Transition operators from laborious manual carving to digital machine supervision, substantially cutting fabrication fatigue.
+            </p>
+          </div>
+
+          <!-- Obj 5 -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 group shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none"></div>
+            <div class="font-mono text-cyan-400 text-2xl font-bold mb-4">05</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Minimize Material Wastage
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Calibrate cutting speeds and wire temperature to achieve optimal thermal kerf, reducing scrap parts and raw material expenses.
+            </p>
+          </div>
+
+          <!-- Obj 6 -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-1 transition-all duration-300 group shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none"></div>
+            <div class="font-mono text-cyan-400 text-2xl font-bold mb-4">06</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Create Repeatable Shapes
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Guarantee that every manufactured piece matches CAD specifications identically, unlocking small-batch component production.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION E – WORKING PRINCIPLE & INTERACTIVE 3D SIMULATOR       -->
+    <!-- ============================================================== -->
+    <section id="working" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section E // Kinematics &amp; Operation
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            WORKING PRINCIPLE
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            The device translates digital coordinates into precise 3-dimensional Cartesian movements while feeding thermal energy to the wire for frictionless material ablation.
+          </p>
+        </div>
+
+        <!-- 3-Axis Kinematic Principles Breakdown -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          
+          <!-- X-Axis Card -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-400 transition-all">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-mono font-bold text-cyan-400">X</span>
+              <span class="text-xs font-mono text-slate-400">LATERAL MOTION</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2">X-Axis Movement</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Provides left and right horizontal motion across the gantry crossbeam. It controls the lateral positioning of the cutting mechanism across the width of the foam workpiece.
+            </p>
+          </div>
+
+          <!-- Y-Axis Card -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-400 transition-all">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-emerald-400">Y</span>
+              <span class="text-xs font-mono text-slate-400">LONGITUDINAL MOTION</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2">Y-Axis Movement</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Controls forward and backward longitudinal displacement across the workbed. It drives the workpiece or gantry depth-wise, dictating the length profile of the cut.
+            </p>
+          </div>
+
+          <!-- Z-Axis Card -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-purple-500/30 hover:border-purple-400 transition-all">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center font-mono font-bold text-purple-400">Z</span>
+              <span class="text-xs font-mono text-slate-400">VERTICAL ELEVATION</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2">Z-Axis Movement</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Directs up and down vertical movement along dual synchronized lead screws. It establishes height positioning, allowing intricate 3D contoured profiles and beveled steps.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Working Principle Detailed Diagram & Technical Description -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
+          <div class="lg:col-span-7">
+            <div class="rounded-2xl overflow-hidden border border-cyan-500/30 bg-slate-900/90 p-3 shadow-2xl">
+              <img src="assets/images/cnc-frame.svg" alt="3-Axis CNC Kinematics Diagram" class="w-full h-auto object-contain rounded-xl">
+            </div>
+          </div>
+          <div class="lg:col-span-5 space-y-6">
+            <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800">
+              <h4 class="font-outfit font-bold text-lg text-white mb-2 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                Controller Operation
+              </h4>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                The Arduino Nano executes coordinated step pulses calculated through interpolation math. By sequentially firing the 4 coils of each 28BYJ-48 stepper motor through ULN2003 Darlington arrays, it achieves synchronized linear motion across all three dimensions simultaneously.
+              </p>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-slate-900/70 border border-slate-800">
+              <h4 class="font-outfit font-bold text-lg text-white mb-2 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                Cutting Mechanism &amp; Thermal Kerf
+              </h4>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Rather than using a spinning router bit that tears cellular foam beads, a calibrated Ni-Chrome resistance wire is heated to roughly 200°C–220°C via regulated DC power. As the wire passes through the material, radiant and conductive heat cleanly vaporizes a razor-thin kerf without mechanical resistance or saw dust.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================== -->
+        <!-- LIVE INTERACTIVE 3-AXIS SIMULATOR (Three.js WebGL Engine)   -->
+        <!-- ========================================================== -->
+        <div id="simulator" class="pt-8">
+          <div class="rounded-3xl bg-slate-900/90 border border-cyan-500/40 p-6 sm:p-8 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,240,255,0.15)]">
+            
+            <!-- Simulator Header Bar -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+              <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 font-mono text-xs mb-2">
+                  <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                  LIVE 3D WEBGL ENGINE
+                </div>
+                <h3 class="font-outfit font-extrabold text-2xl sm:text-3xl text-white">
+                  Interactive 3-Axis CNC Machine Simulator
+                </h3>
+                <p class="text-slate-400 text-sm font-sans">
+                  Interact with the 3D model: drag to rotate view, scroll to zoom, adjust axis sliders or trigger cutting routines.
+                </p>
+              </div>
+
+              <!-- Simulator Status Indicator -->
+              <div class="flex items-center gap-3">
+                <button id="resetSimBtn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono text-xs border border-slate-600 transition-colors">
+                  HOME ALL AXES
+                </button>
+                <button id="toggleHeatBtn" class="px-4 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 font-mono text-xs border border-amber-500/40 transition-colors flex items-center gap-2">
+                  <span id="heatIndicatorDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                  <span id="heatBtnText">HEAT: ON (215°C)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Simulator Main Area (3D Canvas + Control HUD) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
+              
+              <!-- Three.js 3D Viewport -->
+              <div class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-dark-navy/90 border border-slate-800 min-h-[420px] sm:min-h-[500px]">
+                <div id="threeContainer" class="w-full h-full min-h-[420px] sm:min-h-[500px]"></div>
+
+                <!-- 3D Viewport Watermark & Overlay Controls -->
+                <div class="absolute top-4 left-4 pointer-events-none font-mono text-xs text-cyan-400/80 bg-slate-950/70 px-3 py-1.5 rounded-lg border border-cyan-500/20 backdrop-blur-sm">
+                  ROTATION: ORBIT CONTROLS ACTIVE
+                </div>
+
+                <div class="absolute bottom-4 left-4 right-4 pointer-events-none flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
+                  <div class="bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300 backdrop-blur-sm">
+                    COORDINATES: <span id="simCoordReadout" class="text-cyan-400 font-bold">X: 50mm | Y: 50mm | Z: 50mm</span>
+                  </div>
+                  <div class="bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 text-amber-300 backdrop-blur-sm">
+                    WIRE STATUS: <span id="simWireStatus" class="font-bold">HEATED (ACTIVE)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Simulator Controls Sidebar -->
+              <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
+                
+                <!-- Manual Axis Sliders -->
+                <div class="space-y-5 bg-slate-950/60 p-5 rounded-2xl border border-slate-800">
+                  <div class="font-mono text-xs uppercase tracking-wider text-slate-400 flex items-center justify-between">
+                    <span>MANUAL AXIS OVERRIDE</span>
+                    <span class="text-cyan-400">REAL-TIME</span>
+                  </div>
+
+                  <!-- X-Axis Control -->
+                  <div class="space-y-1.5">
+                    <div class="flex items-center justify-between font-mono text-xs">
+                      <span class="text-cyan-400 font-bold">X-AXIS (LATERAL)</span>
+                      <span id="xValText" class="text-slate-300">50 mm</span>
+                    </div>
+                    <input type="range" id="xSlider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                  </div>
+
+                  <!-- Y-Axis Control -->
+                  <div class="space-y-1.5">
+                    <div class="flex items-center justify-between font-mono text-xs">
+                      <span class="text-emerald-400 font-bold">Y-AXIS (LONGITUDINAL)</span>
+                      <span id="yValText" class="text-slate-300">50 mm</span>
+                    </div>
+                    <input type="range" id="ySlider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400">
+                  </div>
+
+                  <!-- Z-Axis Control -->
+                  <div class="space-y-1.5">
+                    <div class="flex items-center justify-between font-mono text-xs">
+                      <span class="text-purple-400 font-bold">Z-AXIS (HEIGHT)</span>
+                      <span id="zValText" class="text-slate-300">50 mm</span>
+                    </div>
+                    <input type="range" id="zSlider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-400">
+                  </div>
+                </div>
+
+                <!-- Automated Trajectory Presets -->
+                <div class="bg-slate-950/60 p-5 rounded-2xl border border-slate-800 space-y-3">
+                  <div class="font-mono text-xs uppercase tracking-wider text-slate-400">
+                    AUTOMATED CUTTING DEMOS
+                  </div>
+                  <div class="grid grid-cols-2 gap-2">
+                    <button onclick="runSimPattern('airfoil')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
+                      <span>NACA AIRFOIL</span>
+                      <span class="text-cyan-400">▶</span>
+                    </button>
+                    <button onclick="runSimPattern('cube')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
+                      <span>STEPPED BLOCK</span>
+                      <span class="text-cyan-400">▶</span>
+                    </button>
+                    <button onclick="runSimPattern('cylinder')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
+                      <span>CYLINDER CORE</span>
+                      <span class="text-cyan-400">▶</span>
+                    </button>
+                    <button onclick="runSimPattern('wave')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
+                      <span>SINE CONTOUR</span>
+                      <span class="text-cyan-400">▶</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Telemetry Notes -->
+                <div class="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/20 text-xs font-mono text-slate-400 space-y-1">
+                  <div class="text-cyan-300 font-semibold">SIMULATOR PHYSICS NOTE</div>
+                  <div>Interactive WebGL visualization demonstrates synchronized Cartesian actuation with simulated thermal kerf displacement.</div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION F – COMPONENTS USED                                    -->
+    <!-- ============================================================== -->
+    <section id="components" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section F // Hardware Architecture
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            COMPONENTS USED
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Carefully selected, cost-effective hardware elements engineered to achieve high dimensional accuracy without expensive industrial overhead.
+          </p>
+        </div>
+
+        <!-- 7 Professional Component Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Component 1: Arduino Nano -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/arduino-nano.svg" alt="Arduino Nano Microcontroller" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs text-cyan-400 font-bold">CONTROLLER</span>
+              <span class="font-mono text-xs text-slate-500">ATmega328P</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Arduino Nano
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Compact 8-bit microcontroller operating at 16 MHz. It serves as the brain of the device, parsing coordinate commands, generating timing pulses, and regulating wire heat via PWM output.
+            </p>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Operating Voltage</span>
+              <span class="text-white font-bold">5V DC</span>
+            </div>
+          </div>
+
+          <!-- Component 2: 28BYJ-48 Stepper Motors -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/stepper-motor-28byj.svg" alt="28BYJ-48 Stepper Motor" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs text-cyan-400 font-bold">ACTUATION</span>
+              <span class="font-mono text-xs text-slate-500">4-Phase 5-Wire</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              28BYJ-48 Stepper Motors
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Geared unipolar stepper motors featuring an internal 64:1 reduction gearbox. Provides high holding torque and 4096 steps per revolution in half-step mode for fine linear positioning.
+            </p>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Gear Ratio</span>
+              <span class="text-white font-bold">64:1 Reduction</span>
+            </div>
+          </div>
+
+          <!-- Component 3: ULN2003 Motor Drivers -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/uln2003-driver.svg" alt="ULN2003 Stepper Driver Module" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs text-cyan-400 font-bold">POWER DRIVER</span>
+              <span class="font-mono text-xs text-slate-500">Darlington Array</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Compatible Motor Drivers
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              High-voltage, high-current Darlington transistor arrays. Amplifies weak 5V logic pulses from the Arduino Nano to supply sufficient coil current for smooth motor stepping with visual status LEDs.
+            </p>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Peak Current</span>
+              <span class="text-white font-bold">500 mA / Channel</span>
+            </div>
+          </div>
+
+          <!-- Component 4: CNC Mechanical Frame -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/cnc-frame.svg" alt="CNC Structural Frame" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs text-cyan-400 font-bold">STRUCTURE</span>
+              <span class="font-mono text-xs text-slate-500">Aluminum &amp; Steel</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              CNC Mechanical Frame
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Rigid chassis built with extruded aluminum profiles, linear guide rods, and bearing blocks. Ensures mechanical rigidity, minimal vibrational deflection, and smooth travel across all 3 axes.
+            </p>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Configuration</span>
+              <span class="text-white font-bold">Cartesian Gantry</span>
+            </div>
+          </div>
+
+          <!-- Component 5: Heated Resistance Wire -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/hot-wire-assembly.svg" alt="Heated Resistance Cutting Wire" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs text-amber-400 font-bold">THERMAL ELEMENT</span>
+              <span class="font-mono text-xs text-slate-500">Ni-Chrome 80/20</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-amber-400 transition-colors">
+              Cutting Wire &amp; Tensioner
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              High-resistance Ni-Chrome alloy wire suspended between spring-loaded ceramic carriage insulators. Thermal expansion is compensated automatically by the spring to keep the wire taught during cutting.
+            </p>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Operating Temp</span>
+              <span class="text-amber-400 font-bold">200°C - 240°C</span>
+            </div>
+          </div>
+
+          <!-- Component 6: Regulated Power Supply -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/electronics-setup.jpg" alt="Regulated Power Supply and Electronics Bench" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs text-cyan-400 font-bold">POWER SYSTEM</span>
+              <span class="font-mono text-xs text-slate-500">Dual-Rail DC</span>
+            </div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Power Supply Unit (PSU)
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Provides clean, isolated voltage lines: a regulated 5V DC line for Arduino logic and stepper drivers, alongside a dedicated high-current supply for the heated resistance wire.
+            </p>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between font-mono text-xs text-slate-400">
+              <span>Protection</span>
+              <span class="text-white font-bold">Short &amp; Over-Current</span>
+            </div>
+          </div>
+
+          <!-- Component 7: Mechanical & Electrical Connections -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl md:col-span-2 lg:col-span-3">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              <div class="lg:col-span-7 h-52 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden p-2 flex items-center justify-center">
+                <img src="assets/images/circuit-schematic.svg" alt="System Wiring Schematic" class="w-full h-full object-contain cursor-pointer" onclick="openLightbox('assets/images/circuit-schematic.svg', 'Complete 3-Axis Controller Wiring Schematic')">
+              </div>
+              <div class="lg:col-span-5 space-y-3">
+                <div class="font-mono text-xs text-cyan-400 font-bold">INTEGRATION &amp; INTERCONNECTS</div>
+                <h3 class="font-outfit font-bold text-2xl text-white">
+                  Mechanical &amp; Electrical Connections
+                </h3>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                  Precision threaded lead screws, brass anti-backlash nuts, flexible aluminum shaft couplers, and organized shielded ribbon cables linking the microcontroller to individual driver stages.
+                </p>
+                <div class="flex items-center gap-3 pt-2">
+                  <button onclick="openLightbox('assets/images/circuit-schematic.svg', 'Wiring Schematic')" class="px-4 py-2 rounded-lg bg-cyan-950 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900/50 font-mono text-xs transition-colors">
+                    VIEW SCHEMATIC (EXPAND)
+                  </button>
+                  <a href="#documentation" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 font-mono text-xs transition-colors">
+                    FIRMWARE PINOUT
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION G – 3D CAD DESIGN SHOWCASE                             -->
+    <!-- ============================================================== -->
+    <section id="cad" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section G // Mechanical Modeling
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            3D CAD DESIGN SHOWCASE
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Engineered in SolidWorks with precise component clearances, stress-bearing gantry calculations, and optimized wire tensioning geometry.
+          </p>
+        </div>
+
+        <!-- CAD Main Feature Display -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
+          
+          <!-- Large CAD Render -->
+          <div class="lg:col-span-8 relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-3xl blur-xl opacity-20 group-hover:opacity-40 transition duration-700"></div>
+            <div class="relative rounded-2xl bg-slate-900/90 border border-cyan-500/30 p-3 overflow-hidden shadow-2xl">
+              
+              <!-- CAD Window Header -->
+              <div class="flex items-center justify-between px-3 py-2 border-b border-slate-800 bg-slate-950/70 rounded-t-xl mb-3">
+                <div class="flex items-center gap-2 font-mono text-xs text-cyan-400">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                  <span>SOLIDWORKS ASSEMBLY // ISOMETRIC VIEW</span>
+                </div>
+                <div class="font-mono text-xs text-slate-400">
+                  MODEL: FOAM-3AXIS-V1.SLDASM
+                </div>
+              </div>
+
+              <!-- Main CAD Graphic with Lightbox -->
+              <div class="rounded-xl overflow-hidden cursor-pointer group/cad" onclick="openLightbox('assets/images/cad-model.jpg', 'SolidWorks 3D CAD Assembly - Full Isometric Model')">
+                <img src="assets/images/cad-model.jpg" alt="SolidWorks CAD Model 3-Axis Foam Cutter" class="w-full h-80 sm:h-[480px] object-cover object-center group-hover/cad:scale-105 transition-transform duration-700">
+                <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between font-mono text-xs bg-slate-950/85 backdrop-blur-md p-3 rounded-xl border border-cyan-500/30">
+                  <div class="text-slate-300">
+                    <span class="text-cyan-400 font-bold">ASSEMBLY:</span> FULL MECHANICAL CHASSIS &amp; WIRE BOW
+                  </div>
+                  <span class="text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- CAD Exploded View & Sub-Assemblies List -->
+          <div class="lg:col-span-4 space-y-4">
+            
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition-colors cursor-pointer" onclick="openLightbox('assets/cad/cad-exploded-view.svg', 'Exploded Assembly Breakdown')">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-cyan-400 font-bold">01 // EXPLODED VIEW</span>
+                <span class="text-xs font-mono text-slate-500">SCHEMATIC</span>
+              </div>
+              <h4 class="font-outfit font-bold text-white text-base mb-1">Exploded Assembly Model</h4>
+              <p class="text-slate-400 text-xs leading-relaxed mb-3">
+                Detailed projection diagram visualizing the layered assembly of base bed, gantry towers, and carriages.
+              </p>
+              <img src="assets/cad/cad-exploded-view.svg" alt="Exploded View CAD" class="w-full h-24 object-contain rounded-lg bg-slate-950 border border-slate-800">
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition-colors">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-cyan-400 font-bold">02 // INDIVIDUAL PARTS</span>
+                <span class="text-xs font-mono text-slate-500">PARAMETRIC</span>
+              </div>
+              <h4 class="font-outfit font-bold text-white text-base mb-1">Gantry &amp; Motor Mounts</h4>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Custom bracket geometry for 28BYJ-48 stepper motors with integrated slots for lead screw alignment.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition-colors">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-cyan-400 font-bold">03 // CUTTING MECHANISM</span>
+                <span class="text-xs font-mono text-slate-500">THERMAL BOW</span>
+              </div>
+              <h4 class="font-outfit font-bold text-white text-base mb-1">Spring-Loaded Wire Bow</h4>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Tensioner assembly maintaining continuous tautness as the Ni-Chrome wire thermally elongates during operation.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Note regarding actual CAD screenshots -->
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-mono text-slate-400 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-cyan-400">ℹ</span>
+            <span>CAD Showcase features high-fidelity SolidWorks assembly renders and replaceable placeholder frames for university lab records.</span>
+          </div>
+          <span class="text-cyan-400 font-bold">DEPT OF MECHANICAL ENGG</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION H – PROJECT DEVELOPMENT TIMELINE                       -->
+    <!-- ============================================================== -->
+    <section id="timeline" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section H // Engineering Roadmap
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            PROJECT DEVELOPMENT
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            A transparent visual timeline tracking our engineering journey from conceptual design to ongoing mechanical and electrical integration.
+          </p>
+        </div>
+
+        <!-- 8 Milestone Visual Timeline -->
+        <div class="relative border-l-2 border-cyan-500/30 ml-4 sm:ml-32 space-y-12">
+          
+          <!-- Stage 1: Initial Concept (Completed) -->
+          <div class="relative pl-8 sm:pl-10 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold shadow-[0_0_12px_rgba(52,211,153,0.5)]">
+              ✓
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-emerald-400">
+              STAGE 01
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-white">Initial Concept</h3>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-mono text-xs font-semibold">
+                  COMPLETED
+                </span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Conducted problem definition workshops in the Makerspace lab. Formulated the core concept of an affordable 3-axis Cartesian machine dedicated to thermal foam processing.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 2: Research and Planning (Completed) -->
+          <div class="relative pl-8 sm:pl-10 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold shadow-[0_0_12px_rgba(52,211,153,0.5)]">
+              ✓
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-emerald-400">
+              STAGE 02
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-white">Research and Planning</h3>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-mono text-xs font-semibold">
+                  COMPLETED
+                </span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Reviewed academic literature on hot-wire thermal kerf dynamics, stepper motor torque curves, lead screw pitch formulas, and embedded kinematics interpolation algorithms.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 3: CAD Design (Completed) -->
+          <div class="relative pl-8 sm:pl-10 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold shadow-[0_0_12px_rgba(52,211,153,0.5)]">
+              ✓
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-emerald-400">
+              STAGE 03
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-white">CAD Design</h3>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-mono text-xs font-semibold">
+                  COMPLETED
+                </span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Created complete SolidWorks 3D CAD assembly models including frame extrusions, lead screw mounts, motor brackets, and spring-loaded cutting wire tensioner.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 4: Component Selection (Completed) -->
+          <div class="relative pl-8 sm:pl-10 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 font-mono text-xs font-bold shadow-[0_0_12px_rgba(52,211,153,0.5)]">
+              ✓
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-emerald-400">
+              STAGE 04
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-white">Component Selection</h3>
+                <span class="px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-mono text-xs font-semibold">
+                  COMPLETED
+                </span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Procured and verified key components: Arduino Nano microcontroller, 28BYJ-48 stepper motors, ULN2003 drivers, structural extrusions, lead screws, and Ni-Chrome resistance wire.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 5: Mechanical Assembly (In Progress) -->
+          <div class="relative pl-8 sm:pl-10 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 font-mono text-xs font-bold shadow-[0_0_15px_rgba(0,240,255,0.6)] animate-pulse">
+              ●
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-cyan-400">
+              STAGE 05
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/90 border border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-white">Mechanical Assembly</h3>
+                <span class="px-2.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/50 text-cyan-300 font-mono text-xs font-semibold flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                  IN PROGRESS
+                </span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Assembling the structural aluminum gantry frame, mounting linear guide rods, installing lead screws, and aligning the 3-axis motion carriages in the university lab.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 6: Electronics Integration (In Progress) -->
+          <div class="relative pl-8 sm:pl-10 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center text-cyan-400 font-mono text-xs font-bold shadow-[0_0_15px_rgba(0,240,255,0.6)] animate-pulse">
+              ●
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-cyan-400">
+              STAGE 06
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/90 border border-cyan-500/50 shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-white">Electronics Integration</h3>
+                <span class="px-2.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/50 text-cyan-300 font-mono text-xs font-semibold flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                  IN PROGRESS
+                </span>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed">
+                Wiring Arduino Nano microcontroller to ULN2003 driver arrays, routing stepper motor leads, testing power delivery buses, and calibrating wire heating control circuitry.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 7: Testing and Improvements (Planned) -->
+          <div class="relative pl-8 sm:pl-10 group opacity-75">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-600 flex items-center justify-center text-slate-400 font-mono text-xs font-bold">
+              ○
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-slate-500">
+              STAGE 07
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-slate-300">Testing and Improvements</h3>
+                <span class="px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-mono text-xs">
+                  PLANNED
+                </span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Scheduled milestone for initial motion validation, cut surface kerf measurement, feed rate optimization, and mechanical rigidity tuning under cutting load.
+              </p>
+            </div>
+          </div>
+
+          <!-- Stage 8: Final Prototype (Planned) -->
+          <div class="relative pl-8 sm:pl-10 group opacity-75">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-slate-900 border-2 border-slate-600 flex items-center justify-center text-slate-400 font-mono text-xs font-bold">
+              ○
+            </div>
+            <div class="hidden sm:block absolute -left-32 top-2 font-mono text-xs font-bold text-slate-500">
+              STAGE 08
+            </div>
+            <div class="p-6 rounded-2xl bg-slate-900/60 border border-slate-800">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-outfit font-bold text-xl text-slate-300">Final Prototype</h3>
+                <span class="px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-mono text-xs">
+                  PLANNED
+                </span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Project culmination featuring full operational demonstration, comprehensive report documentation, and showcase display at Sanjivani University Makerspace exhibitions.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION I – PROJECT GALLERY (With Interactive Filtering)       -->
+    <!-- ============================================================== -->
+    <section id="gallery" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section I // Visual Archives
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            PROJECT GALLERY
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Explore CAD models, component schematics, electronics testing setups, and cutting mechanism perspectives. Click any image to view in high-resolution lightbox.
+          </p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-12 font-mono text-xs">
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-cyan-500 text-black font-bold transition-all" data-filter="all">ALL ASSETS</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="cad">CAD DESIGN</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="mechanical">MECHANICAL PARTS</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="electronics">ELECTRONICS</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="cutting">CUTTING ACTION</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
+          
+          <!-- Item 1: Hero Machine -->
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical" onclick="openLightbox('assets/images/hero-machine.jpg', 'Full Machine Architecture - 3-Axis CNC Foam Cutter')">
+            <div class="h-64 overflow-hidden relative">
+              <img src="assets/images/hero-machine.jpg" alt="3-Axis Foam Cutter Render" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
+              </div>
+            </div>
+            <div class="p-4 border-t border-slate-800">
+              <span class="font-mono text-[10px] text-cyan-400 uppercase">Mechanical Assembly</span>
+              <h4 class="font-outfit font-bold text-white text-base">Full Machine Architecture</h4>
+            </div>
+          </div>
+
+          <!-- Item 2: CAD Assembly -->
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cad" onclick="openLightbox('assets/images/cad-model.jpg', 'SolidWorks 3D CAD Model - Isometric Gantry Assembly')">
+            <div class="h-64 overflow-hidden relative">
+              <img src="assets/images/cad-model.jpg" alt="SolidWorks CAD Model" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
+              </div>
+            </div>
+            <div class="p-4 border-t border-slate-800">
+              <span class="font-mono text-[10px] text-cyan-400 uppercase">CAD Design</span>
+              <h4 class="font-outfit font-bold text-white text-base">SolidWorks Isometric Model</h4>
+            </div>
+          </div>
+
+          <!-- Item 3: Cutting Action -->
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cutting" onclick="openLightbox('assets/images/foam-cutting-action.jpg', 'Macro Thermal Cutting - Glowing Resistance Wire Slicing Foam')">
+            <div class="h-64 overflow-hidden relative">
+              <img src="assets/images/foam-cutting-action.jpg" alt="Hot Wire Foam Cutting Action" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="font-mono text-xs text-amber-400 font-bold">CLICK TO EXPAND ⤢</span>
+              </div>
+            </div>
+            <div class="p-4 border-t border-slate-800">
+              <span class="font-mono text-[10px] text-amber-400 uppercase">Cutting Action</span>
+              <h4 class="font-outfit font-bold text-white text-base">Thermal Hot Wire Ablation</h4>
+            </div>
+          </div>
+
+          <!-- Item 4: Electronics Setup -->
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="electronics" onclick="openLightbox('assets/images/electronics-setup.jpg', 'Electronics Prototyping Workstation - Arduino Nano & Stepper Drivers')">
+            <div class="h-64 overflow-hidden relative">
+              <img src="assets/images/electronics-setup.jpg" alt="Electronics Testing Setup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
+              </div>
+            </div>
+            <div class="p-4 border-t border-slate-800">
+              <span class="font-mono text-[10px] text-cyan-400 uppercase">Electronics</span>
+              <h4 class="font-outfit font-bold text-white text-base">Workstation &amp; Controller Bench</h4>
+            </div>
+          </div>
+
+          <!-- Item 5: Circuit Schematic -->
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="electronics" onclick="openLightbox('assets/images/circuit-schematic.svg', 'Complete 3-Axis CNC Wiring Schematic Diagram')">
+            <div class="h-64 overflow-hidden relative bg-slate-950 p-2 flex items-center justify-center">
+              <img src="assets/images/circuit-schematic.svg" alt="Circuit Schematic" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
+              </div>
+            </div>
+            <div class="p-4 border-t border-slate-800">
+              <span class="font-mono text-[10px] text-cyan-400 uppercase">Electronics</span>
+              <h4 class="font-outfit font-bold text-white text-base">System Wiring Schematic</h4>
+            </div>
+          </div>
+
+          <!-- Item 6: Exploded View CAD -->
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cad" onclick="openLightbox('assets/cad/cad-exploded-view.svg', 'SolidWorks Exploded Assembly Breakdown Diagram')">
+            <div class="h-64 overflow-hidden relative bg-slate-950 p-2 flex items-center justify-center">
+              <img src="assets/cad/cad-exploded-view.svg" alt="CAD Exploded Assembly" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
+              </div>
+            </div>
+            <div class="p-4 border-t border-slate-800">
+              <span class="font-mono text-[10px] text-cyan-400 uppercase">CAD Design</span>
+              <h4 class="font-outfit font-bold text-white text-base">Exploded Assembly View</h4>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION J – APPLICATIONS                                       -->
+    <!-- ============================================================== -->
+    <section id="applications" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section J // Practical Implementations
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            APPLICATIONS
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            The 3-axis CNC foam cutter provides transformative capabilities across diverse educational, industrial, and artistic domains.
+          </p>
+        </div>
+
+        <!-- 6 Application Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- App 1: Architectural Models -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/app-architectural.svg" alt="Architectural Models Fabrication" class="w-full h-full object-contain group-hover:scale-105 transition-transform">
+            </div>
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">SCALE MODELING</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Architectural Models
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Rapid manufacturing of stepped site topographies, structural building mockups, and exterior facade reliefs from high-density blue or pink XPS foam sheets.
+            </p>
+          </div>
+
+          <!-- App 2: Packaging Prototypes -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/app-packaging.svg" alt="Custom Packaging Inserts" class="w-full h-full object-contain group-hover:scale-105 transition-transform">
+            </div>
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">INDUSTRIAL PACKAGING</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Packaging Prototypes
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Custom shock-absorbing enclosures, camera casing inlays, and precision electronic instrument cushion trays tailored exactly to physical device dimensions.
+            </p>
+          </div>
+
+          <!-- App 3: Aerodynamic Models -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="h-44 rounded-xl bg-slate-950 border border-slate-800 overflow-hidden mb-5 p-2 flex items-center justify-center">
+              <img src="assets/images/app-aerodynamics.svg" alt="Aerodynamic Airfoil Wing Sections" class="w-full h-full object-contain group-hover:scale-105 transition-transform">
+            </div>
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">AEROSPACE &amp; RC</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Model Making &amp; Wings
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Precision cutting of NACA airfoil wing profiles, aircraft fuselages, and aerodynamic fairing cores for radio-controlled aviation and wind-tunnel testing.
+            </p>
+          </div>
+
+          <!-- App 4: Educational Projects -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <div class="font-mono text-xs text-blue-400 font-bold mb-2">ACADEMIC STEM</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-blue-400 transition-colors">
+              Educational Projects
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Hands-on instructional platform in university Makerspaces to teach students multi-axis CNC kinematics, stepper microstepping, and microcontroller firmware.
+            </p>
+          </div>
+
+          <!-- App 5: Craft & Design -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+            </div>
+            <div class="font-mono text-xs text-purple-400 font-bold mb-2">CREATIVE ARTS</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-purple-400 transition-colors">
+              Craft &amp; Signage Design
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Dimensional artistic typography, exhibition display logos, movie prop sculpting cores, and custom decorative molds with smooth sealed boundaries.
+            </p>
+          </div>
+
+          <!-- App 6: Foam Prototyping -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z"/></svg>
+            </div>
+            <div class="font-mono text-xs text-emerald-400 font-bold mb-2">RAPID ERGONOMICS</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-emerald-400 transition-colors">
+              Foam Prototyping
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Validating volumetric concepts, ergonomic handles, automotive clay-core mockups, and casting sacrificial patterns before investing in metal machining.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION K – FUTURE SCOPE                                       -->
+    <!-- ============================================================== -->
+    <section id="future" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section K // Forward Vision
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            FUTURE SCOPE
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Strategic engineering enhancements planned for subsequent development iterations to elevate machine autonomy, speed, and capabilities.
+          </p>
+        </div>
+
+        <!-- 5 Future Scope Roadmap Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group">
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">MILESTONE F1</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Improved Automation
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Transitioning to dedicated GRBL/Marlin 32-bit CNC controllers with standalone SD card streaming and touch-screen pendant control for computer-free operation.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group">
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">MILESTONE F2</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Advanced CNC Control (4-Axis)
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Implementing independent dual vertical gantry control (X1-Y1 / X2-Y2) to cut tapered aerofoils, sweeps, and non-parallel 3D transition geometries.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group">
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">MILESTONE F3</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Better Dimensional Accuracy
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Upgrading to NEMA 17 high-torque stepper motors with optical rotary encoder feedback and anti-backlash lead screw nuts for sub-millimeter precision.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group">
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">MILESTONE F4</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Improved Mechanical Structure
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Fabricating a heavy-duty extruded aluminum chassis with dual linear rail MGN12 carriages and rigid corner gussets for vibration dampening.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group md:col-span-2 lg:col-span-2">
+            <div class="font-mono text-xs text-cyan-400 font-bold mb-2">MILESTONE F5</div>
+            <h3 class="font-outfit font-bold text-xl text-white mb-2 group-hover:text-cyan-400 transition-colors">
+              Additional Control &amp; Safety Features
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed">
+              Closed-loop digital PID temperature feedback using an integrated thermistor, hardware emergency stop (E-Stop) interlock, smoke extraction hood, and wireless web telemetry monitoring.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION L – PROJECT TEAM                                       -->
+    <!-- ============================================================== -->
+    <section id="team" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section L // Engineering Innovators
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            MEET OUR TEAM
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-cyan-300 font-mono text-sm sm:text-base font-semibold tracking-wide">
+            "Together, We Turn Engineering Ideas Into Innovative Solutions."
+          </p>
+        </div>
+
+        <!-- 3 Group Members Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          
+          <!-- Member 1: Krushna Jamdar -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-2 transition-all duration-300 group shadow-2xl text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-28 h-28 bg-cyan-500/10 rounded-full blur-xl pointer-events-none"></div>
+            
+            <!-- Replaceable Photograph Placeholder -->
+            <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-cyan-400 to-blue-600 shadow-[0_0_20px_rgba(0,240,255,0.3)]">
+              <img src="assets/images/avatar-krushna.svg" alt="Krushna Jamdar - Project Group Member" class="w-full h-full rounded-full object-cover">
+            </div>
+
+            <h3 class="font-outfit font-bold text-2xl text-white mb-1 group-hover:text-cyan-400 transition-colors">
+              Krushna Jamdar
+            </h3>
+            <div class="font-mono text-xs font-semibold text-cyan-300 mb-3 tracking-wider uppercase">
+              Project Group Member
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Department of Mechanical Engineering <br>
+              <span class="text-slate-300 font-medium">Sanjivani University</span>
+            </div>
+          </div>
+
+          <!-- Member 2: Samiksha Kale -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800 hover:border-indigo-400/60 hover:-translate-y-2 transition-all duration-300 group shadow-2xl text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-28 h-28 bg-indigo-500/10 rounded-full blur-xl pointer-events-none"></div>
+
+            <!-- Replaceable Photograph Placeholder -->
+            <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-indigo-400 to-purple-600 shadow-[0_0_20px_rgba(99,102,241,0.3)]">
+              <img src="assets/images/avatar-samiksha.svg" alt="Samiksha Kale - Project Group Member" class="w-full h-full rounded-full object-cover">
+            </div>
+
+            <h3 class="font-outfit font-bold text-2xl text-white mb-1 group-hover:text-indigo-400 transition-colors">
+              Samiksha Kale
+            </h3>
+            <div class="font-mono text-xs font-semibold text-indigo-300 mb-3 tracking-wider uppercase">
+              Project Group Member
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Department of Mechanical Engineering <br>
+              <span class="text-slate-300 font-medium">Sanjivani University</span>
+            </div>
+          </div>
+
+          <!-- Member 3: Sanket Gujar -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800 hover:border-emerald-400/60 hover:-translate-y-2 transition-all duration-300 group shadow-2xl text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-28 h-28 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
+
+            <!-- Replaceable Photograph Placeholder -->
+            <div class="w-32 h-32 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-emerald-400 to-teal-600 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+              <img src="assets/images/avatar-sanket.svg" alt="Sanket Gujar - Project Group Member" class="w-full h-full rounded-full object-cover">
+            </div>
+
+            <h3 class="font-outfit font-bold text-2xl text-white mb-1 group-hover:text-emerald-400 transition-colors">
+              Sanket Gujar
+            </h3>
+            <div class="font-mono text-xs font-semibold text-emerald-300 mb-3 tracking-wider uppercase">
+              Project Group Member
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Department of Mechanical Engineering <br>
+              <span class="text-slate-300 font-medium">Sanjivani University</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION M – FACULTY GUIDANCE & MENTORS                         -->
+    <!-- ============================================================== -->
+    <section id="faculty" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 font-mono text-xs tracking-wider uppercase mb-3">
+            Section M // Academic Leadership
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            FACULTY GUIDANCE &amp; MENTORS
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-cyan-300 font-mono text-sm sm:text-base font-semibold tracking-wide">
+            "Guided by Knowledge. Inspired by Innovation."
+          </p>
+        </div>
+
+        <!-- 4 Distinct Faculty Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Faculty 1: Dr. Kiran Wakchaure -->
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-cyan-500/50 hover:-translate-y-1 transition-all duration-300 group shadow-xl text-center">
+            <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-cyan-400 to-blue-500 shadow-lg">
+              <img src="assets/images/faculty-kiran.svg" alt="Dr. Kiran Wakchaure" class="w-full h-full rounded-full object-cover">
+            </div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-1 group-hover:text-cyan-400 transition-colors">
+              Dr. Kiran Wakchaure
+            </h3>
+            <div class="font-mono text-xs font-semibold text-cyan-300 mb-2">
+              Director – Projects
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Sanjivani University
+            </div>
+          </div>
+
+          <!-- Faculty 2: Dr. Prathibha Sinha -->
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-indigo-500/50 hover:-translate-y-1 transition-all duration-300 group shadow-xl text-center">
+            <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-indigo-400 to-purple-500 shadow-lg">
+              <img src="assets/images/faculty-prathibha.svg" alt="Dr. Prathibha Sinha" class="w-full h-full rounded-full object-cover">
+            </div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-1 group-hover:text-indigo-400 transition-colors">
+              Dr. Prathibha Sinha
+            </h3>
+            <div class="font-mono text-xs font-semibold text-indigo-300 mb-2">
+              Faculty Mentor
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Sanjivani University
+            </div>
+          </div>
+
+          <!-- Faculty 3: Dr. Vasudeo Singh Singar -->
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-teal-500/50 hover:-translate-y-1 transition-all duration-300 group shadow-xl text-center">
+            <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-teal-400 to-emerald-500 shadow-lg">
+              <img src="assets/images/faculty-vasudeo.svg" alt="Dr. Vasudeo Singh Singar" class="w-full h-full rounded-full object-cover">
+            </div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-1 group-hover:text-teal-400 transition-colors">
+              Dr. Vasudeo Singh Singar
+            </h3>
+            <div class="font-mono text-xs font-semibold text-teal-300 mb-2">
+              Faculty Mentor
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Sanjivani University
+            </div>
+          </div>
+
+          <!-- Faculty 4: Dr. K. C. Bhosale -->
+          <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 hover:border-amber-500/50 hover:-translate-y-1 transition-all duration-300 group shadow-xl text-center">
+            <div class="w-24 h-24 mx-auto mb-5 rounded-full p-1 bg-gradient-to-tr from-amber-400 to-orange-500 shadow-lg">
+              <img src="assets/images/faculty-bhosale.svg" alt="Dr. K. C. Bhosale" class="w-full h-full rounded-full object-cover">
+            </div>
+            <h3 class="font-outfit font-bold text-lg text-white mb-1 group-hover:text-amber-400 transition-colors">
+              Dr. K. C. Bhosale
+            </h3>
+            <div class="font-mono text-xs font-semibold text-amber-300 mb-1">
+              Head of Department (HOD)
+            </div>
+            <div class="text-slate-400 text-[11px] font-sans">
+              Department of Mechanical Engineering
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-2 mt-2">
+              Sanjivani University
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION N – PROJECT DOCUMENTATION & CODE                       -->
+    <!-- ============================================================== -->
+    <section id="documentation" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Section N // Technical Resources
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            PROJECT DOCUMENTATION
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+            Verified technical resources, circuit schematics, SolidWorks CAD models, and ready-to-flash Arduino firmware for university replication and review.
+          </p>
+        </div>
+
+        <!-- Download Cards Grid (Only working downloads for verified files) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          
+          <!-- Doc 1: Technical Specifications -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 font-mono font-bold">
+                JSON
+              </div>
+              <h3 class="font-outfit font-bold text-lg text-white mb-1">Technical Data Sheet</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                Structured machine specifications, kinematics parameters, driver pinouts, and compatible materials data.
+              </p>
+            </div>
+            <a href="assets/documents/project-specifications.json" download="foam-cutter-specifications.json" class="w-full py-2.5 rounded-xl bg-cyan-950 text-cyan-300 hover:bg-cyan-900 border border-cyan-500/40 font-mono text-xs text-center transition-colors font-semibold">
+              DOWNLOAD JSON ↓
+            </a>
+          </div>
+
+          <!-- Doc 2: Arduino Firmware -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 font-mono font-bold">
+                INO
+              </div>
+              <h3 class="font-outfit font-bold text-lg text-white mb-1">Arduino Firmware</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                Fully functional C++ firmware with 8-step half-stepping sequence and PWM wire temperature controller.
+              </p>
+            </div>
+            <a href="assets/documents/arduino_foam_cutter_firmware.ino" download="arduino_foam_cutter_firmware.ino" class="w-full py-2.5 rounded-xl bg-emerald-950 text-emerald-300 hover:bg-emerald-900 border border-emerald-500/40 font-mono text-xs text-center transition-colors font-semibold">
+              DOWNLOAD .INO ↓
+            </a>
+          </div>
+
+          <!-- Doc 3: System Circuit Schematic -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4 font-mono font-bold">
+                SVG
+              </div>
+              <h3 class="font-outfit font-bold text-lg text-white mb-1">Wiring Schematic</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                High-resolution vector schematic depicting Arduino Nano to ULN2003 drivers and stepper motor interconnects.
+              </p>
+            </div>
+            <a href="assets/images/circuit-schematic.svg" download="foam-cutter-circuit-schematic.svg" class="w-full py-2.5 rounded-xl bg-purple-950 text-purple-300 hover:bg-purple-900 border border-purple-500/40 font-mono text-xs text-center transition-colors font-semibold">
+              DOWNLOAD SVG ↓
+            </a>
+          </div>
+
+          <!-- Doc 4: CAD Isometric Blueprint -->
+          <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-colors flex flex-col justify-between">
+            <div>
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4 font-mono font-bold">
+                CAD
+              </div>
+              <h3 class="font-outfit font-bold text-lg text-white mb-1">SolidWorks Assembly</h3>
+              <p class="text-slate-400 text-xs leading-relaxed mb-4">
+                High-detail isometric CAD view render displaying 2020 extrusion framing, lead screws, and wire tensioner bow.
+              </p>
+            </div>
+            <a href="assets/cad/cad-assembly-isometric.jpg" download="foam-cutter-cad-assembly.jpg" class="w-full py-2.5 rounded-xl bg-blue-950 text-blue-300 hover:bg-blue-900 border border-blue-500/40 font-mono text-xs text-center transition-colors font-semibold">
+              DOWNLOAD CAD RENDER ↓
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Embedded Interactive Firmware Code Viewer -->
+        <div class="rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden shadow-2xl">
+          <div class="flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-slate-800">
+            <div class="flex items-center gap-2 font-mono text-xs text-slate-300">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              <span>arduino_foam_cutter_firmware.ino</span>
+            </div>
+            <button id="copyCodeBtn" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 font-mono text-xs border border-slate-700 transition-colors flex items-center gap-1.5">
+              <span id="copyIcon">📋</span> <span id="copyText">COPY CODE</span>
+            </button>
+          </div>
+          <pre class="p-5 font-mono text-xs text-slate-300 overflow-x-auto max-h-80 leading-relaxed scrollbar-thin scrollbar-thumb-slate-700"><code id="firmwareCodeBlock">// 3-Axis Foam Cutter - Arduino Nano Firmware
+const int X_IN1 = 2; const int X_IN2 = 3; const int X_IN3 = 4; const int X_IN4 = 5;
+const int Y_IN1 = 6; const int Y_IN2 = 7; const int Y_IN3 = 8; const int Y_IN4 = 9;
+const int Z_IN1 = 10; const int Z_IN2 = 11; const int Z_IN3 = 12; const int Z_IN4 = 13;
+const int WIRE_PWM_PIN = A0;
+
+// 8-Step Half-Stepping Sequence for 28BYJ-48
+const int stepLookup[8][4] = {
+  {1, 0, 0, 0}, {1, 1, 0, 0}, {0, 1, 0, 0}, {0, 1, 1, 0},
+  {0, 0, 1, 0}, {0, 0, 1, 1}, {0, 0, 0, 1}, {1, 0, 0, 1}
+};
+
+void setup() {
+  Serial.begin(115200);
+  for (int pin = 2; pin &lt;= 13; pin++) pinMode(pin, OUTPUT);
+  pinMode(WIRE_PWM_PIN, OUTPUT);
+  analogWrite(WIRE_PWM_PIN, 0); // Safe default: heater off
+  Serial.println(F("SANJIVANI UNIVERSITY - FOAM CUTTER READY"));
+}
+
+void loop() {
+  // Command Parser & Kinematics Routine
+}</code></pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SECTION O – CONTACT & FOOTER                                   -->
+    <!-- ============================================================== -->
+    <footer id="contact" class="border-t border-slate-800 bg-slate-950 py-16 px-4 sm:px-6 lg:px-8 relative z-20">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Top Footer Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-slate-800">
+          
+          <!-- Column 1: Institutional Attribution -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center p-1">
+                <img src="assets/icons/sanjivani-logo.svg" alt="Sanjivani Logo" class="w-full h-full object-contain">
+              </div>
+              <div>
+                <div class="font-outfit font-bold text-white text-base">SANJIVANI UNIVERSITY</div>
+                <div class="font-mono text-[10px] text-cyan-400">MAKERSPACE INNOVATION LAB</div>
+              </div>
+            </div>
+            <p class="text-slate-400 text-xs leading-relaxed font-sans">
+              Department of Mechanical Engineering, Sanjivani University. Dedicated to advancing project-based engineering education and smart automation.
+            </p>
+            <div class="font-mono text-xs text-slate-500">
+              Project Category: Makerspace | CNC Automation
+            </div>
+          </div>
+
+          <!-- Column 2: Student Project Members -->
+          <div class="space-y-3">
+            <h4 class="font-mono text-xs font-bold text-cyan-400 uppercase tracking-wider">PROJECT GROUP MEMBERS</h4>
+            <ul class="space-y-2 text-xs font-mono text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                <span>Krushna Jamdar</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>Samiksha Kale</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span>Sanket Gujar</span>
+              </li>
+            </ul>
+            <p class="text-[11px] text-slate-500 pt-1 font-sans">
+              Mechanical Engineering Undergraduates
+            </p>
+          </div>
+
+          <!-- Column 3: Faculty Guidance Credits -->
+          <div class="space-y-3">
+            <h4 class="font-mono text-xs font-bold text-cyan-400 uppercase tracking-wider">FACULTY GUIDANCE</h4>
+            <ul class="space-y-1.5 text-xs text-slate-300 font-sans">
+              <li>
+                <div class="font-semibold text-white">Dr. Kiran Wakchaure</div>
+                <div class="text-[11px] text-slate-400 font-mono">Director – Projects</div>
+              </li>
+              <li>
+                <div class="font-semibold text-white">Dr. Prathibha Sinha</div>
+                <div class="text-[11px] text-slate-400 font-mono">Faculty Mentor</div>
+              </li>
+              <li>
+                <div class="font-semibold text-white">Dr. Vasudeo Singh Singar</div>
+                <div class="text-[11px] text-slate-400 font-mono">Faculty Mentor</div>
+              </li>
+              <li>
+                <div class="font-semibold text-white">Dr. K. C. Bhosale</div>
+                <div class="text-[11px] text-slate-400 font-mono">Head of Department (HOD)</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Quick Navigation -->
+          <div class="space-y-3">
+            <h4 class="font-mono text-xs font-bold text-cyan-400 uppercase tracking-wider">NAVIGATION</h4>
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono text-slate-400">
+              <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+              <a href="#problem" class="hover:text-cyan-400 transition-colors">Problem</a>
+              <a href="#objectives" class="hover:text-cyan-400 transition-colors">Objectives</a>
+              <a href="#working" class="hover:text-cyan-400 transition-colors">Principle</a>
+              <a href="#simulator" class="hover:text-cyan-400 transition-colors">3D Simulator</a>
+              <a href="#components" class="hover:text-cyan-400 transition-colors">Hardware</a>
+              <a href="#cad" class="hover:text-cyan-400 transition-colors">3D CAD</a>
+              <a href="#timeline" class="hover:text-cyan-400 transition-colors">Timeline</a>
+              <a href="#gallery" class="hover:text-cyan-400 transition-colors">Gallery</a>
+              <a href="#documentation" class="hover:text-cyan-400 transition-colors">Downloads</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Copyright & Academic Attribution -->
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+          <div>
+            DESIGN AND DEVELOPMENT OF A FOAM CUTTING 3-AXIS DEVICE © 2026.
+          </div>
+          <div class="flex items-center gap-2">
+            <span>Sanjivani University</span>
+            <span>•</span>
+            <span>Department of Mechanical Engineering</span>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- LIGHTBOX MODAL (Image Zoom & Inspection)                        -->
+  <!-- ============================================================== -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl hidden items-center justify-center p-4">
+    <!-- Close Button -->
+    <button onclick="closeLightbox()" aria-label="Close lightbox" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-800 text-white hover:bg-cyan-500 hover:text-black flex items-center justify-center font-mono font-bold text-xl transition-colors z-20">
+      ✕
+    </button>
+
+    <!-- Modal Content Box -->
+    <div class="max-w-5xl w-full max-h-[90vh] flex flex-col items-center">
+      <div class="relative w-full flex items-center justify-center overflow-hidden rounded-2xl bg-slate-950 border border-cyan-500/30 p-2">
+        <img id="lightboxImg" src="" alt="Expanded Preview" class="max-h-[75vh] w-auto max-w-full object-contain rounded-xl">
+      </div>
+      <div class="mt-4 text-center">
+        <p id="lightboxCaption" class="font-outfit text-white text-base font-semibold"></p>
+        <p class="font-mono text-xs text-cyan-400 mt-1">Sanjivani University Makerspace Engineering Archive</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTopBtn" aria-label="Scroll back to top" class="fixed bottom-6 right-6 z-40 p-3 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500 hover:text-black transition-all shadow-[0_0_15px_rgba(0,240,255,0.3)] opacity-0 pointer-events-none transform translate-y-4">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
+
+  <!-- Interactive JavaScript Application -->
+  <script src="script.js"></script>
+</body>
+</html>
