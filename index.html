@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Foam Cutting 3-Axis Device | Sanjivani University</title>
   <meta name="description" content="Design and development of a Foam Cutting 3-Axis Device at Sanjivani University. Explore the partially assembled prototype, its visible components and the intended mechanical design.">
-  <meta name="keywords" content="CNC Foam Cutter, 3-Axis Foam Cutting, Sanjivani University, Mechanical Engineering, Makerspace, Arduino Nano, 28BYJ-48 Stepper, Hot Wire Cutter">
+  <meta name="keywords" content="Foam Cutting 3-Axis Device, foam cutter prototype, Sanjivani University, Mechanical Engineering, Makerspace, Arduino-based controller, rack mechanism, stepper motor">
   <meta name="author" content="Krushna Jamdar, Samiksha Kale, Sanket Gujar">
 
   <!-- Open Graph / Social Sharing Meta -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Foam Cutting 3-Axis Device | Makerspace Engineering Project">
   <meta property="og:description" content="Precision Engineering. Smart Automation. Creative Manufacturing. Sanjivani University Department of Mechanical Engineering.">
-  <meta property="og:image" content="public/images/prototype/foam-cutter-prototype.jpg">
+  <meta property="og:image" content="public/images/project/complete-prototype.jpg">
+  <meta name="theme-color" content="#f5f8fc">
 
   <!-- Google Fonts Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,6 +42,28 @@
         }
       }
     }
+  </script>
+
+  <script>
+    (() => {
+      const storageKey = 'foam-cutter-theme';
+      let savedTheme = null;
+      let hasSavedTheme = false;
+      try {
+        savedTheme = localStorage.getItem(storageKey);
+        hasSavedTheme = savedTheme === 'dark' || savedTheme === 'light';
+      } catch (error) {
+        console.warn('Theme preference storage is unavailable; using the system preference.', error);
+      }
+
+      const systemPrefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      const theme = hasSavedTheme
+        ? savedTheme
+        : systemPrefersDark ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.dataset.themeSource = hasSavedTheme ? 'saved' : 'system';
+      document.documentElement.style.colorScheme = theme;
+    })();
   </script>
 
   <!-- Main Stylesheet -->
@@ -89,18 +112,28 @@
       </nav>
 
       <!-- Header Action Buttons -->
-      <div class="hidden sm:flex items-center gap-3">
-        <a href="#simulator" class="relative group px-4 py-2 rounded-lg font-mono text-xs font-semibold text-cyan-300 bg-cyan-950/40 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/20 transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)] flex items-center gap-2">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="#simulator" class="hidden sm:flex relative group px-4 py-2 rounded-lg font-mono text-xs font-semibold text-cyan-300 bg-cyan-950/40 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/20 transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)] items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
           3D SIMULATOR
         </a>
-        <a href="#documentation" class="px-3.5 py-2 rounded-lg font-mono text-xs text-slate-300 bg-slate-800/80 border border-slate-700 hover:border-slate-500 transition-colors">
+        <a href="#documentation" class="hidden sm:inline-flex px-3.5 py-2 rounded-lg font-mono text-xs text-slate-300 bg-slate-800/80 border border-slate-700 hover:border-slate-500 transition-colors">
           DOCS
         </a>
+        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle color theme" title="Toggle color theme">
+          <svg data-theme-icon="light" class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4" stroke-width="1.8"></circle>
+            <path stroke-linecap="round" stroke-width="1.8" d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+          </svg>
+          <svg data-theme-icon="dark" class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" hidden>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.6 8.6 0 1 0 20.2 15.4Z"></path>
+          </svg>
+        </button>
+        <span id="themeStatus" class="sr-only" role="status" aria-live="polite"></span>
       </div>
 
       <!-- Mobile Menu Toggle Button -->
-      <button id="mobileMenuBtn" aria-label="Toggle navigation menu" class="lg:hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-cyan-400 focus:outline-none">
+      <button id="mobileMenuBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu" class="lg:hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-cyan-400 focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path id="hamburgerIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -122,7 +155,9 @@
         <a href="#cad" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">3D CAD Model</a>
         <a href="#timeline" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Development Timeline</a>
         <a href="#gallery" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Project Gallery</a>
+        <a href="#advantages" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Advantages</a>
         <a href="#applications" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Applications</a>
+        <a href="#limitations" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Limitations</a>
         <a href="#future" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Future Scope</a>
         <a href="#team" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Meet Our Team</a>
         <a href="#faculty" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Faculty Guidance</a>
@@ -228,8 +263,8 @@
               </div>
 
               <!-- Machine Render Image with Zoom Lightbox Trigger -->
-              <div class="relative rounded-xl overflow-hidden cursor-pointer group/img" onclick="openLightbox('public/images/prototype/foam-cutter-prototype.jpg', 'Actual Foam Cutting 3-Axis Device prototype')">
-                <img src="public/images/prototype/foam-cutter-prototype.jpg" alt="Actual partially assembled Foam Cutting 3-Axis Device prototype with white printed racks, stepper motors, controller electronics and wiring" loading="eager" fetchpriority="high" decoding="async" class="w-full h-80 sm:h-96 object-contain bg-slate-950 transform group-hover/img:scale-[1.02] transition-transform duration-700">
+              <div class="relative rounded-xl overflow-hidden cursor-pointer group/img" onclick="openLightbox('public/images/project/complete-prototype.jpg', 'Actual Foam Cutting 3-Axis Device prototype')">
+                <img src="public/images/project/complete-prototype.jpg" alt="Actual partially assembled Foam Cutting 3-Axis Device prototype with white printed racks, stepper motors, controller electronics and wiring" loading="eager" fetchpriority="high" decoding="async" class="w-full h-80 sm:h-96 object-contain bg-slate-950 transform group-hover/img:scale-[1.02] transition-transform duration-700">
                 
                 <!-- Overlay HUD lines -->
                 <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent pointer-events-none"></div>
@@ -286,8 +321,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           <div class="lg:col-span-8">
             <div class="relative h-full min-h-[420px] rounded-3xl overflow-hidden border border-cyan-500/30 bg-slate-900 cursor-pointer group shadow-[0_0_40px_rgba(0,240,255,0.12)]"
-                 onclick="openLightbox('public/images/prototype/foam-cutter-prototype.jpg', 'Actual Foam Cutting 3-Axis Device prototype')">
-              <img src="public/images/prototype/foam-cutter-prototype.jpg"
+                 onclick="openLightbox('public/images/project/complete-prototype.jpg', 'Actual Foam Cutting 3-Axis Device prototype')">
+              <img src="public/images/project/complete-prototype.jpg"
                    alt="Actual white 3D-printed Foam Cutting 3-Axis Device prototype"
                    loading="lazy" decoding="async"
                    class="w-full h-full min-h-[420px] object-contain bg-slate-950 transform group-hover:scale-[1.02] transition-transform duration-700">
@@ -333,7 +368,7 @@
           </h2>
           <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Bridging mechanical kinematics, embedded control, and thermal physics to revolutionize low-cost rapid prototyping for engineering and architectural modeling.
+            An undergraduate mechanical engineering project exploring rack-based movement, stepper motors and controller electronics for a compact foam-cutting concept.
           </p>
         </div>
 
@@ -388,7 +423,7 @@
               What Makes It Useful?
             </h3>
             <p class="text-slate-300 leading-relaxed text-sm sm:text-base">
-              It delivers near-zero material wastage, smooth sealed edges, identical duplicate batches, and extreme cost savings. Engineering students, architects, and product designers can iterate physical mockups within minutes instead of hours of painstaking manual carving.
+              The intended system aims to reduce manual effort and improve repeatability compared with hand cutting. Smooth edges, reduced material waste, cost savings and cutting time have not been established by the partially assembled prototype.
             </p>
           </div>
 
@@ -565,7 +600,7 @@
               Improve Cutting Accuracy
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Leverage lead screws and microstepping motor drivers to eliminate backlash and human hand tremors, producing clean, sharp geometric edges.
+              Develop and evaluate the rack-and-pinion motion and stepper-motor arrangement. Backlash, positioning accuracy and cut quality remain to be tested on the assembled device.
             </p>
           </div>
 
@@ -699,133 +734,133 @@
           </div>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- LIVE INTERACTIVE 3-AXIS SIMULATOR (Three.js WebGL Engine)   -->
-        <!-- ========================================================== -->
+        <!-- Photo-referenced XY assembly model; Z motion and wire heating are intentionally omitted. -->
         <div id="simulator" class="pt-8">
-          <div class="rounded-3xl bg-slate-900/90 border border-cyan-500/40 p-6 sm:p-8 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,240,255,0.15)]">
-            
-            <!-- Simulator Header Bar -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
-              <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 font-mono text-xs mb-2">
-                  <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                  3D WEBGL CONCEPT SIMULATION
+          <div class="sim-shell rounded-3xl bg-slate-900/90 border border-cyan-500/40 p-5 sm:p-8 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,240,255,0.15)]">
+            <header class="pb-6 border-b border-slate-800">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 font-mono text-xs mb-2">
+                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                PHOTO-REFERENCED MODEL // SIMULATED MOTION ONLY
+              </div>
+              <h3 class="font-outfit font-extrabold text-2xl sm:text-3xl text-white">Interactive 3D Prototype Simulation</h3>
+              <p class="text-slate-400 text-sm font-sans">Explore the actual mechanical design of our Foam Cutting 3-Axis Device through a model based on the available prototype photo. XY movement is a demonstration only, not physical machine control.</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+              <div class="lg:col-span-8">
+                <div id="threeViewport" class="sim-viewport relative rounded-2xl overflow-hidden border border-slate-800 min-h-[440px] sm:min-h-[560px]">
+                  <div id="threeContainer" class="w-full h-[440px] sm:h-[560px]"></div>
+                  <div class="sim-camera-controls absolute top-3 right-3 z-10 flex flex-wrap justify-end gap-1.5" role="group" aria-label="Model camera views">
+                    <button class="sim-ui-button" data-camera-view="front" type="button" aria-pressed="false">FRONT</button>
+                    <button class="sim-ui-button" data-camera-view="side" type="button" aria-pressed="false">SIDE</button>
+                    <button class="sim-ui-button" data-camera-view="top" type="button" aria-pressed="false">TOP</button>
+                    <button class="sim-ui-button" data-camera-view="isometric" type="button" aria-pressed="true">ISO</button>
+                    <button id="resetCameraBtn" class="sim-ui-button" type="button">RESET VIEW</button>
+                  </div>
+                  <div class="sim-pan-controls absolute bottom-16 right-3 z-10 grid grid-cols-3 gap-1" role="group" aria-label="Pan camera view">
+                    <span></span><button class="sim-ui-button" type="button" data-camera-pan="up" aria-label="Pan view up">↑</button><span></span>
+                    <button class="sim-ui-button" type="button" data-camera-pan="left" aria-label="Pan view left">←</button>
+                    <button class="sim-ui-button" type="button" data-camera-pan="down" aria-label="Pan view down">↓</button>
+                    <button class="sim-ui-button" type="button" data-camera-pan="right" aria-label="Pan view right">→</button>
+                  </div>
+                  <div class="sim-viewport-note absolute top-3 left-3 z-10 rounded-lg px-3 py-2 font-mono text-[10px] sm:text-xs">
+                    Drag to orbit · wheel/pinch to zoom · right/two-finger drag to pan
+                  </div>
+                  <div class="sim-readout absolute bottom-3 left-3 right-3 z-10 flex flex-wrap items-center justify-between gap-2 rounded-lg px-3 py-2 font-mono text-xs">
+                    <span id="simPositionReadout">X: CENTER · Y: CENTER</span>
+                    <span id="simMotionStatus" role="status" aria-live="polite">XY DEMO READY · NOT HARDWARE CONTROL</span>
+                  </div>
                 </div>
-                <h3 class="font-outfit font-extrabold text-2xl sm:text-3xl text-white">
-                  Interactive 3-Axis Motion Simulation
-                </h3>
-                <p class="text-slate-400 text-sm font-sans">
-                  This visualization is a concept simulation only; it does not connect to or control the physical prototype. Drag to rotate, scroll to zoom and explore simulated axis motion.
-                </p>
               </div>
 
-              <!-- Simulator Status Indicator -->
-              <div class="flex items-center gap-3">
-                <button id="resetSimBtn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono text-xs border border-slate-600 transition-colors">
-                  HOME ALL AXES
-                </button>
-                <button id="toggleHeatBtn" class="px-4 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 font-mono text-xs border border-amber-500/40 transition-colors flex items-center gap-2">
-                  <span id="heatIndicatorDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                  <span id="heatBtnText">SIMULATED HEAT: ON</span>
-                </button>
+              <aside class="lg:col-span-4 space-y-5">
+                <section class="sim-panel p-4 sm:p-5 rounded-2xl border border-slate-800" aria-labelledby="simControlsTitle">
+                  <div class="flex items-center justify-between gap-3 mb-4">
+                    <h4 id="simControlsTitle" class="font-mono text-xs uppercase tracking-wider text-slate-300">XY Motion Demonstration</h4>
+                    <span class="text-cyan-400 font-mono text-[10px]">NO Z DRIVE MODELLED</span>
+                  </div>
+
+                  <div class="space-y-4">
+                    <label class="block space-y-1.5">
+                      <span class="flex items-center justify-between font-mono text-xs">
+                        <span class="text-cyan-400 font-bold">X · LEFT / RIGHT</span>
+                        <span id="xValText" class="text-slate-300">CENTER</span>
+                      </span>
+                      <input type="range" id="xSlider" min="0" max="100" value="50" aria-label="Simulated X-axis position" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                    </label>
+
+                    <label class="block space-y-1.5">
+                      <span class="flex items-center justify-between font-mono text-xs">
+                        <span class="text-blue-400 font-bold">Y · FORWARD / BACK</span>
+                        <span id="yValText" class="text-slate-300">CENTER</span>
+                      </span>
+                      <input type="range" id="ySlider" min="0" max="100" value="50" aria-label="Simulated Y-axis position" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-blue-400">
+                    </label>
+
+                    <div class="sim-direction-pad grid grid-cols-3 gap-2" role="group" aria-label="Step the simulated axes">
+                      <span></span>
+                      <button class="sim-ui-button" type="button" data-move-axis="y" data-move-direction="-1" aria-label="Move simulated Y backward">BACK</button>
+                      <span></span>
+                      <button class="sim-ui-button" type="button" data-move-axis="x" data-move-direction="-1" aria-label="Move simulated X left">LEFT</button>
+                      <button class="sim-ui-button sim-center-button" type="button" data-move-axis="y" data-move-direction="1" aria-label="Move simulated Y forward">FWD</button>
+                      <button class="sim-ui-button" type="button" data-move-axis="x" data-move-direction="1" aria-label="Move simulated X right">RIGHT</button>
+                    </div>
+
+                    <label class="block space-y-1.5">
+                      <span class="flex items-center justify-between font-mono text-xs">
+                        <span class="text-slate-300">MOVEMENT SPEED</span>
+                        <span id="speedValue" class="text-slate-300">5 / 10</span>
+                      </span>
+                      <input type="range" id="speedSlider" min="1" max="10" value="5" aria-label="Simulated movement speed" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                    </label>
+
+                    <div class="grid grid-cols-3 gap-2">
+                      <button id="homeXYBtn" class="sim-ui-button" type="button">HOME XY</button>
+                      <button id="stopMotionBtn" class="sim-ui-button sim-stop-button" type="button">STOP</button>
+                      <button id="runXYDemoBtn" class="sim-ui-button" type="button">XY DEMO</button>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">The photo shows two rack-and-motor arrangements. A separate vertical Z drive is not confirmed, so this demonstration only moves the pictured XY-style assembly.</p>
+                  </div>
+                </section>
+
+                <section class="sim-panel p-4 sm:p-5 rounded-2xl border border-slate-800" aria-labelledby="componentInfoHeading">
+                  <div class="font-mono text-[10px] uppercase tracking-wider text-cyan-400 mb-2">Select a model part</div>
+                  <div id="componentInfo" aria-live="polite" aria-atomic="true">
+                    <div class="flex items-start justify-between gap-2">
+                      <h4 id="componentName" class="font-outfit font-bold text-lg text-white">Prototype component</h4>
+                      <span id="componentStatus" class="sim-status-badge">SELECT A PART</span>
+                    </div>
+                    <dl class="mt-3 space-y-2 text-xs">
+                      <div><dt class="sim-detail-label">Function</dt><dd id="componentFunction" class="text-slate-300">Click a 3D part or choose a component below.</dd></div>
+                      <div><dt class="sim-detail-label">Material</dt><dd id="componentMaterial" class="text-slate-300">Not specified.</dd></div>
+                      <div><dt class="sim-detail-label">Notes</dt><dd id="componentDescription" class="text-slate-400 leading-relaxed">Model details are limited to what can be seen in the project photo.</dd></div>
+                    </dl>
+                  </div>
+                </section>
+              </aside>
+            </div>
+
+            <div class="mt-5">
+              <h4 class="font-mono text-xs uppercase tracking-wider text-slate-400 mb-2">Visible and referenced components</h4>
+              <div class="flex flex-wrap gap-2" role="group" aria-label="Choose a component to inspect">
+                <button class="sim-component-button" type="button" data-component-id="base">MDF BASE</button>
+                <button class="sim-component-button" type="button" data-component-id="rackX">HORIZONTAL RACK</button>
+                <button class="sim-component-button" type="button" data-component-id="rackY">PERPENDICULAR RACK</button>
+                <button class="sim-component-button" type="button" data-component-id="pinion">PINION · ILLUSTRATIVE</button>
+                <button class="sim-component-button" type="button" data-component-id="motor">28BYJ-48 MOTOR</button>
+                <button class="sim-component-button" type="button" data-component-id="mount">PRINTED MOUNT</button>
+                <button class="sim-component-button" type="button" data-component-id="bow">WIRE SUPPORT</button>
+                <button class="sim-component-button" type="button" data-component-id="wire">CUTTING WIRE</button>
+                <button class="sim-component-button" type="button" data-component-id="controller">CONTROLLER · MODEL UNVERIFIED</button>
+                <button class="sim-component-button" type="button" data-component-id="shield">CNC SHIELD</button>
+                <button class="sim-component-button" type="button" data-component-id="drivers">DRIVER MODULES · MODEL UNVERIFIED</button>
+                <button class="sim-component-button" type="button" data-component-id="power">BATTERY / POWER ARRANGEMENT</button>
+                <button class="sim-component-button" type="button" data-component-id="arduinoNano">ARDUINO NANO · NOT CONFIRMED</button>
+                <button class="sim-component-button" type="button" data-component-id="zAxis">Z AXIS · NOT MODELLED</button>
               </div>
             </div>
 
-            <!-- Simulator Main Area (3D Canvas + Control HUD) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
-              
-              <!-- Three.js 3D Viewport -->
-              <div class="lg:col-span-8 relative rounded-2xl overflow-hidden bg-dark-navy/90 border border-slate-800 min-h-[420px] sm:min-h-[500px]">
-                <div id="threeContainer" class="w-full h-full min-h-[420px] sm:min-h-[500px]"></div>
-
-                <!-- 3D Viewport Watermark & Overlay Controls -->
-                <div class="absolute top-4 left-4 pointer-events-none font-mono text-xs text-cyan-400/80 bg-slate-950/70 px-3 py-1.5 rounded-lg border border-cyan-500/20 backdrop-blur-sm">
-                  ROTATION: ORBIT CONTROLS ACTIVE
-                </div>
-
-                <div class="absolute bottom-4 left-4 right-4 pointer-events-none flex flex-wrap items-center justify-between gap-2 font-mono text-xs">
-                  <div class="bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300 backdrop-blur-sm">
-                    COORDINATES: <span id="simCoordReadout" class="text-cyan-400 font-bold">X: 50mm | Y: 50mm | Z: 50mm</span>
-                  </div>
-                  <div class="bg-slate-950/80 px-3 py-1.5 rounded-lg border border-slate-800 text-amber-300 backdrop-blur-sm">
-                    WIRE STATUS: <span id="simWireStatus" class="font-bold">SIMULATION (ACTIVE)</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Simulator Controls Sidebar -->
-              <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
-                
-                <!-- Manual Axis Sliders -->
-                <div class="space-y-5 bg-slate-950/60 p-5 rounded-2xl border border-slate-800">
-                  <div class="font-mono text-xs uppercase tracking-wider text-slate-400 flex items-center justify-between">
-                    <span>MANUAL AXIS OVERRIDE</span>
-                    <span class="text-cyan-400">REAL-TIME</span>
-                  </div>
-
-                  <!-- X-Axis Control -->
-                  <div class="space-y-1.5">
-                    <div class="flex items-center justify-between font-mono text-xs">
-                      <span class="text-cyan-400 font-bold">X-AXIS (LATERAL)</span>
-                      <span id="xValText" class="text-slate-300">50 mm</span>
-                    </div>
-                    <input type="range" id="xSlider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
-                  </div>
-
-                  <!-- Y-Axis Control -->
-                  <div class="space-y-1.5">
-                    <div class="flex items-center justify-between font-mono text-xs">
-                      <span class="text-emerald-400 font-bold">Y-AXIS (LONGITUDINAL)</span>
-                      <span id="yValText" class="text-slate-300">50 mm</span>
-                    </div>
-                    <input type="range" id="ySlider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400">
-                  </div>
-
-                  <!-- Z-Axis Control -->
-                  <div class="space-y-1.5">
-                    <div class="flex items-center justify-between font-mono text-xs">
-                      <span class="text-purple-400 font-bold">Z-AXIS (HEIGHT)</span>
-                      <span id="zValText" class="text-slate-300">50 mm</span>
-                    </div>
-                    <input type="range" id="zSlider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-400">
-                  </div>
-                </div>
-
-                <!-- Automated Trajectory Presets -->
-                <div class="bg-slate-950/60 p-5 rounded-2xl border border-slate-800 space-y-3">
-                  <div class="font-mono text-xs uppercase tracking-wider text-slate-400">
-                    AUTOMATED CUTTING DEMOS
-                  </div>
-                  <div class="grid grid-cols-2 gap-2">
-                    <button onclick="runSimPattern('airfoil')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
-                      <span>NACA AIRFOIL</span>
-                      <span class="text-cyan-400">▶</span>
-                    </button>
-                    <button onclick="runSimPattern('cube')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
-                      <span>STEPPED BLOCK</span>
-                      <span class="text-cyan-400">▶</span>
-                    </button>
-                    <button onclick="runSimPattern('cylinder')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
-                      <span>CYLINDER CORE</span>
-                      <span class="text-cyan-400">▶</span>
-                    </button>
-                    <button onclick="runSimPattern('wave')" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-cyan-950 text-slate-200 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/50 font-mono text-xs transition-colors text-left flex items-center justify-between">
-                      <span>SINE CONTOUR</span>
-                      <span class="text-cyan-400">▶</span>
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Telemetry Notes -->
-                <div class="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/20 text-xs font-mono text-slate-400 space-y-1">
-                  <div class="text-cyan-300 font-semibold">SIMULATOR PHYSICS NOTE</div>
-                  <div>Interactive WebGL visualization demonstrates synchronized Cartesian actuation with simulated thermal kerf displacement.</div>
-                </div>
-
-              </div>
-            </div>
-
+            <p class="mt-4 text-slate-400 text-xs leading-relaxed">White parts are represented as printed plastic and the brown plate as MDF based on their appearance; exact dimensions, filament, pinion profile, wiring, controller model and power ratings were not available. The model shows two visible motor/rack sections only; it does not claim confirmed machine travel, wire heating, or physical control.</p>
           </div>
         </div>
 
@@ -843,8 +878,8 @@
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">The design intends coordinated movement along three axes. The current build is only partially assembled; full three-axis travel and cutting have not been verified.</p>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div class="lg:col-span-6 rounded-2xl overflow-hidden border border-cyan-500/30 bg-slate-900 cursor-pointer" onclick="openLightbox('public/images/prototype/foam-cutter-prototype.jpg', 'Actual prototype showing printed structure and rack-based motion parts')">
-            <img src="public/images/prototype/foam-cutter-prototype.jpg" alt="Actual partially assembled prototype showing white printed frame pieces, rack components and stepper motors" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-contain bg-slate-950">
+          <div class="lg:col-span-6 rounded-2xl overflow-hidden border border-cyan-500/30 bg-slate-900 cursor-pointer" onclick="openLightbox('public/images/project/complete-prototype.jpg', 'Actual prototype showing printed structure and rack-based motion parts')">
+            <img src="public/images/project/complete-prototype.jpg" alt="Actual partially assembled prototype showing white printed frame pieces, rack components and stepper motors" loading="lazy" decoding="async" class="w-full aspect-[4/3] object-contain bg-slate-950">
           </div>
           <div class="lg:col-span-6 space-y-4">
             <div class="p-5 rounded-2xl bg-slate-900/80 border border-cyan-500/30">
@@ -887,7 +922,7 @@
           <!-- Component 1: Arduino Nano -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/controller-electronics.jpg" alt="Arduino-based controller board, CNC shield and plug-in driver modules in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/controller-electronics.jpg" alt="Arduino-based controller board, CNC shield and plug-in driver modules in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">CONTROLLER</span>
@@ -908,7 +943,7 @@
           <!-- Component 2: 28BYJ-48 Stepper Motors -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/stepper-rack.jpg" alt="28BYJ-48 stepper motor beside a printed rack in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/stepper-rack.jpg" alt="28BYJ-48 stepper motor beside a printed rack in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">ACTUATION</span>
@@ -929,7 +964,7 @@
           <!-- Component 3: ULN2003 Motor Drivers -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/controller-electronics.jpg" alt="Plug-in stepper driver modules installed on the actual CNC shield; exact module model is unverified" loading="lazy" decoding="async" class="w-full h-full object-cover object-left group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/controller-electronics.jpg" alt="Plug-in stepper driver modules installed on the actual CNC shield; exact module model is unverified" loading="lazy" decoding="async" class="w-full h-full object-cover object-left group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">POWER DRIVER</span>
@@ -950,7 +985,7 @@
           <!-- CNC Shield -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5">
-              <img src="public/images/prototype/controller-electronics.jpg" alt="Red CNC shield visible beneath plug-in driver modules in the prototype" loading="lazy" decoding="async" class="w-full h-full object-cover object-left group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/controller-electronics.jpg" alt="Red CNC shield visible beneath plug-in driver modules in the prototype" loading="lazy" decoding="async" class="w-full h-full object-cover object-left group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="font-mono text-xs text-cyan-400 font-bold mb-2">CONTROL INTERFACE</div>
             <h3 class="font-outfit font-bold text-xl text-white mb-2">CNC Shield</h3>
@@ -963,7 +998,7 @@
           <!-- Component 4: CNC Mechanical Frame -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/cutting-wire-assembly.jpg" alt="White 3D-printed supports and rack components in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/cutting-wire-assembly.jpg" alt="White 3D-printed supports and rack components in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">STRUCTURE</span>
@@ -984,7 +1019,7 @@
           <!-- Rack-Based Movement -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5">
-              <img src="public/images/prototype/stepper-rack.jpg" alt="Printed rack and stepper motor arrangement from the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/stepper-rack.jpg" alt="Printed rack and stepper motor arrangement from the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="font-mono text-xs text-cyan-400 font-bold mb-2">MECHANICAL DRIVE</div>
             <h3 class="font-outfit font-bold text-xl text-white mb-2">Rack-Based Movement</h3>
@@ -997,7 +1032,7 @@
           <!-- Component 5: Cutting Wire -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/cutting-wire-assembly.jpg" alt="Thin wire visibly spanning the prototype's printed cutting supports; heating is not verified" loading="lazy" decoding="async" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/cutting-wire-assembly.jpg" alt="Thin wire visibly spanning the prototype's printed cutting supports; heating is not verified" loading="lazy" decoding="async" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-amber-400 font-bold">THERMAL ELEMENT</span>
@@ -1018,7 +1053,7 @@
           <!-- Component 6: Regulated Power Supply -->
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/power-wiring.jpg" alt="Battery pack and adjacent power-control board visible in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <img src="public/images/project/power-wiring.jpg" alt="Battery pack and adjacent power-control board visible in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             </div>
             <div class="flex items-center justify-between mb-2">
               <span class="font-mono text-xs text-cyan-400 font-bold">POWER SYSTEM</span>
@@ -1040,7 +1075,7 @@
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-400/50 transition-all duration-300 group shadow-xl">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               <div class="h-44 rounded-xl bg-slate-950 border border-slate-800/80 overflow-hidden mb-5 p-2 flex items-center justify-center">
-                <img src="public/images/prototype/controller-electronics.jpg" alt="Controller, CNC shield and visible jumper wires in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-pointer" onclick="openLightbox('public/images/prototype/controller-electronics.jpg', 'Actual controller, shield and motor wiring')">
+                <img src="public/images/project/controller-electronics.jpg" alt="Controller, CNC shield and visible jumper wires in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover cursor-pointer" onclick="openLightbox('public/images/project/controller-electronics.jpg', 'Actual controller, shield and motor wiring')">
               </div>
               <div class="flex items-center justify-between mb-2">
                 <span class="font-mono text-xs text-cyan-400 font-bold">CONNECTIONS</span>
@@ -1097,8 +1132,8 @@
               </div>
 
               <!-- Main CAD Graphic with Lightbox -->
-              <div class="rounded-xl overflow-hidden cursor-pointer group/cad" onclick="openLightbox('public/images/cad/concept-machine-assembly.jpg', 'Annotated CAD assembly concept; separate from current prototype')">
-                <img src="public/images/cad/concept-machine-assembly.jpg" alt="Annotated CAD assembly concept for a foam cutter; this drawing is not the photographed prototype" loading="lazy" decoding="async" class="w-full h-80 sm:h-[480px] object-contain bg-slate-950 group-hover/cad:scale-[1.02] transition-transform duration-700">
+              <div class="rounded-xl overflow-hidden cursor-pointer group/cad" onclick="openLightbox('public/images/project/cad/concept-machine-assembly.jpg', 'Annotated CAD assembly concept; separate from current prototype')">
+                <img src="public/images/project/cad/concept-machine-assembly.jpg" alt="Annotated CAD assembly concept for a foam cutter; this drawing is not the photographed prototype" loading="lazy" decoding="async" class="w-full h-80 sm:h-[480px] object-contain bg-slate-950 group-hover/cad:scale-[1.02] transition-transform duration-700">
                 <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between font-mono text-xs bg-slate-950/85 backdrop-blur-md p-3 rounded-xl border border-cyan-500/30">
                   <div class="text-slate-300">
                     <span class="text-cyan-400 font-bold">DESIGN:</span> ANNOTATED ASSEMBLY CONCEPT
@@ -1372,26 +1407,31 @@
           </h2>
           <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            The accessible upload contains one unique prototype photograph, shown whole and in detail crops. CAD concept drawings are clearly separated from actual hardware. Select an image to zoom and browse.
+            The accessible files contain one unique prototype photograph, shown whole and in detail crops, plus one annotated CAD assembly. No separate X/Y/Z mechanism, A4988 identification, dated development-stage or part-level CAD photos were supplied. Select an available image to zoom and browse.
           </p>
         </div>
 
         <!-- Filter Tabs -->
         <div class="flex flex-wrap items-center justify-center gap-2 mb-12 font-mono text-xs">
-          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-cyan-500 text-black font-bold transition-all" data-filter="all">ALL ASSETS</button>
-          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="cad">CAD DESIGN</button>
-          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="mechanical">MECHANICAL DETAILS</button>
-          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="electronics">ELECTRONICS</button>
-          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="prototype">PROTOTYPE</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-cyan-500 text-black font-bold transition-all" data-filter="all" aria-pressed="true">ALL ASSETS</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="prototype" aria-pressed="false">COMPLETE PROTOTYPE</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="mechanical" aria-pressed="false">MECHANICAL ASSEMBLY</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="steppers" aria-pressed="false">STEPPER &amp; RACK</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="electronics" aria-pressed="false">CONTROLLER &amp; DRIVERS</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="drivers" aria-pressed="false">DRIVER MODULES (UNVERIFIED)</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="power" aria-pressed="false">POWER &amp; WIRING</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="printed" aria-pressed="false">3D-PRINTED DETAILS</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="axis" aria-pressed="false">AXIS LAYOUT (CONCEPT)</button>
+          <button class="gallery-filter-btn px-4 py-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition-all" data-filter="cad" aria-pressed="false">CAD &amp; DESIGN</button>
         </div>
 
         <!-- Gallery Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
           
           <!-- Item 1: Hero Machine -->
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="prototype" onclick="openLightbox('public/images/prototype/foam-cutter-prototype.jpg', 'Actual partially assembled Foam Cutting 3-Axis Device prototype')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="prototype" onclick="openLightbox('public/images/project/complete-prototype.jpg', 'Actual partially assembled Foam Cutting 3-Axis Device prototype')">
             <div class="h-64 overflow-hidden relative bg-slate-950">
-              <img src="public/images/prototype/foam-cutter-prototype.jpg" alt="Actual partially assembled 3-Axis Foam Cutter prototype, full view" loading="lazy" decoding="async" class="prototype-photo w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700">
+              <img src="public/images/project/complete-prototype.jpg" alt="Actual partially assembled 3-Axis Foam Cutter prototype, full view" loading="lazy" decoding="async" class="prototype-photo w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
               </div>
@@ -1403,9 +1443,9 @@
           </div>
 
           <!-- Item 2: CAD Assembly -->
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cad" onclick="openLightbox('public/images/cad/concept-machine-assembly.jpg', 'Annotated CAD design concept; separate from current prototype')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cad" onclick="openLightbox('public/images/project/cad/concept-machine-assembly.jpg', 'Annotated CAD design concept; separate from current prototype')">
             <div class="h-64 overflow-hidden relative bg-slate-950">
-              <img src="public/images/cad/concept-machine-assembly.jpg" alt="Annotated CAD assembly design concept, not the current physical prototype" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700">
+              <img src="public/images/project/cad/concept-machine-assembly.jpg" alt="Annotated CAD assembly design concept, not the current physical prototype" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
               </div>
@@ -1417,9 +1457,9 @@
           </div>
 
           <!-- Item 3: Cutting Action -->
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical" onclick="openLightbox('public/images/prototype/cutting-wire-assembly.jpg', 'Actual prototype cutting wire support; heating is not verified')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical printed" onclick="openLightbox('public/images/project/cutting-wire-assembly.jpg', 'Actual prototype cutting wire support; heating is not verified')">
             <div class="h-64 overflow-hidden relative">
-              <img src="public/images/prototype/cutting-wire-assembly.jpg" alt="Close detail of the actual printed cutting supports and visible wire; wire heating is unverified" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <img src="public/images/project/cutting-wire-assembly.jpg" alt="Close detail of the actual printed cutting supports and visible wire; wire heating is unverified" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <span class="font-mono text-xs text-amber-400 font-bold">CLICK TO EXPAND ⤢</span>
               </div>
@@ -1431,9 +1471,9 @@
           </div>
 
           <!-- Item 4: Electronics Setup -->
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="electronics" onclick="openLightbox('public/images/prototype/controller-electronics.jpg', 'Actual controller, CNC shield and driver modules')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="electronics drivers" onclick="openLightbox('public/images/project/controller-electronics.jpg', 'Actual controller, CNC shield and driver modules; exact driver model is unverified')">
             <div class="h-64 overflow-hidden relative">
-              <img src="public/images/prototype/controller-electronics.jpg" alt="Actual Arduino-based controller board, CNC shield, driver modules and visible wires" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <img src="public/images/project/controller-electronics.jpg" alt="Actual Arduino-based controller board, CNC shield, driver modules and visible wires" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
               </div>
@@ -1445,9 +1485,9 @@
           </div>
 
           <!-- Item 5: Circuit Schematic -->
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="electronics" onclick="openLightbox('public/images/prototype/power-wiring.jpg', 'Actual battery arrangement and visible wiring')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="power" onclick="openLightbox('public/images/project/power-wiring.jpg', 'Actual battery arrangement and visible wiring')">
             <div class="h-64 overflow-hidden relative bg-slate-950 p-2 flex items-center justify-center">
-              <img src="public/images/prototype/power-wiring.jpg" alt="Battery pack, nearby control board and visible wire from the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
+              <img src="public/images/project/power-wiring.jpg" alt="Battery pack, nearby control board and visible wire from the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                 <span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span>
               </div>
@@ -1472,15 +1512,15 @@
             </div>
           </div>
 
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical" onclick="openLightbox('public/images/prototype/stepper-rack.jpg', 'Actual stepper motor and printed rack arrangement')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="mechanical steppers printed" onclick="openLightbox('public/images/project/stepper-rack.jpg', 'Actual stepper motor and printed rack arrangement')">
             <div class="h-64 overflow-hidden relative">
-              <img src="public/images/prototype/stepper-rack.jpg" alt="28BYJ-48 motor and white toothed rack visible in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+              <img src="public/images/project/stepper-rack.jpg" alt="28BYJ-48 motor and white toothed rack visible in the actual prototype" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4"><span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span></div>
             </div>
             <div class="p-4 border-t border-slate-800"><span class="font-mono text-[10px] text-cyan-400 uppercase">Actual Prototype</span><h4 class="font-outfit font-bold text-white text-base">Stepper &amp; Rack Detail</h4></div>
           </div>
 
-          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cad" onclick="openLightbox('assets/images/cnc-frame.svg', 'Intended axis layout diagram')">
+          <div class="gallery-item rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden group cursor-pointer" data-category="cad axis" onclick="openLightbox('assets/images/cnc-frame.svg', 'Intended axis layout diagram')">
             <div class="h-64 overflow-hidden relative bg-slate-950 p-2 flex items-center justify-center">
               <img src="assets/images/cnc-frame.svg" alt="Existing vector illustration of the intended CNC frame and axes, not a photograph of the current prototype" loading="lazy" decoding="async" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700">
               <div class="absolute inset-0 bg-gradient-to-t from-dark/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4"><span class="font-mono text-xs text-cyan-400 font-bold">CLICK TO EXPAND ⤢</span></div>
@@ -1488,6 +1528,34 @@
             <div class="p-4 border-t border-slate-800"><span class="font-mono text-[10px] text-cyan-400 uppercase">Design Diagram</span><h4 class="font-outfit font-bold text-white text-base">Intended Axis Layout</h4></div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- PROJECT ADVANTAGES                                              -->
+    <!-- ============================================================== -->
+    <section id="advantages" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">Design Goals</div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">POTENTIAL ADVANTAGES</h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">These are intended benefits of the design, not measured performance claims.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-xl text-white mb-2">Hands-on Engineering</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">The project brings mechanical design, printed parts, motion components and controller electronics together as a learning exercise.</p>
+          </article>
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-xl text-white mb-2">Accessible Prototyping Goal</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">The team is exploring an approachable foam-cutting concept for a university Makerspace; cost and cutting performance have not yet been measured.</p>
+          </article>
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-xl text-white mb-2">Expandable Design Study</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">The intended X, Y and Z layout offers a basis for future assembly and testing. The complete axes are not yet verified on the photographed build.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -1524,7 +1592,7 @@
               Architectural Models
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Rapid manufacturing of stepped site topographies, structural building mockups, and exterior facade reliefs from high-density blue or pink XPS foam sheets.
+              After cutting accuracy and safe operation are validated, a future version could be explored for topography, building mockups and facade study models.
             </p>
           </div>
 
@@ -1538,7 +1606,7 @@
               Packaging Prototypes
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Custom shock-absorbing enclosures, camera casing inlays, and precision electronic instrument cushion trays tailored exactly to physical device dimensions.
+              Potential future use includes packaging-fit prototypes and protective inserts, subject to dimensional and material testing.
             </p>
           </div>
 
@@ -1552,7 +1620,7 @@
               Model Making &amp; Wings
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Precision cutting of NACA airfoil wing profiles, aircraft fuselages, and aerodynamic fairing cores for radio-controlled aviation and wind-tunnel testing.
+              If coordinated motion and the intended wire cutter are validated, the design could be evaluated for foam profiles used in model-making.
             </p>
           </div>
 
@@ -1566,7 +1634,7 @@
               Educational Projects
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Hands-on instructional platform in university Makerspaces to teach students multi-axis CNC kinematics, stepper microstepping, and microcontroller firmware.
+              The project can support discussion of mechanical design, stepper systems and controller integration; machine operation remains to be verified.
             </p>
           </div>
 
@@ -1580,7 +1648,7 @@
               Craft &amp; Signage Design
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Dimensional artistic typography, exhibition display logos, movie prop sculpting cores, and custom decorative molds with smooth sealed boundaries.
+              Possible future experiments include foam lettering, display forms and simple sculpting blanks after safe cutting tests.
             </p>
           </div>
 
@@ -1594,10 +1662,42 @@
               Foam Prototyping
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Validating volumetric concepts, ergonomic handles, automotive clay-core mockups, and casting sacrificial patterns before investing in metal machining.
+              A validated build could be assessed for producing foam mockups and early ergonomic forms; no such cutting results are documented yet.
             </p>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- CURRENT PROJECT LIMITATIONS                                    -->
+    <!-- ============================================================== -->
+    <section id="limitations" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-block px-3 py-1 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-400 font-mono text-xs tracking-wider uppercase mb-3">Verification Status</div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">CURRENT LIMITATIONS</h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">The available records show a partially assembled prototype, not a fully tested foam-cutting machine.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-lg text-white mb-2">Motion Incomplete</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">Complete X, Y and Z travel, axis mapping and coordinated movement have not been verified on the assembled device.</p>
+          </article>
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-lg text-white mb-2">Cutting Unverified</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">Wire heating, temperature control and foam-cutting results are not established by the available photos or tests.</p>
+          </article>
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-lg text-white mb-2">Electronics Undocumented</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">Exact controller and driver models, electrical ratings, pin assignments and verified wiring connections are not confirmed.</p>
+          </article>
+          <article class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+            <h3 class="font-outfit font-bold text-lg text-white mb-2">Evidence Is Limited</h3>
+            <p class="text-slate-300 text-sm leading-relaxed">Only one unique prototype photo and one CAD assembly render were available. Separate axis, component CAD and dated build-stage images were not supplied.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -1938,7 +2038,7 @@
                 Existing annotated design render; different from the photographed physical prototype and not a verified build specification.
               </p>
             </div>
-            <a href="public/images/cad/concept-machine-assembly.jpg" download="foam-cutter-cad-concept.jpg" class="w-full py-2.5 rounded-xl bg-blue-950 text-blue-300 hover:bg-blue-900 border border-blue-500/40 font-mono text-xs text-center transition-colors font-semibold">
+            <a href="public/images/project/cad/concept-machine-assembly.jpg" download="foam-cutter-cad-concept.jpg" class="w-full py-2.5 rounded-xl bg-blue-950 text-blue-300 hover:bg-blue-900 border border-blue-500/40 font-mono text-xs text-center transition-colors font-semibold">
               DOWNLOAD CAD RENDER ↓
             </a>
           </div>
