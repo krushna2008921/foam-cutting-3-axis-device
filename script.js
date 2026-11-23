@@ -9,10 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initHeaderScroll();
   initGalleryFilter();
+  initLazyImages();
+  initFirmwarePreview();
   initCodeCopy();
   initBackToTop();
   initThreeSimulator();
 });
+
+function initLazyImages() {
+  document.querySelectorAll('img:not([loading])').forEach(image => {
+    image.loading = image.fetchPriority === 'high' ? 'eager' : 'lazy';
+    image.decoding = 'async';
+  });
+}
 
 /* ====================================================================
    1. BACKGROUND CYBER GRID CANVAS
@@ -165,11 +174,63 @@ function initGalleryFilter() {
       });
     });
   });
+
+  galleryItems.forEach(item => {
+    const caption = item.querySelector('h4')?.textContent.trim() || 'Open project image';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-label', `${caption}, open image preview`);
+    item.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        item.click();
+      }
+    });
+  });
+}
+
+function initFirmwarePreview() {
+  const codeBlock = document.getElementById('firmwareCodeBlock');
+  if (!codeBlock) return;
+  fetch('assets/documents/arduino_foam_cutter_firmware.ino')
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.text();
+    })
+    .then(source => {
+      codeBlock.textContent = source;
+    })
+    .catch(error => {
+      codeBlock.textContent = `Unable to load the firmware source (${error.message}). Use the download link above.`;
+    });
 }
 
 /* ====================================================================
    5. LIGHTBOX MODAL FUNCTIONALITY
    ==================================================================== */
+let lightboxGalleryIndex = -1;
+let lightboxPreviousFocus = null;
+
+function getVisibleGalleryImages() {
+  return Array.from(document.querySelectorAll('#galleryGrid .gallery-item'))
+    .filter(item => item.style.display !== 'none')
+    .map(item => ({
+      src: item.querySelector('img')?.src,
+      caption: item.querySelector('h4')?.textContent.trim() || 'Project image',
+      alt: item.querySelector('img')?.alt || 'Project image'
+    }))
+    .filter(item => item.src);
+}
+
+function updateLightboxImage(item) {
+  const img = document.getElementById('lightboxImg');
+  const cap = document.getElementById('lightboxCaption');
+  if (!img || !cap || !item) return;
+  img.src = item.src;
+  img.alt = item.alt;
+  cap.textContent = item.caption;
+}
+
 function openLightbox(src, caption) {
   const modal = document.getElementById('lightboxModal');
   const img = document.getElementById('lightboxImg');
@@ -177,11 +238,27 @@ function openLightbox(src, caption) {
 
   if (!modal || !img || !cap) return;
 
+  lightboxPreviousFocus = document.activeElement;
   img.src = src;
   cap.textContent = caption || 'Foam Cutting 3-Axis Device';
+  const gallery = getVisibleGalleryImages();
+  const openedSource = new URL(src, document.baseURI).href;
+  lightboxGalleryIndex = gallery.findIndex(item => new URL(item.src, document.baseURI).href === openedSource);
+  const hasGalleryNavigation = lightboxGalleryIndex >= 0 && gallery.length > 1;
+  document.querySelectorAll('.lightbox-nav').forEach(button => {
+    button.hidden = !hasGalleryNavigation;
+  });
   modal.classList.remove('hidden');
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+  document.getElementById('lightboxClose')?.focus();
+}
+
+function navigateLightbox(direction) {
+  const gallery = getVisibleGalleryImages();
+  if (lightboxGalleryIndex < 0 || gallery.length < 2) return;
+  lightboxGalleryIndex = (lightboxGalleryIndex + direction + gallery.length) % gallery.length;
+  updateLightboxImage(gallery[lightboxGalleryIndex]);
 }
 
 function closeLightbox() {
@@ -190,15 +267,24 @@ function closeLightbox() {
   modal.classList.add('hidden');
   modal.classList.remove('active');
   document.body.style.overflow = '';
+  lightboxGalleryIndex = -1;
+  if (lightboxPreviousFocus && typeof lightboxPreviousFocus.focus === 'function') {
+    lightboxPreviousFocus.focus();
+  }
 }
 
-// Global modal background click and keyboard escape listener
 document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('lightboxModal');
+  if (!modal || !modal.classList.contains('active')) return;
   if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
 });
 
 const lightboxModal = document.getElementById('lightboxModal');
 if (lightboxModal) {
+  document.getElementById('lightboxPrev')?.addEventListener('click', () => navigateLightbox(-1));
+  document.getElementById('lightboxNext')?.addEventListener('click', () => navigateLightbox(1));
   lightboxModal.addEventListener('click', (e) => {
     if (e.target === lightboxModal) closeLightbox();
   });
