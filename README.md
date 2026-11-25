@@ -67,7 +67,6 @@ foam-cutting-3-axis-device/
     │   ├── arduino-nano.svg        # Vector component diagram of Arduino Nano
     │   ├── stepper-motor-28byj.svg # Vector component diagram of 28BYJ-48 stepper
     │   ├── uln2003-driver.svg      # Vector component diagram of ULN2003 driver
-    │   ├── cnc-frame.svg           # Photo-referenced 2-axis kinematics illustration
     │   ├── hot-wire-assembly.svg   # Vector diagram of wire tensioning & thermal kerf
     │   ├── circuit-schematic.svg   # Vector schematic of complete system wiring
     │   ├── app-architectural.svg   # Architectural scale model application

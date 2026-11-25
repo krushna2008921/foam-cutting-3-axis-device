@@ -888,10 +888,10 @@ function initThreeSimulator() {
     const x = Number(xSlider.value);
     const y = Number(ySlider.value);
     simXStage.position.x = 25 + ((x - 50) / 50) * 18;
-    simYCarriage.position.y = ((y - 50) / 50) * 20;
+    simYCarriage.position.z = ((y - 50) / 50) * 20;
     xValue.textContent = labelAxis(x, 'LEFT', 'RIGHT');
-    yValue.textContent = labelAxis(y, 'DOWN', 'UP');
-    positionReadout.textContent = `X: ${labelAxis(x, 'LEFT', 'RIGHT')} · Y: ${labelAxis(y, 'DOWN', 'UP')}`;
+    yValue.textContent = labelAxis(y, 'BACK', 'FORWARD');
+    positionReadout.textContent = `X: ${labelAxis(x, 'LEFT', 'RIGHT')} · Y: ${labelAxis(y, 'BACK', 'FORWARD')}`;
   }
 
   function setMotionStatus(message) {
