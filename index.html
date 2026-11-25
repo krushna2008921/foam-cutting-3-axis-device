@@ -6,7 +6,7 @@
   <title>FOAM CUTTING 2-AXIS DEVICE | Sanjivani University</title>
   <meta name="description" content="Explore the Sanjivani University FOAM CUTTING 2-AXIS DEVICE prototype, its photo-referenced X/Y rack arrangement, visible components and interactive model.">
   <meta name="keywords" content="Foam Cutting 2-Axis Device, foam cutter prototype, Sanjivani University, Mechanical Engineering, Makerspace, rack mechanism, stepper motor">
-  <meta name="author" content="Krushna Jamdar, Samiksha Kale, Sanket Gujar">
+  <meta name="author" content="Krushna Jamdar, Samiksha Kale, Sanket Gujar, Sujay Jamdar">
 
   <!-- Open Graph / Social Sharing Meta -->
   <meta property="og:type" content="website">
@@ -676,11 +676,11 @@
           <div class="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-400 transition-all">
             <div class="flex items-center justify-between mb-4">
               <span class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-mono font-bold text-emerald-400">Y</span>
-              <span class="text-xs font-mono text-slate-400">LONGITUDINAL MOTION</span>
+              <span class="text-xs font-mono text-slate-400">VERTICAL MOTION</span>
             </div>
             <h3 class="font-outfit font-bold text-xl text-white mb-2">Y-Axis Movement</h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Intended forward and backward movement relative to the work area. The physical mechanism assigned to this axis remains to be confirmed through assembly and testing.
+              Vertical up and down movement of the simulated prototype carriage. The physical mechanism assigned to this axis remains to be confirmed through assembly and testing.
             </p>
           </div>
 
@@ -773,7 +773,7 @@
 
                     <label class="block space-y-1.5">
                       <span class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-blue-400 font-bold">Y · FORWARD / BACK</span>
+                        <span class="text-blue-400 font-bold">Y · DOWN / UP</span>
                         <span id="yValText" class="text-slate-300">CENTER</span>
                       </span>
                       <input type="range" id="ySlider" min="0" max="100" value="50" aria-label="Simulated Y-axis position" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-blue-400">
@@ -781,10 +781,10 @@
 
                     <div class="sim-direction-pad grid grid-cols-3 gap-2" role="group" aria-label="Step the simulated axes">
                       <span></span>
-                      <button class="sim-ui-button" type="button" data-move-axis="y" data-move-direction="-1" aria-label="Move simulated Y backward">BACK</button>
+                      <button class="sim-ui-button" type="button" data-move-axis="y" data-move-direction="-1" aria-label="Move simulated Y down">DOWN</button>
                       <span></span>
                       <button class="sim-ui-button" type="button" data-move-axis="x" data-move-direction="-1" aria-label="Move simulated X left">LEFT</button>
-                      <button class="sim-ui-button sim-center-button" type="button" data-move-axis="y" data-move-direction="1" aria-label="Move simulated Y forward">FWD</button>
+                      <button class="sim-ui-button sim-center-button" type="button" data-move-axis="y" data-move-direction="1" aria-label="Move simulated Y up">UP</button>
                       <button class="sim-ui-button" type="button" data-move-axis="x" data-move-direction="1" aria-label="Move simulated X right">RIGHT</button>
                     </div>
 
@@ -1648,8 +1648,8 @@
           </p>
         </div>
 
-        <!-- 3 Group Members Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- 4 Group Members Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           
           <!-- Member 1: Krushna Jamdar -->
           <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800 hover:border-cyan-400/60 hover:-translate-y-2 transition-all duration-300 group shadow-2xl text-center relative overflow-hidden">
@@ -1703,6 +1703,26 @@
               Sanket Gujar
             </h3>
             <div class="font-mono text-xs font-semibold text-emerald-300 mb-3 tracking-wider uppercase">
+              Project Group Member
+            </div>
+            <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
+              Department of Mechanical Engineering <br>
+              <span class="text-slate-300 font-medium">Sanjivani University</span>
+            </div>
+          </div>
+
+          <!-- Member 4: Sujay Jamdar -->
+          <div class="p-8 rounded-2xl bg-gradient-to-b from-slate-900/95 to-slate-950/95 border border-slate-800 hover:border-amber-400/60 hover:-translate-y-2 transition-all duration-300 group shadow-2xl text-center relative overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-28 h-28 bg-amber-500/10 rounded-full blur-xl pointer-events-none"></div>
+
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-amber-100 border border-amber-200 flex items-center justify-center">
+              <span aria-hidden="true" class="font-outfit font-bold text-3xl text-amber-700">SJ</span>
+            </div>
+
+            <h3 class="font-outfit font-bold text-2xl text-white mb-1 group-hover:text-amber-400 transition-colors">
+              Sujay Jamdar
+            </h3>
+            <div class="font-mono text-xs font-semibold text-amber-300 mb-3 tracking-wider uppercase">
               Project Group Member
             </div>
             <div class="text-slate-400 text-xs font-sans border-t border-slate-800 pt-3">
@@ -1971,6 +1991,10 @@
               <li class="flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                 <span>Sanket Gujar</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                <span>Sujay Jamdar</span>
               </li>
             </ul>
             <p class="text-[11px] text-slate-500 pt-1 font-sans">

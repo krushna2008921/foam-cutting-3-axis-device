@@ -26,6 +26,7 @@ The photographed prototype is a partially assembled, two-axis rack-and-motor dev
 - **Krushna Jamdar** – Project Group Member (Department of Mechanical Engineering)
 - **Samiksha Kale** – Project Group Member (Department of Mechanical Engineering)
 - **Sanket Gujar** – Project Group Member (Department of Mechanical Engineering)
+- **Sujay Jamdar** – Project Group Member (Department of Mechanical Engineering)
 
 ### Faculty Guidance & Mentors
 - **Dr. Kiran Wakchaure** – Director – Projects, Sanjivani University

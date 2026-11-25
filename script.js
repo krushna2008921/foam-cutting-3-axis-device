@@ -1,7 +1,7 @@
 /**
  * FOAM CUTTING 2-AXIS DEVICE - INTERACTIVE APPLICATION SCRIPT
  * Sanjivani University | Department of Mechanical Engineering | Makerspace
- * Authors: Krushna Jamdar, Samiksha Kale, Sanket Gujar
+ * Authors: Krushna Jamdar, Samiksha Kale, Sanket Gujar, Sujay Jamdar
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -888,10 +888,10 @@ function initThreeSimulator() {
     const x = Number(xSlider.value);
     const y = Number(ySlider.value);
     simXStage.position.x = 25 + ((x - 50) / 50) * 18;
-    simYCarriage.position.z = ((y - 50) / 50) * 20;
+    simYCarriage.position.y = ((y - 50) / 50) * 20;
     xValue.textContent = labelAxis(x, 'LEFT', 'RIGHT');
-    yValue.textContent = labelAxis(y, 'BACK', 'FORWARD');
-    positionReadout.textContent = `X: ${labelAxis(x, 'LEFT', 'RIGHT')} · Y: ${labelAxis(y, 'BACK', 'FORWARD')}`;
+    yValue.textContent = labelAxis(y, 'DOWN', 'UP');
+    positionReadout.textContent = `X: ${labelAxis(x, 'LEFT', 'RIGHT')} · Y: ${labelAxis(y, 'DOWN', 'UP')}`;
   }
 
   function setMotionStatus(message) {
