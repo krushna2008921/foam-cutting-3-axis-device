@@ -99,12 +99,13 @@
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-6 font-mono text-xs uppercase tracking-wider">
+      <nav class="hidden xl:flex items-center gap-4 font-mono text-xs uppercase tracking-wider">
         <a href="#hero" class="text-slate-300 hover:text-cyan-400 transition-colors">Home</a>
         <a href="#about" class="text-slate-300 hover:text-cyan-400 transition-colors">Project</a>
         <a href="#mechanical" class="text-slate-300 hover:text-cyan-400 transition-colors">Mechanical</a>
         <a href="#components" class="text-slate-300 hover:text-cyan-400 transition-colors">Hardware</a>
         <a href="#timeline" class="text-slate-300 hover:text-cyan-400 transition-colors">Development</a>
+        <a href="#teamWork" class="text-slate-300 hover:text-cyan-400 transition-colors">Team Work</a>
         <a href="#gallery" class="text-slate-300 hover:text-cyan-400 transition-colors">Gallery</a>
         <a href="#team" class="text-slate-300 hover:text-cyan-400 transition-colors">Team</a>
         <a href="#contact" class="text-slate-300 hover:text-cyan-400 transition-colors">Contact</a>
@@ -132,7 +133,7 @@
       </div>
 
       <!-- Mobile Menu Toggle Button -->
-      <button id="mobileMenuBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu" class="lg:hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-cyan-400 focus:outline-none">
+      <button id="mobileMenuBtn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu" class="xl:hidden p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-cyan-400 focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path id="hamburgerIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -141,7 +142,7 @@
     </div>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobileMenu" class="hidden lg:hidden bg-dark-navy/95 border-b border-cyan-500/20 backdrop-blur-xl px-6 py-6 transition-all">
+    <div id="mobileMenu" class="hidden xl:hidden bg-dark-navy/95 border-b border-cyan-500/20 backdrop-blur-xl px-6 py-6 transition-all">
       <div class="flex flex-col gap-4 font-mono text-sm tracking-wider uppercase">
         <a href="#about" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">About Project</a>
         <a href="#prototype" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Actual Prototype</a>
@@ -152,6 +153,7 @@
         <a href="#simulator" class="mobile-nav-link text-cyan-400 font-semibold py-1">Interactive 3D Simulator</a>
         <a href="#components" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Components Used</a>
         <a href="#timeline" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Development Timeline</a>
+        <a href="#teamWork" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Team Working on the Prototype</a>
         <a href="#gallery" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Project Gallery</a>
         <a href="#advantages" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Advantages</a>
         <a href="#applications" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Applications</a>
@@ -1235,6 +1237,44 @@
       </div>
     </section>
 
+    <!-- TEAM WORKING ON THE PROTOTYPE -->
+    <section id="teamWork" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80 bg-slate-950/50">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <div class="inline-block px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs tracking-wider uppercase mb-3">
+            Practical Project Work
+          </div>
+          <h2 class="font-outfit font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            TEAM WORKING ON THE PROTOTYPE
+          </h2>
+          <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed italic">
+            From Design to Reality – Our Practical Development Journey
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <button type="button" class="team-work-card w-full text-left rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden" onclick="openLightbox('public/images/project/team-working-on-prototype.jpg', 'Practical Prototype Development - A team member working on the mechanical assembly and electronic connections of the Foam Cutting 2-Axis Device in the college makerspace laboratory.')" aria-label="View larger photo: team member assembling and wiring the prototype">
+            <img src="public/images/project/team-working-on-prototype.jpg" alt="Team member adjusting wires on the foam cutting prototype at a makerspace workbench" width="960" height="1280" loading="lazy" decoding="async" class="team-work-image">
+            <span class="block p-5 sm:p-6 border-t border-slate-800">
+              <span class="block font-mono text-[10px] text-cyan-400 uppercase tracking-wider mb-2">Practical Prototype Development</span>
+              <h3 class="font-outfit font-bold text-white text-lg mb-2">Mechanical Assembly and Wiring</h3>
+              <span class="block text-slate-300 text-sm leading-relaxed">A team member working on the mechanical assembly and electronic connections of the Foam Cutting 2-Axis Device in the college makerspace laboratory.</span>
+            </span>
+          </button>
+
+          <button type="button" class="team-work-card w-full text-left rounded-2xl bg-slate-900/80 border border-slate-800 overflow-hidden" onclick="openLightbox('public/images/project/team-working-on-prototype-electronics.jpg', 'Practical Prototype Development - A team member checking controller connections beside the foam cutting prototype in the college makerspace laboratory.')" aria-label="View larger photo: team member checking prototype electronics">
+            <img src="public/images/project/team-working-on-prototype-electronics.jpg" alt="Team member checking controller connections beside the foam cutting prototype in the makerspace" width="960" height="1280" loading="lazy" decoding="async" class="team-work-image">
+            <span class="block p-5 sm:p-6 border-t border-slate-800">
+              <span class="block font-mono text-[10px] text-cyan-400 uppercase tracking-wider mb-2">Practical Prototype Development</span>
+              <h3 class="font-outfit font-bold text-white text-lg mb-2">Electronics Integration</h3>
+              <span class="block text-slate-300 text-sm leading-relaxed">A team member checking the controller connections alongside the prototype's two-axis rack mechanism in the makerspace laboratory.</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- ============================================================== -->
     <!-- SECTION I – PROJECT GALLERY (With Interactive Filtering)       -->
     <!-- ============================================================== -->
@@ -1250,7 +1290,7 @@
           </h2>
           <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto my-4 rounded-full"></div>
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            The accessible files contain one unique prototype photograph, shown whole and in detail crops, plus one annotated CAD assembly. No separate X/Y/Z mechanism, A4988 identification, dated development-stage or part-level CAD photos were supplied. Select an available image to zoom and browse.
+            This gallery presents the prototype and its component details. Team development photos are featured separately above. Select an available image to zoom and browse.
           </p>
         </div>
 

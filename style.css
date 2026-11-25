@@ -485,6 +485,32 @@ body :is(main, footer) [class*="border-cyan-400"] {
   outline-offset: 3px;
 }
 
+.team-work-card {
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+#teamWork {
+  scroll-margin-top: 6rem;
+}
+
+.team-work-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-bright);
+  box-shadow: 0 18px 36px var(--cyan-glow);
+}
+
+.team-work-card:focus-visible {
+  outline: 3px solid var(--cyan-primary);
+  outline-offset: 3px;
+}
+
+.team-work-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .timeline-marker {
   border-color: var(--cyan-primary) !important;
   color: var(--cyan-primary) !important;

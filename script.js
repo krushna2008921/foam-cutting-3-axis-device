@@ -318,11 +318,11 @@ let lightboxGalleryIndex = -1;
 let lightboxPreviousFocus = null;
 
 function getVisibleGalleryImages() {
-  return Array.from(document.querySelectorAll('#galleryGrid .gallery-item'))
+  return Array.from(document.querySelectorAll('#galleryGrid .gallery-item, #teamWork .team-work-card'))
     .filter(item => item.style.display !== 'none')
     .map(item => ({
       src: item.querySelector('img')?.src,
-      caption: item.querySelector('h4')?.textContent.trim() || 'Project image',
+      caption: item.querySelector('h4, h3')?.textContent.trim() || 'Project image',
       alt: item.querySelector('img')?.alt || 'Project image'
     }))
     .filter(item => item.src);
