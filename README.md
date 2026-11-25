@@ -1,4 +1,4 @@
-# FOAM CUTTING 3-AXIS DEVICE
+# FOAM CUTTING 2-AXIS DEVICE
 ### Makerspace Innovation Lab | Department of Mechanical Engineering | Sanjivani University
 
 > **"Precision Engineering. Smart Automation. Creative Manufacturing."**
@@ -6,13 +6,13 @@
 ---
 
 ## 📌 Project Overview
-This repository hosts the official engineering website, interactive 3D WebGL simulator, firmware, and technical documentation for the **Foam Cutting 3-Axis Device**, developed at the **Department of Mechanical Engineering, Sanjivani University**.
+This repository hosts the official engineering website, interactive 3D WebGL simulator, firmware, and technical documentation for the **FOAM CUTTING 2-AXIS DEVICE**, developed at the **Department of Mechanical Engineering, Sanjivani University**.
 
-The device is a low-cost, CNC-based three-axis hot-wire foam cutting machine capable of slicing foam, thermocol, Expanded Polystyrene (EPS), and Extruded Polystyrene (XPS) materials using a digitally synchronized heated resistance wire mechanism.
+The photographed prototype is a partially assembled, two-axis rack-and-motor device with perpendicular X/Y rack sections, two visible motors and a thin wire support. Wire heating and full machine operation have not been verified.
 
 ### Key Objectives
 1. **Develop an affordable CNC foam cutter** using accessible, high-reliability components.
-2. **Automate cutting movements** through 3-axis Cartesian digital control (X, Y, Z).
+2. **Explore two-axis movement** through the perpendicular X and Y rack arrangement.
 3. **Improve cutting accuracy** by eliminating human hand tremors and freehand variance.
 4. **Reduce manual effort** and operator fatigue during complex model carving.
 5. **Minimize material wastage** through smooth thermal kerf vaporization.
@@ -39,12 +39,12 @@ The device is a low-cost, CNC-based three-axis hot-wire foam cutting machine cap
 
 | Parameter | Specification |
 | :--- | :--- |
-| **Kinematic Architecture** | 3-Axis Cartesian (X: Gantry Crossbeam, Y: Workbed, Z: Dual Column Lead Screws) |
-| **Microcontroller** | Arduino Nano (ATmega328P, 16 MHz Clock) |
-| **Actuation** | 3x 28BYJ-48 5V Stepper Motors (Internal 64:1 reduction gearbox) |
-| **Motor Drivers** | ULN2003A 7-Channel Darlington Array Driver Boards with Indicator LEDs |
-| **Cutting Mechanism** | Spring-tensioned Ni-Chrome (80/20) Heated Resistance Wire |
-| **Thermal Range** | 200°C – 240°C (Regulated via PWM Gate Control) |
+| **Kinematic Architecture** | Two perpendicular racks: X and Y directions; no independently verified Z axis |
+| **Microcontroller** | Photographed controller model unverified |
+| **Actuation** | Two motors visible; one label reads 28BYJ-48 5VDC |
+| **Motor Drivers** | Plug-in modules visible on the CNC shield; exact model unverified |
+| **Cutting Mechanism** | Thin wire support visible; wire material and heating unverified |
+| **Thermal Range** | Not established from the available photograph |
 | **Workpiece Materials** | EPS Foam, XPS Foam, Thermocol, Polyurethane Foam |
 
 ---
@@ -66,7 +66,7 @@ foam-cutting-3-axis-device/
     │   ├── arduino-nano.svg        # Vector component diagram of Arduino Nano
     │   ├── stepper-motor-28byj.svg # Vector component diagram of 28BYJ-48 stepper
     │   ├── uln2003-driver.svg      # Vector component diagram of ULN2003 driver
-    │   ├── cnc-frame.svg           # Vector diagram of 3-axis kinematics & coordinate vectors
+    │   ├── cnc-frame.svg           # Photo-referenced 2-axis kinematics illustration
     │   ├── hot-wire-assembly.svg   # Vector diagram of wire tensioning & thermal kerf
     │   ├── circuit-schematic.svg   # Vector schematic of complete system wiring
     │   ├── app-architectural.svg   # Architectural scale model application
@@ -85,7 +85,7 @@ foam-cutting-3-axis-device/
     ├── icons/
     │   └── sanjivani-logo.svg      # Sanjivani University Makerspace vector emblem
     └── documents/
-        ├── arduino_foam_cutter_firmware.ino # Ready-to-flash Arduino Nano firmware
+        ├── arduino_foam_cutter_firmware.ino # Existing source; hardware pin assignments unverified
         └── project-specifications.json      # Structured technical data sheet
 ```
 
@@ -116,7 +116,7 @@ Then navigate to: `http://localhost:8000`
    ```bash
    git init
    git add .
-   git commit -m "Initial commit: Foam Cutting 3-Axis Device website"
+   git commit -m "Initial commit: FOAM CUTTING 2-AXIS DEVICE website"
    ```
 2. Create a public repository named `foam-cutting-3-axis-device` on GitHub:
    ```bash

@@ -1,11 +1,11 @@
 # ====================================================================
 # AUTOMATED GITHUB PAGES DEPLOYMENT POWERSHELL SCRIPT
-# PROJECT: FOAM CUTTING 3-AXIS DEVICE
+# PROJECT: FOAM CUTTING 2-AXIS DEVICE
 # SANJIVANI UNIVERSITY - DEPARTMENT OF MECHANICAL ENGINEERING
 # ====================================================================
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "  FOAM CUTTING 3-AXIS DEVICE - GITHUB PAGES DEPLOYMENT" -ForegroundColor Cyan
+Write-Host "  FOAM CUTTING 2-AXIS DEVICE - GITHUB PAGES DEPLOYMENT" -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 # 1. Check Git
@@ -28,7 +28,7 @@ if (-not (Test-Path ".git")) {
 # 4. Stage and commit
 Write-Host "Staging and committing files..." -ForegroundColor Green
 git add .
-git commit -m "Deploy Foam Cutting 3-Axis Device website with interactive 3D WebGL simulator"
+git commit -m "Deploy FOAM CUTTING 2-AXIS DEVICE website with interactive 3D WebGL simulator"
 
 # 5. Push / Create repo
 if ($ghInstalled) {

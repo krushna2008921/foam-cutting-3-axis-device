@@ -1,5 +1,5 @@
 /**
- * FOAM CUTTING 3-AXIS DEVICE - INTERACTIVE APPLICATION SCRIPT
+ * FOAM CUTTING 2-AXIS DEVICE - INTERACTIVE APPLICATION SCRIPT
  * Sanjivani University | Department of Mechanical Engineering | Makerspace
  * Authors: Krushna Jamdar, Samiksha Kale, Sanket Gujar
  */
@@ -346,7 +346,7 @@ function openLightbox(src, caption) {
 
   lightboxPreviousFocus = document.activeElement;
   img.src = src;
-  cap.textContent = caption || 'Foam Cutting 3-Axis Device';
+  cap.textContent = caption || 'FOAM CUTTING 2-AXIS DEVICE';
   const gallery = getVisibleGalleryImages();
   const openedSource = new URL(src, document.baseURI).href;
   lightboxGalleryIndex = gallery.findIndex(item => new URL(item.src, document.baseURI).href === openedSource);
@@ -505,16 +505,6 @@ const simComponentDetails = {
     material: 'Visible cells, wrap and circuit board; chemistry is unknown.',
     description: 'Voltage, capacity, protection and wiring are not specified or inferred.'
   },
-  arduinoNano: {
-    name: 'Arduino Nano', status: 'Not confirmed in available photo', function: 'A possible controller option, not represented as an installed part.',
-    material: 'Not specified.',
-    description: 'A controller board is visible, but its exact model cannot be verified as an Arduino Nano.'
-  },
-  zAxis: {
-    name: 'Independent Z Axis', status: 'Not confirmed; omitted from model', function: 'The intended project may include vertical motion.',
-    material: 'Not specified.',
-    description: 'The available photo does not confirm a third independently motorized vertical axis, so no Z mechanism or control is invented here.'
-  }
 };
 
 let simScene;

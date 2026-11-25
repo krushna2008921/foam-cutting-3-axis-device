@@ -1,6 +1,6 @@
 /*
  * ====================================================================
- * PROJECT: DESIGN AND DEVELOPMENT OF A FOAM CUTTING 3-AXIS DEVICE
+ * PROJECT: FOAM CUTTING 2-AXIS DEVICE
  * SANJIVANI UNIVERSITY - DEPARTMENT OF MECHANICAL ENGINEERING
  * MAKERSPACE INNOVATION LAB
  *
@@ -15,9 +15,9 @@
  * - Dr. Vasudeo Singh Singar (Faculty Mentor)
  * - Dr. K. C. Bhosale (Head of Department)
  *
- * CONTROLLER: Arduino Nano (ATmega328P)
- * ACTUATORS: 3x 28BYJ-48 Stepper Motors with ULN2003 Drivers
- * CUTTER: Calibrated Heated Resistance Ni-Chrome Wire (PWM Controlled)
+ * CONTROLLER: Model unverified; photographed board must be identified before use
+ * ACTUATORS: Two visible rack arrangements; motor and wiring assignment unverified
+ * CUTTER: Wire heating and Ni-Chrome identification unverified
  * ====================================================================
  */
 
@@ -33,12 +33,6 @@ const int Y_IN1 = 6;
 const int Y_IN2 = 7;
 const int Y_IN3 = 8;
 const int Y_IN4 = 9;
-
-// Z-Axis Stepper (ULN2003 Driver 3)
-const int Z_IN1 = 10;
-const int Z_IN2 = 11;
-const int Z_IN3 = 12;
-const int Z_IN4 = 13;
 
 // Hot Wire Thermal Control (MOSFET PWM)
 const int WIRE_PWM_PIN = A0;
@@ -62,10 +56,8 @@ const int stepLookup[8][4] = {
 // Machine State
 long currentX = 0;
 long currentY = 0;
-long currentZ = 0;
 int currentStepX = 0;
 int currentStepY = 0;
-int currentStepZ = 0;
 
 int wireTemperaturePWM = 0; // 0 to 255
 int stepDelayMicroseconds = 1200; // Calibrated speed for 28BYJ-48
@@ -85,12 +77,6 @@ void setup() {
   pinMode(Y_IN3, OUTPUT);
   pinMode(Y_IN4, OUTPUT);
 
-  // Setup Z Axis
-  pinMode(Z_IN1, OUTPUT);
-  pinMode(Z_IN2, OUTPUT);
-  pinMode(Z_IN3, OUTPUT);
-  pinMode(Z_IN4, OUTPUT);
-
   // Setup Wire PWM and Status
   pinMode(WIRE_PWM_PIN, OUTPUT);
   analogWrite(WIRE_PWM_PIN, 0);
@@ -98,7 +84,7 @@ void setup() {
   digitalWrite(STATUS_LED, HIGH);
 
   Serial.println(F("=================================================="));
-  Serial.println(F("SANJIVANI UNIVERSITY - FOAM CUTTING 3-AXIS DEVICE"));
+  Serial.println(F("SANJIVANI UNIVERSITY - FOAM CUTTING 2-AXIS DEVICE"));
   Serial.println(F("FIRMWARE INITIALIZED - READY FOR G-CODE / COMMANDS"));
   Serial.println(F("=================================================="));
 }
@@ -113,9 +99,8 @@ void stepMotor(int axis, bool clockwise) {
   } else if (axis == 1) { // Y-Axis
     stepIndex = &currentStepY;
     in1 = Y_IN1; in2 = Y_IN2; in3 = Y_IN3; in4 = Y_IN4;
-  } else { // Z-Axis
-    stepIndex = &currentStepZ;
-    in1 = Z_IN1; in2 = Z_IN2; in3 = Z_IN3; in4 = Z_IN4;
+  } else {
+    return;
   }
 
   if (clockwise) {
@@ -153,7 +138,11 @@ void loop() {
       int steps = cmd.substring(7).toInt();
       bool dir = (steps > 0);
       steps = abs(steps);
-      int axisNum = (axisChar == 'X' ? 0 : (axisChar == 'Y' ? 1 : 2));
+      int axisNum = (axisChar == 'X' ? 0 : (axisChar == 'Y' ? 1 : -1));
+      if (axisNum < 0) {
+        Serial.println(F("ERR ONLY X/Y"));
+        continue;
+      }
 
       for (int i = 0; i < steps; i++) {
         stepMotor(axisNum, dir);
@@ -163,7 +152,6 @@ void loop() {
     } else if (cmd.equalsIgnoreCase("STATUS")) {
       Serial.print(F("X:")); Serial.print(currentX);
       Serial.print(F(" Y:")); Serial.print(currentY);
-      Serial.print(F(" Z:")); Serial.print(currentZ);
       Serial.print(F(" HEAT:")); Serial.println(wireTemperaturePWM);
     }
   }

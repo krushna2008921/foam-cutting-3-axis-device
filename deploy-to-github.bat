@@ -1,7 +1,7 @@
 @echo off
 REM ====================================================================
 REM AUTOMATED GITHUB PAGES DEPLOYMENT SCRIPT
-REM PROJECT: FOAM CUTTING 3-AXIS DEVICE
+REM PROJECT: FOAM CUTTING 2-AXIS DEVICE
 REM SANJIVANI UNIVERSITY - DEPARTMENT OF MECHANICAL ENGINEERING
 REM ====================================================================
 
@@ -22,7 +22,7 @@ if not exist ".git" (
 
 echo [3/5] Staging and committing all project files...
 git add .
-git commit -m "Deploy Foam Cutting 3-Axis Device website with interactive 3D WebGL simulator"
+git commit -m "Deploy FOAM CUTTING 2-AXIS DEVICE website with interactive 3D WebGL simulator"
 
 echo.
 echo [4/5] GitHub Remote Setup

@@ -1,5 +1,5 @@
 {
-  "project_title": "DESIGN AND DEVELOPMENT OF A FOAM CUTTING 3-AXIS DEVICE",
+  "project_title": "DESIGN AND DEVELOPMENT OF A FOAM CUTTING 2-AXIS DEVICE",
   "category": "Makerspace | Mechanical Engineering | CNC Automation",
   "institution": "Sanjivani University",
   "department": "Department of Mechanical Engineering",
@@ -15,11 +15,11 @@
     { "name": "Dr. K. C. Bhosale", "designation": "Head of Department (HOD), Department of Mechanical Engineering, Sanjivani University" }
   ],
   "technical_parameters": {
-    "kinematics": "Cartesian 3-Axis (X: Lateral gantry, Y: Longitudinal workbed, Z: Vertical elevation)",
-    "microcontroller": "Arduino Nano (ATmega328P, 16MHz clock)",
-    "actuators": "28BYJ-48 5V Stepper Motors (Internal Gear Reduction 64:1, 4096 steps/rev half-step)",
-    "drivers": "ULN2003A 7-Channel Darlington Array Driver Boards with Status LEDs",
-    "cutting_mechanism": "Calibrated Heated Resistance Ni-Chrome Wire with Spring Tensioner",
+    "kinematics": "Two perpendicular axes (X and Y) shown in the photographed rack arrangement",
+    "microcontroller": "Photographed controller board model is unverified",
+    "actuators": "Two motors visible; one label is readable as 28BYJ-48 5VDC",
+    "drivers": "Plug-in modules and shield are visible; exact models and ratings are unverified",
+    "cutting_mechanism": "Thin wire visible; wire material and heating state are unverified",
     "compatible_materials": ["Expanded Polystyrene (EPS)", "Extruded Polystyrene (XPS)", "Polyurethane Foam", "Thermocol"]
   }
 }

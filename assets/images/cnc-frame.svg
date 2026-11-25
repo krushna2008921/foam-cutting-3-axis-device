@@ -43,7 +43,7 @@
     <polygon points="80,210 200,210 250,170 130,170" fill="#60a5fa" opacity="0.5"/>
     <text x="165" y="205" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" text-anchor="middle">EPS FOAM WORKPIECE</text>
 
-    <!-- Left Gantry Tower (Z-Axis Left) -->
+    <!-- Photo-referenced left support -->
     <rect x="25" y="40" width="20" height="210" fill="url(#alumGrad)" stroke="#64748b" stroke-width="1"/>
     <!-- Left Lead Screw -->
     <line x1="35" y1="50" x2="35" y2="240" stroke="#f1f5f9" stroke-width="3" stroke-dasharray="2,2"/>
@@ -52,7 +52,7 @@
     <!-- Left Carriage Slider -->
     <rect x="20" y="110" width="30" height="25" rx="2" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
 
-    <!-- Right Gantry Tower (Z-Axis Right) -->
+    <!-- Photo-referenced right support -->
     <rect x="335" y="40" width="20" height="210" fill="url(#alumGrad)" stroke="#64748b" stroke-width="1"/>
     <!-- Right Lead Screw -->
     <line x1="345" y1="50" x2="345" y2="240" stroke="#f1f5f9" stroke-width="3" stroke-dasharray="2,2"/>
@@ -78,14 +78,6 @@
       <text x="0" y="-8" font-family="'JetBrains Mono', monospace" font-size="10" fill="#00f0ff" text-anchor="middle" font-weight="bold">X-AXIS (LATERAL)</text>
     </g>
 
-    <!-- Z-AXIS Arrow (Vertical) -->
-    <g transform="translate(385, 130)">
-      <line x1="0" y1="-50" x2="0" y2="50" stroke="#a855f7" stroke-width="2.5"/>
-      <polygon points="-4,-50 0,-58 4,-50" fill="#a855f7"/>
-      <polygon points="-4,50 0,58 4,50" fill="#a855f7"/>
-      <text x="12" y="5" font-family="'JetBrains Mono', monospace" font-size="10" fill="#a855f7" font-weight="bold">Z-AXIS (HEIGHT)</text>
-    </g>
-
     <!-- Y-AXIS Arrow (Depth / Bed Travel) -->
     <g transform="translate(10, 260)">
       <line x1="0" y1="15" x2="60" y2="-25" stroke="#10b981" stroke-width="2.5"/>
@@ -103,5 +95,5 @@
 
   <!-- Technical Telemetry Badge -->
   <rect x="15" y="15" width="120" height="24" rx="4" fill="rgba(0,240,255,0.1)" stroke="#00f0ff" stroke-width="1"/>
-  <text x="75" y="31" font-family="'JetBrains Mono', monospace" font-size="10" fill="#00f0ff" text-anchor="middle">3-AXIS KINEMATICS</text>
+  <text x="75" y="31" font-family="'JetBrains Mono', monospace" font-size="10" fill="#00f0ff" text-anchor="middle">2-AXIS KINEMATICS</text>
 </svg>

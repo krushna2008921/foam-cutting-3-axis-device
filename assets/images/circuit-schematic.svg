@@ -35,7 +35,7 @@
 
   <!-- Title Block -->
   <rect x="25" y="20" width="320" height="36" rx="6" fill="#0f172a" stroke="#00f0ff" stroke-width="1.2"/>
-  <text x="40" y="43" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" font-weight="bold">SYSTEM SCHEMATIC: 3-AXIS CNC CONTROLLER</text>
+  <text x="40" y="43" font-family="'JetBrains Mono', monospace" font-size="12" fill="#ffffff" font-weight="bold">PHOTO RECORD: X/Y CONTROLLER LAYOUT</text>
 
   <!-- ARDUINO NANO BLOCK -->
   <g transform="translate(60, 90)">
@@ -65,18 +65,9 @@
     <text x="140" y="240" font-family="'JetBrains Mono', monospace" font-size="9" fill="#a855f7" text-anchor="end">D9 (Y-IN4)</text>
     <circle cx="152" cy="237" r="4" fill="#a855f7"/>
 
-    <!-- Z-Axis Pins -->
-    <text x="140" y="275" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D10 (Z-IN1)</text>
-    <circle cx="152" cy="272" r="4" fill="#f59e0b"/>
-    <text x="140" y="295" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D11 (Z-IN2)</text>
-    <circle cx="152" cy="292" r="4" fill="#f59e0b"/>
-    <text x="140" y="315" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D12 (Z-IN3)</text>
-    <circle cx="152" cy="312" r="4" fill="#f59e0b"/>
-    <text x="140" y="335" font-family="'JetBrains Mono', monospace" font-size="9" fill="#f59e0b" text-anchor="end">D13 (Z-IN4)</text>
-    <circle cx="152" cy="332" r="4" fill="#f59e0b"/>
   </g>
 
-  <!-- 3x ULN2003 DRIVER BLOCKS -->
+  <!-- X/Y ULN2003 driver layout -->
   <!-- Driver 1: X-Axis -->
   <g transform="translate(350, 80)">
     <rect x="0" y="0" width="150" height="90" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
@@ -95,16 +86,7 @@
     <text x="135" y="55" font-family="'JetBrains Mono', monospace" font-size="8" fill="#34d399" text-anchor="end">5-WIRE PORT</text>
   </g>
 
-  <!-- Driver 3: Z-Axis -->
-  <g transform="translate(350, 300)">
-    <rect x="0" y="0" width="150" height="90" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
-    <text x="75" y="22" font-family="'JetBrains Mono', monospace" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ULN2003 (Z-AXIS)</text>
-    <text x="15" y="45" font-family="'JetBrains Mono', monospace" font-size="8" fill="#94a3b8">IN1-IN4 INPUTS</text>
-    <text x="15" y="65" font-family="'JetBrains Mono', monospace" font-size="8" fill="#f59e0b">5V / GND POWER</text>
-    <text x="135" y="55" font-family="'JetBrains Mono', monospace" font-size="8" fill="#34d399" text-anchor="end">5-WIRE PORT</text>
-  </g>
-
-  <!-- 3x STEPPER MOTORS (28BYJ-48) -->
+  <!-- Visible motor/rack layout -->
   <!-- Motor X -->
   <g transform="translate(600, 80)">
     <rect x="0" y="0" width="160" height="90" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
@@ -122,16 +104,6 @@
     <circle cx="35" cy="45" r="8" fill="#eab308"/>
     <text x="75" y="35" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" font-weight="bold">28BYJ-48 STEPPER</text>
     <text x="75" y="52" font-family="'JetBrains Mono', monospace" font-size="8" fill="#a855f7">Y-AXIS WORKBED</text>
-    <text x="75" y="68" font-family="'JetBrains Mono', monospace" font-size="7" fill="#94a3b8">64:1 GEAR RATIO</text>
-  </g>
-
-  <!-- Motor Z -->
-  <g transform="translate(600, 300)">
-    <rect x="0" y="0" width="160" height="90" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
-    <circle cx="35" cy="45" r="24" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
-    <circle cx="35" cy="45" r="8" fill="#eab308"/>
-    <text x="75" y="35" font-family="'JetBrains Mono', monospace" font-size="9" fill="#ffffff" font-weight="bold">28BYJ-48 STEPPER</text>
-    <text x="75" y="52" font-family="'JetBrains Mono', monospace" font-size="8" fill="#f59e0b">Z-AXIS ELEVATION</text>
     <text x="75" y="68" font-family="'JetBrains Mono', monospace" font-size="7" fill="#94a3b8">64:1 GEAR RATIO</text>
   </g>
 
