@@ -69,8 +69,6 @@
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Three.js from CDN for interactive 3D simulation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body class="bg-dark text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
 
@@ -113,10 +111,6 @@
 
       <!-- Header Action Buttons -->
       <div class="flex items-center gap-2 sm:gap-3">
-        <a href="#simulator" class="hidden sm:flex relative group px-4 py-2 rounded-lg font-mono text-xs font-semibold text-cyan-300 bg-cyan-950/40 border border-cyan-500/40 hover:border-cyan-400 hover:bg-cyan-500/20 transition-all shadow-[0_0_12px_rgba(0,240,255,0.2)] items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          3D SIMULATOR
-        </a>
         <a href="#documentation" class="hidden sm:inline-flex px-3.5 py-2 rounded-lg font-mono text-xs text-slate-300 bg-slate-800/80 border border-slate-700 hover:border-slate-500 transition-colors">
           DOCS
         </a>
@@ -150,7 +144,6 @@
         <a href="#objectives" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Objectives</a>
         <a href="#working" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Working Principle</a>
         <a href="#mechanical" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Mechanical Design</a>
-        <a href="#simulator" class="mobile-nav-link text-cyan-400 font-semibold py-1">Interactive 3D Simulator</a>
         <a href="#components" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Components Used</a>
         <a href="#timeline" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Development Timeline</a>
         <a href="#teamWork" class="mobile-nav-link text-slate-300 hover:text-cyan-400 py-1">Team Working on the Prototype</a>
@@ -216,10 +209,6 @@
                 <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
               </a>
 
-              <a href="#simulator" class="px-6 py-3.5 rounded-xl font-outfit font-bold text-sm tracking-wider uppercase text-cyan-300 bg-cyan-950/40 border border-cyan-500/40 hover:bg-cyan-900/40 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
-                Explore Motion Simulation
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-              </a>
             </div>
 
             <!-- Key Metrics Bar -->
@@ -641,7 +630,7 @@
     </section>
 
     <!-- ============================================================== -->
-    <!-- SECTION E – WORKING PRINCIPLE & INTERACTIVE 3D SIMULATOR       -->
+    <!-- SECTION E – WORKING PRINCIPLE                                  -->
     <!-- ============================================================== -->
     <section id="working" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-slate-800/80">
       <div class="max-w-7xl mx-auto">
@@ -682,137 +671,10 @@
             </div>
             <h3 class="font-outfit font-bold text-xl text-white mb-2">Y-Axis Movement</h3>
             <p class="text-slate-300 text-sm leading-relaxed">
-              Horizontal front and back movement of the simulated prototype carriage on the base/work plane. The physical mechanism assigned to this axis remains to be confirmed through assembly and testing.
+              Intended horizontal front and back movement on the base/work plane. The physical mechanism assigned to this axis remains to be confirmed through assembly and testing.
             </p>
           </div>
 
-        </div>
-
-        <!-- Photo-referenced XY assembly model; Z motion and wire heating are intentionally omitted. -->
-        <div id="simulator" class="pt-8">
-          <div class="sim-shell rounded-3xl bg-slate-900/90 border border-cyan-500/40 p-5 sm:p-8 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,240,255,0.15)]">
-            <header class="pb-6 border-b border-slate-800">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-300 font-mono text-xs mb-2">
-                <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-                PHOTO-REFERENCED MODEL // SIMULATED MOTION ONLY
-              </div>
-              <h3 class="font-outfit font-extrabold text-2xl sm:text-3xl text-white">Interactive 3D Prototype Simulation</h3>
-              <p class="text-slate-400 text-sm font-sans">Explore an approximate model of the photographed FOAM CUTTING 2-AXIS DEVICE. Its two perpendicular rack sections move in this on-screen demonstration only; this is not physical machine control.</p>
-            </header>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
-              <div class="lg:col-span-8">
-                <div id="threeViewport" class="sim-viewport relative rounded-2xl overflow-hidden border border-slate-800 min-h-[440px] sm:min-h-[560px]">
-                  <div id="threeContainer" class="w-full h-[440px] sm:h-[560px]"></div>
-                  <div class="sim-camera-controls absolute top-3 right-3 z-10 flex flex-wrap justify-end gap-1.5" role="group" aria-label="Model camera views">
-                    <button class="sim-ui-button" data-camera-view="front" type="button" aria-pressed="false">FRONT</button>
-                    <button class="sim-ui-button" data-camera-view="side" type="button" aria-pressed="false">SIDE</button>
-                    <button class="sim-ui-button" data-camera-view="top" type="button" aria-pressed="false">TOP</button>
-                    <button class="sim-ui-button" data-camera-view="isometric" type="button" aria-pressed="true">ISO</button>
-                    <button id="resetCameraBtn" class="sim-ui-button" type="button">RESET VIEW</button>
-                  </div>
-                  <div class="sim-pan-controls absolute bottom-16 right-3 z-10 grid grid-cols-3 gap-1" role="group" aria-label="Pan camera view">
-                    <span></span><button class="sim-ui-button" type="button" data-camera-pan="up" aria-label="Pan view up">↑</button><span></span>
-                    <button class="sim-ui-button" type="button" data-camera-pan="left" aria-label="Pan view left">←</button>
-                    <button class="sim-ui-button" type="button" data-camera-pan="down" aria-label="Pan view down">↓</button>
-                    <button class="sim-ui-button" type="button" data-camera-pan="right" aria-label="Pan view right">→</button>
-                  </div>
-                  <div class="sim-viewport-note absolute top-3 left-3 z-10 rounded-lg px-3 py-2 font-mono text-[10px] sm:text-xs">
-                    Drag to orbit · wheel/pinch to zoom · right/two-finger drag to pan
-                  </div>
-                  <div class="sim-readout absolute bottom-3 left-3 right-3 z-10 flex flex-wrap items-center justify-between gap-2 rounded-lg px-3 py-2 font-mono text-xs">
-                    <span id="simPositionReadout">X: CENTER · Y: CENTER</span>
-                    <span id="simMotionStatus" role="status" aria-live="polite">X/Y DEMO READY · NOT HARDWARE CONTROL</span>
-                  </div>
-                </div>
-              </div>
-
-              <aside class="lg:col-span-4 space-y-5">
-                <section class="sim-panel p-4 sm:p-5 rounded-2xl border border-slate-800" aria-labelledby="simControlsTitle">
-                  <div class="flex items-center justify-between gap-3 mb-4">
-                    <h4 id="simControlsTitle" class="font-mono text-xs uppercase tracking-wider text-slate-300">XY Motion Demonstration</h4>
-                    <span class="text-cyan-400 font-mono text-[10px]">TWO AXES · X / Y</span>
-                  </div>
-
-                  <div class="space-y-4">
-                    <label class="block space-y-1.5">
-                      <span class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-cyan-400 font-bold">X · LEFT / RIGHT</span>
-                        <span id="xValText" class="text-slate-300">CENTER</span>
-                      </span>
-                      <input type="range" id="xSlider" min="0" max="100" value="50" aria-label="Simulated X-axis position" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-cyan-400">
-                    </label>
-
-                    <label class="block space-y-1.5">
-                      <span class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-blue-400 font-bold">Y · BACK / FORWARD</span>
-                        <span id="yValText" class="text-slate-300">CENTER</span>
-                      </span>
-                      <input type="range" id="ySlider" min="0" max="100" value="50" aria-label="Simulated Y-axis position" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-blue-400">
-                    </label>
-
-                    <div class="sim-direction-pad grid grid-cols-3 gap-2" role="group" aria-label="Step the simulated axes">
-                      <span></span>
-                      <button class="sim-ui-button" type="button" data-move-axis="y" data-move-direction="-1" aria-label="Move simulated Y backward">BACK</button>
-                      <span></span>
-                      <button class="sim-ui-button" type="button" data-move-axis="x" data-move-direction="-1" aria-label="Move simulated X left">LEFT</button>
-                      <button class="sim-ui-button sim-center-button" type="button" data-move-axis="y" data-move-direction="1" aria-label="Move simulated Y forward">FORWARD</button>
-                      <button class="sim-ui-button" type="button" data-move-axis="x" data-move-direction="1" aria-label="Move simulated X right">RIGHT</button>
-                    </div>
-
-                    <label class="block space-y-1.5">
-                      <span class="flex items-center justify-between font-mono text-xs">
-                        <span class="text-slate-300">MOVEMENT SPEED</span>
-                        <span id="speedValue" class="text-slate-300">5 / 10</span>
-                      </span>
-                      <input type="range" id="speedSlider" min="1" max="10" value="5" aria-label="Simulated movement speed" class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-cyan-400">
-                    </label>
-
-                    <div class="grid grid-cols-3 gap-2">
-                      <button id="homeXYBtn" class="sim-ui-button" type="button">HOME XY</button>
-                      <button id="stopMotionBtn" class="sim-ui-button sim-stop-button" type="button">STOP</button>
-                      <button id="runXYDemoBtn" class="sim-ui-button" type="button">XY DEMO</button>
-                    </div>
-                    <p class="text-slate-400 text-xs leading-relaxed">The photo shows two perpendicular rack sections and two motors. The demonstration moves this simplified X/Y arrangement; actual travel and axis assignment have not been tested.</p>
-                  </div>
-                </section>
-
-                <section class="sim-panel p-4 sm:p-5 rounded-2xl border border-slate-800" aria-labelledby="componentInfoHeading">
-                  <div class="font-mono text-[10px] uppercase tracking-wider text-cyan-400 mb-2">Select a model part</div>
-                  <div id="componentInfo" aria-live="polite" aria-atomic="true">
-                    <div class="flex items-start justify-between gap-2">
-                      <h4 id="componentName" class="font-outfit font-bold text-lg text-white">Prototype component</h4>
-                      <span id="componentStatus" class="sim-status-badge">SELECT A PART</span>
-                    </div>
-                    <dl class="mt-3 space-y-2 text-xs">
-                      <div><dt class="sim-detail-label">Function</dt><dd id="componentFunction" class="text-slate-300">Click a 3D part or choose a component below.</dd></div>
-                      <div><dt class="sim-detail-label">Material</dt><dd id="componentMaterial" class="text-slate-300">Not specified.</dd></div>
-                      <div><dt class="sim-detail-label">Notes</dt><dd id="componentDescription" class="text-slate-400 leading-relaxed">Model details are limited to what can be seen in the project photo.</dd></div>
-                    </dl>
-                  </div>
-                </section>
-              </aside>
-            </div>
-
-            <div class="mt-5">
-              <h4 class="font-mono text-xs uppercase tracking-wider text-slate-400 mb-2">Visible and referenced components</h4>
-              <div class="flex flex-wrap gap-2" role="group" aria-label="Choose a component to inspect">
-                <button class="sim-component-button" type="button" data-component-id="base">MDF BASE</button>
-                <button class="sim-component-button" type="button" data-component-id="rackX">HORIZONTAL RACK</button>
-                <button class="sim-component-button" type="button" data-component-id="rackY">PERPENDICULAR RACK</button>
-                <button class="sim-component-button" type="button" data-component-id="motor">28BYJ-48 MOTOR</button>
-                <button class="sim-component-button" type="button" data-component-id="mount">PRINTED MOUNT</button>
-                <button class="sim-component-button" type="button" data-component-id="bow">WIRE SUPPORT</button>
-                <button class="sim-component-button" type="button" data-component-id="wire">CUTTING WIRE</button>
-                <button class="sim-component-button" type="button" data-component-id="controller">CONTROLLER · MODEL UNVERIFIED</button>
-                <button class="sim-component-button" type="button" data-component-id="shield">CNC SHIELD</button>
-                <button class="sim-component-button" type="button" data-component-id="drivers">DRIVER MODULES · MODEL UNVERIFIED</button>
-                <button class="sim-component-button" type="button" data-component-id="power">BATTERY / POWER ARRANGEMENT</button>
-              </div>
-            </div>
-
-            <p class="mt-4 text-slate-400 text-xs leading-relaxed">The model approximates only visible features: an MDF board, perpendicular white printed racks and supports, two motors, a wire bow, nearby boards, wiring and a wrapped battery arrangement. Dimensions and material grades are not measured; the controller, driver and power-board models are unverified. Simulated movement does not confirm actual travel, wire heating or hardware control.</p>
-          </div>
         </div>
 
       </div>
@@ -2050,7 +1912,6 @@
               <a href="#objectives" class="hover:text-cyan-400 transition-colors">Objectives</a>
               <a href="#working" class="hover:text-cyan-400 transition-colors">Principle</a>
               <a href="#mechanical" class="hover:text-cyan-400 transition-colors">Mechanical</a>
-              <a href="#simulator" class="hover:text-cyan-400 transition-colors">3D Simulator</a>
               <a href="#components" class="hover:text-cyan-400 transition-colors">Hardware</a>
               <a href="#prototype" class="hover:text-cyan-400 transition-colors">Prototype</a>
               <a href="#timeline" class="hover:text-cyan-400 transition-colors">Timeline</a>

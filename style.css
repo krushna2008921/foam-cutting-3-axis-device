@@ -198,15 +198,6 @@ body {
   animation: floatSlow 6s infinite ease-in-out;
 }
 
-/* Simulator Canvas Styling */
-#threeContainer canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 1rem;
-  outline: none;
-}
-
 /* Gallery Filter Active State */
 .gallery-filter-btn.active {
   background-color: var(--cyan-primary) !important;
@@ -277,7 +268,7 @@ header.scrolled {
 
 /* Print Cleanliness */
 @media print {
-  header, #simulator, #cyberCanvas, #backToTopBtn {
+  header, #cyberCanvas, #backToTopBtn {
     display: none !important;
   }
   body {
@@ -451,10 +442,6 @@ body :is(main, footer) [class*="border-cyan-400"] {
   background-color: #78350f !important;
 }
 
-#threeContainer {
-  background: var(--surface-inverse) !important;
-}
-
 #documentation pre,
 #lightboxModal .bg-slate-950 {
   background: var(--surface-inverse) !important;
@@ -582,103 +569,6 @@ body :is(main, footer) [class*="border-cyan-400"] {
   display: none !important;
 }
 
-.sim-viewport {
-  background: var(--surface-subtle);
-}
-
-#threeContainer canvas {
-  cursor: grab;
-  touch-action: none;
-}
-
-#threeContainer canvas:active {
-  cursor: grabbing;
-}
-
-.sim-panel {
-  background: var(--surface-card);
-}
-
-#threeViewport .sim-viewport-note {
-  max-width: min(38%, 250px);
-  padding: 0.5rem 0.75rem;
-  font-size: 0.65rem;
-}
-
-.sim-viewport-note,
-.sim-readout {
-  color: #e2e8f0;
-  background: rgba(5, 9, 20, 0.88);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-.sim-ui-button,
-.sim-component-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.25rem;
-  padding: 0.5rem 0.7rem;
-  color: var(--text-secondary);
-  background: var(--surface-main);
-  border: 1px solid var(--border-color);
-  border-radius: 0.65rem;
-  font: 600 0.65rem/1.1 var(--font-mono);
-  letter-spacing: 0.025em;
-  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.sim-ui-button:hover,
-.sim-component-button:hover {
-  color: var(--text-accent);
-  border-color: var(--border-accent-color);
-  transform: translateY(-1px);
-}
-
-.sim-ui-button:focus-visible,
-.sim-component-button:focus-visible {
-  outline: 3px solid var(--cyan-primary);
-  outline-offset: 2px;
-}
-
-.sim-ui-button[aria-pressed="true"],
-.sim-component-button.selected {
-  color: var(--accent-contrast);
-  background: var(--cyan-primary);
-  border-color: var(--cyan-primary);
-}
-
-.sim-center-button {
-  color: var(--text-accent);
-}
-
-.sim-stop-button {
-  color: var(--text-warning);
-  border-color: var(--border-accent-color);
-}
-
-.sim-status-badge {
-  flex: 0 0 auto;
-  padding: 0.3rem 0.45rem;
-  color: var(--text-accent);
-  background: var(--accent-soft);
-  border: 1px solid var(--border-accent-color);
-  border-radius: 999px;
-  font: 600 0.55rem/1.2 var(--font-mono);
-  text-align: center;
-}
-
-.sim-detail-label {
-  color: var(--text-accent);
-  font: 600 0.62rem/1.3 var(--font-mono);
-  text-transform: uppercase;
-}
-
-.sim-detail-label + dd {
-  margin-top: 0.15rem;
-}
-
 #mainHeader nav a[aria-current="location"],
 .mobile-nav-link[aria-current="location"] {
   color: var(--text-accent) !important;
@@ -702,29 +592,6 @@ body footer,
 @media (max-width: 380px) {
   #mainHeader .font-mono.tracking-tight {
     display: none;
-  }
-}
-
-@media (max-width: 640px) {
-  #threeViewport .sim-viewport-note {
-    max-width: 31%;
-    padding: 0.35rem 0.45rem;
-    font-size: 0.5rem;
-  }
-
-  .sim-camera-controls {
-    max-width: 68%;
-    gap: 0.25rem;
-  }
-
-  .sim-camera-controls .sim-ui-button {
-    min-height: 1.8rem;
-    padding: 0.35rem 0.4rem;
-    font-size: 0.52rem;
-  }
-
-  .sim-readout {
-    font-size: 0.58rem;
   }
 }
 
