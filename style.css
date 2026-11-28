@@ -527,6 +527,21 @@ body :is(main, footer) [class*="border-cyan-400"] {
   transform: scale(1.02);
 }
 
+.project-video-card {
+  background: var(--surface-card);
+  border-color: var(--border-accent-color);
+  box-shadow: var(--shadow-card);
+}
+
+.project-demonstration-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 75vh;
+  background: #050914;
+  object-fit: contain;
+}
+
 .timeline-marker {
   border-color: var(--cyan-primary) !important;
   color: var(--cyan-primary) !important;
